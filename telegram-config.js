@@ -10,6 +10,6 @@
  * Замените 'YOUR_TELEGRAM_BOT_TOKEN' и 'YOUR_TELEGRAM_CHAT_ID' на ваши реальные значения.
  */
 window.SVITLO24_TELEGRAM_CONFIG = {
-    botToken: 'YOUR_TELEGRAM_BOT_TOKEN', // Например: '7891234560:AAFxxx...'
-    chatId: 'YOUR_TELEGRAM_CHAT_ID'      // Например: '123456789' или '-1001234567890'
+    botToken: '8708043204:AAH5ySlxl9ZkXvV5Ij2JGxIHnQlUz4H_07g',
+    chatId: 'YOUR_TELEGRAM_CHAT_ID' // Скиньте ваш Telegram ID (узнать у @userinfobot)
 };
