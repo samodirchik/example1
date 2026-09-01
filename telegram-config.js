@@ -11,5 +11,5 @@
  */
 window.SVITLO24_TELEGRAM_CONFIG = {
     botToken: '8708043204:AAH5ySlxl9ZkXvV5Ij2JGxIHnQlUz4H_07g',
-    chatId: '386472158'
+    chatId: '-5371919306'
 };
