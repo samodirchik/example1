@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVITLO24 — Автономні системи електропостачання (Інвертор + LiFePO4)</title>
+    <meta name="description" content="Премиальные системы резервного электропитания с инспекцией BMS ячеек, 0 мс автозапуском и чистой синусоидой.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Light Ambient Background -->
+    <div class="ambient-bg">
+        <canvas id="bg-canvas"></canvas>
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="cursor-glow" id="cursor-glow"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="#" class="brand-logo" id="brand-logo">
+                <div class="logo-icon-wrapper">
+                    <svg class="logo-icon-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="logo-neon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#00F0FF" />
+                                <stop offset="100%" stop-color="#10B981" />
+                            </linearGradient>
+                            <filter id="neon-glow-filter" x="-30%" y="-30%" width="160%" height="160%">
+                                <feGaussianBlur stdDeviation="2" result="blur"/>
+                                <feMerge>
+                                    <feMergeNode in="blur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        <!-- Outer Glowing Ring -->
+                        <circle class="logo-ring" cx="20" cy="20" r="17" stroke="url(#logo-neon-grad)" stroke-width="2.5" stroke-dasharray="110" stroke-dashoffset="110"/>
+                        <!-- Sine Wave Path -->
+                        <path class="logo-wave" d="M 8 20 Q 14 10, 20 20 T 32 20" stroke="#00F0FF" stroke-width="2" stroke-linecap="round" stroke-dasharray="50" stroke-dashoffset="50"/>
+                        <!-- Central Lightning Bolt Motif -->
+                        <path class="logo-bolt" d="M21 7L13 22H21L19 33L29 18H21L23 7Z" fill="url(#logo-neon-grad)" filter="url(#neon-glow-filter)"/>
+                    </svg>
+                    <span class="logo-glow-orb"></span>
+                </div>
+                <span class="logo-text">SVITLO<span class="logo-accent">24</span></span>
+            </a>
+            
+            <nav class="nav-links">
+                <a href="#compare-slider" class="nav-item">Автономия дома</a>
+                <a href="#bms-inspection" class="nav-item">Инспекция BMS</a>
+                <a href="#calculator" class="nav-item">Калькулятор</a>
+                <a href="#packages" class="nav-item">Комплекты</a>
+            </nav>
+
+            <div class="header-actions">
+                <span class="status-pill status-online" id="global-status-pill">
+                    <span class="status-dot"></span> Сеть: 230V 50Hz
+                </span>
+                <button class="btn btn-emerald glow-btn header-order-btn" id="btn-quick-order">Заказать расчет</button>
+
+                <!-- Animated Hamburger Button -->
+                <button class="burger-btn" id="burger-btn" aria-label="Открыть меню">
+                    <span class="burger-line line-1"></span>
+                    <span class="burger-line line-2"></span>
+                    <span class="burger-line line-3"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Glassmorphism Menu Drawer -->
+    <div class="mobile-menu-drawer glass-panel" id="mobile-menu-drawer">
+        <div class="mobile-menu-content">
+            <a href="#compare-slider" class="mobile-nav-item">Автономия дома</a>
+            <a href="#bms-inspection" class="mobile-nav-item">Инспекция BMS</a>
+            <a href="#calculator" class="mobile-nav-item">Калькулятор автономии</a>
+            <a href="#packages" class="mobile-nav-item">Готовые комплекты</a>
+
+            <div class="mobile-menu-footer">
+                <button class="btn btn-emerald btn-block glow-btn" id="mobile-order-btn">Заказать расчет комплекта</button>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container hero-grid">
+                <!-- Left Hero Text Column -->
+                <div class="hero-content">
+                    <div class="badge-pill pulse-badge">
+                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                        Автономная энергия дома 24/7
+                    </div>
+                    
+                    <h1 class="hero-title">Полная автономия. <br><span class="text-gradient">Инвертор + LiFePO4</span></h1>
+                    
+                    <p class="hero-description">
+                        Абсолютно бесшумная резервная система с миллисекундным подхватом нагрузки. Чистая синусоида, защита техники и 15+ лет срока службы.
+                    </p>
+
+                    <!-- Live Metrics HUD -->
+                    <div class="hero-metrics">
+                        <div class="metric-card tilt-element">
+                            <div class="metric-value text-cyan">&lt; 3.8 ms</div>
+                            <div class="metric-label">Время автозапуска</div>
+                        </div>
+                        <div class="metric-card tilt-element">
+                            <div class="metric-value text-emerald">6000+</div>
+                            <div class="metric-label">Циклов LiFePO4</div>
+                        </div>
+                        <div class="metric-card tilt-element">
+                            <div class="metric-value text-gold">0 dB</div>
+                            <div class="metric-label">Шум при работе</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Visual Interactive HUD Card -->
+                <div class="hero-visual-card glass-panel tilt-card" id="simulator">
+                    <div class="visual-header">
+                        <div class="visual-title">
+                            <svg class="visual-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
+                            <span>Схема потоков энергии</span>
+                        </div>
+                        <div class="grid-status-badge" id="grid-status-text">Сеть 220V: АКТИВНА</div>
+                    </div>
+
+                    <!-- Interactive Canvas Animation -->
+                    <div class="canvas-container">
+                        <canvas id="energy-canvas"></canvas>
+                        
+                        <div class="node-badge node-grid" id="node-grid">
+                            <svg class="node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                            </svg>
+                            <span>Сеть 220V</span>
+                        </div>
+
+                        <div class="node-badge node-inverter" id="node-inverter">
+                            <svg class="node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                            </svg>
+                            <span>Инвертор 5.5кВт</span>
+                        </div>
+
+                        <div class="node-badge node-battery" id="node-battery">
+                            <svg class="node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="7" width="16" height="12" rx="2"></rect>
+                                <line x1="22" y1="11" x2="22" y2="15"></line>
+                            </svg>
+                            <span>LiFePO4 5.12кВт·ч</span>
+                        </div>
+
+                        <div class="node-badge node-home" id="node-home">
+                            <svg class="node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                            </svg>
+                            <span>Нагрузка дома</span>
+                        </div>
+                    </div>
+
+                    <!-- Primary Outage Toggle Button Placed Right Next to Animation Canvas -->
+                    <div class="sim-action-container">
+                        <button class="btn btn-emerald btn-block btn-lg glow-btn" id="trigger-outage-btn">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+                                <line x1="12" y1="2" x2="12" y2="12"></line>
+                            </svg>
+                            <span>Симулировать отключение сети</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive House Autonomy Visualizer (Single Mobile Screen Compact Dashboard) -->
+        <section class="section house-section" id="compare-slider">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Как работает автономия в вашем доме</h2>
+                    <p class="section-subtitle">Переключите режим ниже, чтобы увидеть защиту комнат при сбое сети.</p>
+                </div>
+
+                <div class="house-visualizer-card glass-panel tilt-card">
+                    <!-- Compact Mode Controls Bar -->
+                    <div class="house-controls-bar">
+                        <div class="mode-toggle-group">
+                            <button class="mode-btn mode-rezerv active" id="btn-mode-rezerv">
+                                <svg class="mode-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                </svg>
+                                <span>REZERV (230V)</span>
+                            </button>
+
+                            <button class="mode-btn mode-blackout" id="btn-mode-blackout">
+                                <svg class="mode-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+                                    <line x1="12" y1="2" x2="12" y2="12"></line>
+                                </svg>
+                                <span>Блэкаут (0V)</span>
+                            </button>
+                        </div>
+
+                        <div class="house-status-hud" id="house-status-hud">
+                            <span class="status-dot"></span>
+                            <span id="house-status-text">Автозапуск 0 мс — Приборы OK</span>
+                        </div>
+                    </div>
+
+                    <!-- 4 Interactive House Rooms Grid (Compact 2x2 Grid on Mobile!) -->
+                    <div class="house-rooms-grid" id="house-rooms-container">
+                        <!-- Room 1: Heating Boiler Room -->
+                        <div class="room-card room-boiler active" id="room-boiler">
+                            <div class="room-header">
+                                <div class="room-icon-box accent-emerald">
+                                    <svg class="room-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                    </svg>
+                                </div>
+                                <span class="room-badge badge-ok" id="badge-boiler">230V OK</span>
+                            </div>
+                            <h3 class="room-title">Котельная</h3>
+                            <p class="room-desc" id="desc-boiler">Котел и насосы (24°C)</p>
+                        </div>
+
+                        <!-- Room 2: Kitchen & Fridge -->
+                        <div class="room-card room-kitchen active" id="room-kitchen">
+                            <div class="room-header">
+                                <div class="room-icon-box accent-cyan">
+                                    <svg class="room-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="2" width="20" height="20" rx="2"></rect>
+                                        <path d="M7 2v20"></path>
+                                    </svg>
+                                </div>
+                                <span class="room-badge badge-ok" id="badge-kitchen">230V OK</span>
+                            </div>
+                            <h3 class="room-title">Кухня</h3>
+                            <p class="room-desc" id="desc-kitchen">Холодильник OK</p>
+                        </div>
+
+                        <!-- Room 3: Home Office & Internet -->
+                        <div class="room-card room-office active" id="room-office">
+                            <div class="room-header">
+                                <div class="room-icon-box accent-gold">
+                                    <svg class="room-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="5" y="2" width="14" height="20" rx="2"></rect>
+                                        <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                                    </svg>
+                                </div>
+                                <span class="room-badge badge-ok" id="badge-office">230V OK</span>
+                            </div>
+                            <h3 class="room-title">Кабинет</h3>
+                            <p class="room-desc" id="desc-office">Wi-Fi роутер & ПК</p>
+                        </div>
+
+                        <!-- Room 4: Living Room & Light -->
+                        <div class="room-card room-living active" id="room-living">
+                            <div class="room-header">
+                                <div class="room-icon-box accent-emerald">
+                                    <svg class="room-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                    </svg>
+                                </div>
+                                <span class="room-badge badge-ok" id="badge-living">230V OK</span>
+                            </div>
+                            <h3 class="room-title">Гостиная</h3>
+                            <p class="room-desc" id="desc-living">Свет & ТВ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Bento Box & BMS Cell Inspection -->
+        <section class="section bento-section" id="bms-inspection">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Интерактивная инспекция ячеек BMS</h2>
+                    <p class="section-subtitle">Кликните по любой из 16 ячеек батарейного блока LiFePO4, чтобы увидеть напряжение и статус балансировки.</p>
+                </div>
+
+                <div class="bento-grid">
+                    <!-- Top Full-Width Hero Bento Card (16 Battery Cells Matrix) -->
+                    <div class="bento-card glass-panel bento-full tilt-card">
+                        <div class="bento-header-flex">
+                            <div>
+                                <h3>Инспекция 16 ячеек LiFePO4 (51.2V 100Ah)</h3>
+                                <p class="bento-sub">Умный микроконтроллер BMS контролирует каждую ячейку 1000 раз в секунду.</p>
+                            </div>
+                            <span class="status-pill status-online"><span class="status-dot"></span> BMS: Active Balancing</span>
+                        </div>
+
+                        <!-- 16 Battery Cells Grid -->
+                        <div class="cells-grid" id="cells-container">
+                            <!-- JS will generate 16 interactive cell elements -->
+                        </div>
+
+                        <div class="cell-telemetry-hud" id="cell-telemetry">
+                            <span>Выбранная ячейка: <strong id="cell-id-val">#01</strong></span>
+                            <span>Напряжение: <strong id="cell-volt-val" class="text-emerald">3.205 V</strong></span>
+                            <span>Температура: <strong id="cell-temp-val" class="text-cyan">24.2 °C</strong></span>
+                            <span>Статус: <strong class="text-emerald">Балансировка OK</strong></span>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Row: 3 Equal Feature Cards -->
+                    <!-- Card 1: MPPT Solar -->
+                    <div class="bento-card glass-panel tilt-card">
+                        <div class="bento-icon-box accent-cyan">
+                            <svg class="bento-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="5"></circle>
+                                <line x1="12" y1="1" x2="12" y2="3"></line>
+                                <line x1="12" y1="21" x2="12" y2="23"></line>
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            </svg>
+                        </div>
+                        <h3>Поддержка солнечных панелей</h3>
+                        <p>Встроенный контроллер MPPT позволяет подключать солнечные батареи до 5000 Вт для полной независимости.</p>
+                        <div class="bento-tags">
+                            <span class="tag">MPPT КПД 99%</span>
+                            <span class="tag">Solar-First Mode</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Zero Sound -->
+                    <div class="bento-card glass-panel tilt-card">
+                        <div class="bento-icon-box accent-gold">
+                            <svg class="bento-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                <line x1="23" y1="9" x2="17" y2="15"></line>
+                                <line x1="17" y1="9" x2="23" y2="15"></line>
+                            </svg>
+                        </div>
+                        <h3>0 dB Бесшумность</h3>
+                        <p>Никакого запаха выхлопных газов, шума мотора и обслуживания масла как у бензогенераторов.</p>
+                        <div class="bento-tags">
+                            <span class="tag">100% Тишина</span>
+                            <span class="tag">Без газов</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Mobile App -->
+                    <div class="bento-card glass-panel tilt-card">
+                        <div class="bento-icon-box accent-emerald">
+                            <svg class="bento-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                                <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                            </svg>
+                        </div>
+                        <h3>Мониторинг со смартфона</h3>
+                        <p>Wi-Fi и Bluetooth мобильное приложение: смотрите уровень заряда, потребляемую мощность и статистику.</p>
+                        <div class="bento-tags">
+                            <span class="tag">iOS / Android</span>
+                            <span class="tag">Wi-Fi / BT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculator Section -->
+        <section class="section calc-section" id="calculator">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Калькулятор времени автономии</h2>
+                    <p class="section-subtitle">Выберите приборы, которые должны работать во время отключения света, чтобы рассчитать необходимый запас энергии.</p>
+                </div>
+
+                <div class="calc-grid glass-panel tilt-card">
+                    <!-- Appliance Selector Toggles -->
+                    <div class="appliances-list">
+                        <h3 class="calc-subtitle">Ваши приоритетные приборы:</h3>
+                        
+                        <div class="appliance-item active" data-power="150">
+                            <div class="appliance-info">
+                                <svg class="appliance-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="2" width="20" height="20" rx="2"></rect>
+                                    <path d="M7 2v20"></path>
+                                </svg>
+                                <div>
+                                    <div class="appliance-name">Двухкамерный холодильник</div>
+                                    <div class="appliance-watt">~150 Вт/ч</div>
+                                </div>
+                            </div>
+                            <input type="checkbox" class="toggle-checkbox" checked>
+                        </div>
+
+                        <div class="appliance-item active" data-power="120">
+                            <div class="appliance-info">
+                                <svg class="appliance-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                </svg>
+                                <div>
+                                    <div class="appliance-name">Газовый котел + Насос отопления</div>
+                                    <div class="appliance-watt">~120 Вт/ч</div>
+                                </div>
+                            </div>
+                            <input type="checkbox" class="toggle-checkbox" checked>
+                        </div>
+
+                        <div class="appliance-item active" data-power="60">
+                            <div class="appliance-info">
+                                <svg class="appliance-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="5" y="2" width="14" height="20" rx="2"></rect>
+                                    <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                                </svg>
+                                <div>
+                                    <div class="appliance-name">Интернет-роутер + Освещение (LED)</div>
+                                    <div class="appliance-watt">~60 Вт/ч</div>
+                                </div>
+                            </div>
+                            <input type="checkbox" class="toggle-checkbox" checked>
+                        </div>
+
+                        <div class="appliance-item active" data-power="250">
+                            <div class="appliance-info">
+                                <svg class="appliance-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                                </svg>
+                                <div>
+                                    <div class="appliance-name">Рабочий ПК + 2 Монитора</div>
+                                    <div class="appliance-watt">~250 Вт/ч</div>
+                                </div>
+                            </div>
+                            <input type="checkbox" class="toggle-checkbox" checked>
+                        </div>
+
+                        <div class="appliance-item" data-power="1200">
+                            <div class="appliance-info">
+                                <svg class="appliance-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                                    <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                                    <line x1="6" y1="1" x2="6" y2="4"></line>
+                                    <line x1="10" y1="1" x2="10" y2="4"></line>
+                                    <line x1="14" y1="1" x2="14" y2="4"></line>
+                                </svg>
+                                <div>
+                                    <div class="appliance-name">Кондиционер / Климат-контроль</div>
+                                    <div class="appliance-watt">~1200 Вт/ч</div>
+                                </div>
+                            </div>
+                            <input type="checkbox" class="toggle-checkbox">
+                        </div>
+                    </div>
+
+                    <!-- Interactive Result Output -->
+                    <div class="calc-results">
+                        <div class="result-card">
+                            <span class="result-label">Текущая потребляемая мощность</span>
+                            <div class="result-value" id="total-watts">580 <span class="unit">Вт</span></div>
+                        </div>
+
+                        <div class="result-card main-result">
+                            <span class="result-label">Ориентировочное время автономии</span>
+                            <div class="result-value text-gradient" id="runtime-hours">8.8 <span class="unit">часов</span></div>
+                            <span class="result-subtext">на базе аккумулятора LiFePO4 5.12 кВт·ч (48V 100Ah)</span>
+                        </div>
+
+                        <div class="recommended-system">
+                            <h4>Рекомендуемый комплект:</h4>
+                            <p class="rec-title" id="rec-package-title">Комплект «Комфорт 5 кВт» (Инвертор 5.5кВт + Батарея 5.12кВт·ч)</p>
+                            <button class="btn btn-emerald btn-block glow-btn" id="btn-order-rec">Заказать этот комплект</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Packages Showcase -->
+        <section class="section packages-section" id="packages">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Готовые решения под ключ</h2>
+                    <p class="section-subtitle">Профессиональный монтаж, бесплатная доставка и официальная гарантия 5 лет.</p>
+                </div>
+
+                <div class="packages-grid">
+                    <!-- Package 1 -->
+                    <div class="package-card glass-panel tilt-card">
+                        <div class="package-badge">Квартира / Офис</div>
+                        <h3 class="package-name">Старт 3 кВт</h3>
+                        <div class="package-price">89 000 <span class="currency">₽</span></div>
+                        <ul class="package-features">
+                            <li>Инвертор 3.2 кВт (Чистый синус)</li>
+                            <li>Батарея LiFePO4 2.56 кВт·ч</li>
+                            <li>До 6 часов автономной работы</li>
+                            <li>Мгновенный автозапуск (&lt;3.8мс)</li>
+                        </ul>
+                        <button class="btn btn-glass btn-block select-pack-btn" data-pack="Старт 3 кВт">Выбрать комплект</button>
+                    </div>
+
+                    <!-- Package 2 Featured -->
+                    <div class="package-card glass-panel package-featured tilt-card">
+                        <div class="package-badge badge-featured">Хит продаж</div>
+                        <h3 class="package-name">Комфорт 5 кВт</h3>
+                        <div class="package-price">149 000 <span class="currency">₽</span></div>
+                        <ul class="package-features">
+                            <li>Гибридный Инвертор 5.5 кВт</li>
+                            <li>Батарея LiFePO4 5.12 кВт·ч (100Ah 48V)</li>
+                            <li>До 12-16 часов питания дома</li>
+                            <li>Подключение к солнечным панелям</li>
+                            <li>Мониторинг со смартфона</li>
+                        </ul>
+                        <button class="btn btn-emerald btn-block glow-btn select-pack-btn" data-pack="Комфорт 5 кВт">Заказать со скидкой</button>
+                    </div>
+
+                    <!-- Package 3 -->
+                    <div class="package-card glass-panel tilt-card">
+                        <div class="package-badge">Загородный дом</div>
+                        <h3 class="package-name">Максимум 10 кВт</h3>
+                        <div class="package-price">269 000 <span class="currency">₽</span></div>
+                        <ul class="package-features">
+                            <li>Трехфазный Инвертор 10 кВт</li>
+                            <li>2x Батареи LiFePO4 (10.24 кВт·ч)</li>
+                            <li>До 24+ часов полной автономии</li>
+                            <li>Запитка силового оборудования</li>
+                        </ul>
+                        <button class="btn btn-glass btn-block select-pack-btn" data-pack="Максимум 10 кВт">Выбрать комплект</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Form -->
+    <div class="modal-backdrop" id="order-modal">
+        <div class="modal-content glass-panel">
+            <button class="modal-close" id="modal-close-btn">&times;</button>
+            <h3 class="modal-title">Оставить заявку на комплект REZERV</h3>
+            <p class="modal-subtitle">Инженер свяжется с вами в течение 10 минут и подберет точную конфигурацию оборудования.</p>
+            
+            <form id="order-form">
+                <div class="form-group">
+                    <label for="form-name">Ваше имя</label>
+                    <input type="text" id="form-name" class="form-input" placeholder="Иван" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="form-phone">Телефон для связи</label>
+                    <input type="tel" id="form-phone" class="form-input" placeholder="+7 (999) 000-00-00" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="form-package">Выбранный комплект</label>
+                    <input type="text" id="form-package" class="form-input" value="Комфорт 5 кВт" readonly>
+                </div>
+
+                <button type="submit" class="btn btn-emerald btn-block btn-lg glow-btn">Получить расчет и консультацию</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast" id="toast-notify">
+        <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span id="toast-msg">Заявка успешно отправлена!</span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
