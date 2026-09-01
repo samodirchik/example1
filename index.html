@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body id="top">
     <!-- Light Ambient Background -->
     <div class="ambient-bg">
         <canvas id="bg-canvas"></canvas>
@@ -24,46 +24,49 @@
     <!-- Navigation Header -->
     <header class="header">
         <div class="container header-container">
-            <a href="#" class="brand-logo" id="brand-logo">
+            <a href="#top" class="brand-logo" id="brand-logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
                 <div class="logo-icon-wrapper">
                     <svg class="logo-icon-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <defs>
                             <linearGradient id="logo-neon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#00F0FF" />
-                                <stop offset="100%" stop-color="#10B981" />
+                                <stop offset="0%" stop-color="#10B981" />
+                                <stop offset="100%" stop-color="#059669" />
                             </linearGradient>
-                            <filter id="neon-glow-filter" x="-30%" y="-30%" width="160%" height="160%">
-                                <feGaussianBlur stdDeviation="2" result="blur"/>
-                                <feMerge>
-                                    <feMergeNode in="blur"/>
-                                    <feMergeNode in="SourceGraphic"/>
-                                </feMerge>
-                            </filter>
+                            <linearGradient id="logo-bolt-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#34D399" />
+                                <stop offset="50%" stop-color="#10B981" />
+                                <stop offset="100%" stop-color="#059669" />
+                            </linearGradient>
+                            <linearGradient id="logo-bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#0F172A" stop-opacity="0.95" />
+                                <stop offset="100%" stop-color="#1E293B" stop-opacity="0.95" />
+                            </linearGradient>
                         </defs>
-                        <!-- Outer Glowing Ring -->
-                        <circle class="logo-ring" cx="20" cy="20" r="17" stroke="url(#logo-neon-grad)" stroke-width="2.5" stroke-dasharray="110" stroke-dashoffset="110"/>
-                        <!-- Sine Wave Path -->
-                        <path class="logo-wave" d="M 8 20 Q 14 10, 20 20 T 32 20" stroke="#00F0FF" stroke-width="2" stroke-linecap="round" stroke-dasharray="50" stroke-dashoffset="50"/>
-                        <!-- Central Lightning Bolt Motif -->
-                        <path class="logo-bolt" d="M21 7L13 22H21L19 33L29 18H21L23 7Z" fill="url(#logo-neon-grad)" filter="url(#neon-glow-filter)"/>
+                        <!-- Squircle Emblem Frame -->
+                        <rect class="logo-badge" x="2" y="2" width="36" height="36" rx="10" fill="url(#logo-bg-grad)" stroke="url(#logo-neon-grad)" stroke-width="1.5" />
+                        <!-- Crisp Energy Ring -->
+                        <circle class="logo-ring" cx="20" cy="20" r="13" stroke="url(#logo-neon-grad)" stroke-width="1.8" stroke-linecap="round" fill="none" />
+                        <!-- Central Sharp Lightning Bolt -->
+                        <path class="logo-bolt" d="M22.5 6L12.5 21H19.5L18 34L28.5 18H21.5L24 6Z" fill="url(#logo-bolt-grad)" />
                     </svg>
-                    <span class="logo-glow-orb"></span>
                 </div>
                 <span class="logo-text">SVITLO<span class="logo-accent">24</span></span>
             </a>
             
             <nav class="nav-links">
-                <a href="#compare-slider" class="nav-item">Автономия дома</a>
-                <a href="#bms-inspection" class="nav-item">Инспекция BMS</a>
-                <a href="#calculator" class="nav-item">Калькулятор</a>
-                <a href="#packages" class="nav-item">Комплекты</a>
+                <a href="#compare-slider" class="nav-item" data-i18n="nav.autonomy">Автономність</a>
+                <a href="#calculator" class="nav-item" data-i18n="nav.calculator">Калькулятор</a>
+                <a href="#packages" class="nav-item" data-i18n="nav.packages">Комплекти</a>
             </nav>
 
             <div class="header-actions">
-                <span class="status-pill status-online" id="global-status-pill">
-                    <span class="status-dot"></span> Сеть: 230V 50Hz
-                </span>
-                <button class="btn btn-emerald glow-btn header-order-btn" id="btn-quick-order">Заказать расчет</button>
+                <div class="lang-switcher">
+                    <button type="button" class="lang-btn active" data-lang="ua">UA</button>
+                    <span class="lang-divider">|</span>
+                    <button type="button" class="lang-btn" data-lang="ru">RU</button>
+                </div>
+
+                <button type="button" class="btn btn-emerald glow-btn header-order-btn" id="btn-quick-order" onclick="openModal()" data-i18n="header.btn_order">Замовити розрахунок</button>
 
                 <!-- Animated Hamburger Button -->
                 <button class="burger-btn" id="burger-btn" aria-label="Открыть меню">
@@ -75,16 +78,59 @@
         </div>
     </header>
 
-    <!-- Mobile Glassmorphism Menu Drawer -->
-    <div class="mobile-menu-drawer glass-panel" id="mobile-menu-drawer">
+    <!-- Mobile Light Glassmorphism Menu Drawer -->
+    <div class="mobile-menu-drawer" id="mobile-menu-drawer">
         <div class="mobile-menu-content">
-            <a href="#compare-slider" class="mobile-nav-item">Автономия дома</a>
-            <a href="#bms-inspection" class="mobile-nav-item">Инспекция BMS</a>
-            <a href="#calculator" class="mobile-nav-item">Калькулятор автономии</a>
-            <a href="#packages" class="mobile-nav-item">Готовые комплекты</a>
+            <!-- Top Utility Badge (Single Language Switcher is in the Header) -->
+            <div class="mobile-drawer-top">
+                <div class="drawer-badge">
+                    <span class="status-dot"></span>
+                    <span data-i18n="footer.coverage">Працюємо по всій Україні 🇺🇦</span>
+                </div>
+            </div>
+            
+            <!-- Navigation Cards List -->
+            <nav class="mobile-nav-list">
+                <a href="#compare-slider" class="mobile-nav-card">
+                    <div class="nav-card-icon">⚡</div>
+                    <div class="nav-card-text">
+                        <span class="nav-card-title" data-i18n="nav.autonomy">Автономність</span>
+                        <span class="nav-card-sub" data-i18n="drawer.sub_1">Симуляція живлення приладів</span>
+                    </div>
+                    <svg class="nav-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+                
+                <a href="#calculator" class="mobile-nav-card">
+                    <div class="nav-card-icon">🧮</div>
+                    <div class="nav-card-text">
+                        <span class="nav-card-title" data-i18n="nav.calculator">Калькулятор</span>
+                        <span class="nav-card-sub" data-i18n="drawer.sub_2">Розрахунок часу автономії</span>
+                    </div>
+                    <svg class="nav-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+                
+                <a href="#packages" class="mobile-nav-card">
+                    <div class="nav-card-icon">📦</div>
+                    <div class="nav-card-text">
+                        <span class="nav-card-title" data-i18n="nav.packages">Комплекти</span>
+                        <span class="nav-card-sub" data-i18n="drawer.sub_3">Готові інвертори + батареї</span>
+                    </div>
+                    <svg class="nav-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+            </nav>
 
+            <!-- Bottom Actions -->
             <div class="mobile-menu-footer">
-                <button class="btn btn-emerald btn-block glow-btn" id="mobile-order-btn">Заказать расчет комплекта</button>
+                <a href="tel:+380800330024" class="mobile-phone-card">
+                    <div class="phone-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </div>
+                    <div class="phone-card-content">
+                        <span class="phone-card-num">+380 (800) 33-00-24</span>
+                        <span class="phone-card-lbl" data-i18n="drawer.phone_lbl">📞 Натисніть для безкоштовного дзвінка</span>
+                    </div>
+                </a>
+                <button type="button" class="btn btn-emerald btn-block glow-btn mobile-cta-btn" id="mobile-order-btn" onclick="openModal()" data-i18n="header.btn_order">Замовити розрахунок</button>
             </div>
         </div>
     </div>
@@ -99,295 +145,245 @@
                         <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
                         </svg>
-                        Автономная энергия дома 24/7
+                        <span data-i18n="hero.badge">Резервное питание под ключ с гарантией</span>
                     </div>
                     
-                    <h1 class="hero-title">Полная автономия. <br><span class="text-gradient">Инвертор + LiFePO4</span></h1>
+                    <h1 class="hero-title"><span data-i18n="hero.title_1">Автономная энергосистема.</span> <br><span class="text-gradient" data-i18n="hero.title_2">Забудьте об отключениях света</span></h1>
                     
-                    <p class="hero-description">
-                        Абсолютно бесшумная резервная система с миллисекундным подхватом нагрузки. Чистая синусоида, защита техники и 15+ лет срока службы.
+                    <p class="hero-description" data-i18n="hero.description">
+                        Готовые комплекты «инвертор + аккумулятор» с доставкой. Автоматически питает технику, защищает от скачков напряжения и работает бесшумно.
                     </p>
 
                     <!-- Live Metrics HUD -->
                     <div class="hero-metrics">
                         <div class="metric-card tilt-element">
-                            <div class="metric-value text-cyan">&lt; 3.8 ms</div>
-                            <div class="metric-label">Время автозапуска</div>
+                            <div class="metric-value text-cyan" data-i18n="hero.metric_1_val">&lt; 4 мс</div>
+                            <div class="metric-label" data-i18n="hero.metric_1_lbl">Мгновенное переключение</div>
                         </div>
                         <div class="metric-card tilt-element">
-                            <div class="metric-value text-emerald">6000+</div>
-                            <div class="metric-label">Циклов LiFePO4</div>
+                            <div class="metric-value text-emerald" data-i18n="hero.metric_2_val">1 день</div>
+                            <div class="metric-label" data-i18n="hero.metric_2_lbl">Монтаж и запуск</div>
                         </div>
                         <div class="metric-card tilt-element">
-                            <div class="metric-value text-gold">0 dB</div>
-                            <div class="metric-label">Шум при работе</div>
+                            <div class="metric-value text-gold" data-i18n="hero.metric_3_val">15+ лет</div>
+                            <div class="metric-label" data-i18n="hero.metric_3_lbl">Срок службы</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right Visual Interactive HUD Card -->
-                <div class="hero-visual-card glass-panel tilt-card" id="simulator">
-                    <div class="visual-header">
-                        <div class="visual-title">
-                            <svg class="visual-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="2" y1="12" x2="22" y2="12"></line>
-                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"></path>
-                            </svg>
-                            <span>Схема потоков энергии</span>
+                <!-- Right Hero Bestseller Lead Card -->
+                <div class="hero-visual-card glass-panel tilt-card">
+                    <div class="hero-bestseller-content">
+                        <!-- Top Badges with i18n -->
+                        <div class="bestseller-header-tags">
+                            <span class="tag-fire" data-i18n="hero.tag_hit">🔥 ХІТ ПРОДАЖІВ</span>
+                            <span class="tag-warranty" data-i18n="hero.tag_warranty">🛡️ Гарантія 5 років</span>
                         </div>
-                        <div class="grid-status-badge" id="grid-status-text">Сеть 220V: АКТИВНА</div>
+
+                        <div class="bestseller-title-box">
+                            <h3 class="bestseller-name" data-i18n="hero.card_title">Комплект «Комфорт 6 кВт»</h3>
+                            <p class="bestseller-sub" data-i18n="hero.card_sub">Інвертор 6 кВт + Акумулятор LiFePO4 5.12 кВт·год</p>
+                        </div>
+
+                        <!-- 3 Metric Pills -->
+                        <div class="bestseller-pills">
+                            <div class="bestseller-pill">
+                                <span class="pill-val text-cyan">5–8 год</span>
+                                <span class="pill-lbl" data-i18n="hero.pill_1">Автономність</span>
+                            </div>
+                            <div class="pill-divider"></div>
+                            <div class="bestseller-pill">
+                                <span class="pill-val text-emerald">0 мс</span>
+                                <span class="pill-lbl" data-i18n="hero.pill_2">Перемикання</span>
+                            </div>
+                            <div class="pill-divider"></div>
+                            <div class="bestseller-pill">
+                                <span class="pill-val text-gold">6000+</span>
+                                <span class="pill-lbl" data-i18n="hero.pill_3">Циклів LiFePO4</span>
+                            </div>
+                        </div>
+
+                        <!-- Included Equipment List -->
+                        <div class="bestseller-bullets">
+                            <div class="bullet-item">
+                                <svg class="bullet-icon text-cyan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span data-i18n="hero.bullet_1">Живить котел, холодильник, Wi-Fi, світло та ТВ</span>
+                            </div>
+                            <div class="bullet-item">
+                                <svg class="bullet-icon text-emerald" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span data-i18n="hero.bullet_2">Безкоштовна консультація</span>
+                            </div>
+                            <div class="bullet-item">
+                                <svg class="bullet-icon text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span data-i18n="hero.bullet_3">Безкоштовна доставка</span>
+                            </div>
+                        </div>
+
+                        <!-- Direct Lead Form with 2 Buttons -->
+                        <form class="hero-quick-form" id="hero-quick-lead-form">
+                            <div class="hero-input-row">
+                                <div class="phone-input-group hero-phone-group">
+                                    <span class="phone-prefix">+380</span>
+                                    <input type="tel" class="phone-number-input hero-phone-input" id="hero-phone-field" placeholder="67 000 00 00" maxlength="13" required autocomplete="off">
+                                </div>
+                                
+                                <div class="hero-btn-group">
+                                    <button type="submit" class="btn btn-emerald btn-lg glow-btn hero-submit-btn">
+                                        <span data-i18n="hero.btn_callback">Отримати консультацію</span>
+                                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                                    </button>
+                                    <a href="#packages" class="btn btn-glass btn-lg hero-other-pkgs-btn" id="hero-other-pkgs-btn" data-i18n="hero.btn_other_packages">Інші комплекти</a>
+                                </div>
+                            </div>
+                            <div class="hero-microtext" data-i18n="hero.microtext">🔒 Консультація та підбір під ваш бюджет — безкоштовно</div>
+                        </form>
                     </div>
+                </div>
+            </div>
+        </section>
 
-                    <!-- Interactive Canvas Animation -->
-                    <div class="canvas-container">
-                        <canvas id="energy-canvas"></canvas>
-                        
-                        <div class="node-badge node-grid" id="node-grid">
-                            <svg class="node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
-                            </svg>
-                            <span>Сеть 220V</span>
-                        </div>
+        <!-- Interactive House Autonomy Visualizer (Combined Scheme + Rooms Grid) -->
+        <section class="section house-section" id="compare-slider">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title" data-i18n="house.title">Как работает автономия в вашем доме</h2>
+                    <p class="section-subtitle" data-i18n="house.subtitle">Нажмите кнопку ниже, чтобы симулировать отключение сети и проверить защиту приборов.</p>
+                </div>
 
-                        <div class="node-badge node-inverter" id="node-inverter">
-                            <svg class="node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                            </svg>
-                            <span>Инвертор 5.5кВт</span>
-                        </div>
-
-                        <div class="node-badge node-battery" id="node-battery">
-                            <svg class="node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="2" y="7" width="16" height="12" rx="2"></rect>
-                                <line x1="22" y1="11" x2="22" y2="15"></line>
-                            </svg>
-                            <span>LiFePO4 5.12кВт·ч</span>
-                        </div>
-
-                        <div class="node-badge node-home" id="node-home">
-                            <svg class="node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                            </svg>
-                            <span>Нагрузка дома</span>
-                        </div>
-                    </div>
-
-                    <!-- Primary Outage Toggle Button Placed Right Next to Animation Canvas -->
-                    <div class="sim-action-container">
-                        <button class="btn btn-emerald btn-block btn-lg glow-btn" id="trigger-outage-btn">
+                <div class="house-visualizer-card glass-panel tilt-card">
+                    <!-- Unified Control Bar with Single Outage Toggle Button -->
+                    <div class="house-controls-bar">
+                        <button class="btn btn-emerald btn-lg glow-btn outage-toggle-btn" id="trigger-outage-btn">
                             <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
                                 <line x1="12" y1="2" x2="12" y2="12"></line>
                             </svg>
-                            <span>Симулировать отключение сети</span>
+                            <span id="sim-btn-text" data-i18n="hero.btn_outage">Симулировать отключение сети</span>
                         </button>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Interactive House Autonomy Visualizer (Single Mobile Screen Compact Dashboard) -->
-        <section class="section house-section" id="compare-slider">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Как работает автономия в вашем доме</h2>
-                    <p class="section-subtitle">Переключите режим ниже, чтобы увидеть защиту комнат при сбое сети.</p>
-                </div>
-
-                <div class="house-visualizer-card glass-panel tilt-card">
-                    <!-- Compact Mode Controls Bar -->
-                    <div class="house-controls-bar">
-                        <div class="mode-toggle-group">
-                            <button class="mode-btn mode-rezerv active" id="btn-mode-rezerv">
-                                <svg class="mode-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                                </svg>
-                                <span>REZERV (230V)</span>
-                            </button>
-
-                            <button class="mode-btn mode-blackout" id="btn-mode-blackout">
-                                <svg class="mode-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
-                                    <line x1="12" y1="2" x2="12" y2="12"></line>
-                                </svg>
-                                <span>Блэкаут (0V)</span>
-                            </button>
-                        </div>
-
-                        <div class="house-status-hud" id="house-status-hud">
-                            <span class="status-dot"></span>
-                            <span id="house-status-text">Автозапуск 0 мс — Приборы OK</span>
-                        </div>
+                        <div class="grid-status-badge" id="grid-status-text" data-i18n="hero.grid_active">Сеть 220V: АКТИВНА</div>
                     </div>
 
-                    <!-- 4 Interactive House Rooms Grid (Compact 2x2 Grid on Mobile!) -->
-                    <div class="house-rooms-grid" id="house-rooms-container">
-                        <!-- Room 1: Heating Boiler Room -->
-                        <div class="room-card room-boiler active" id="room-boiler">
-                            <div class="room-header">
-                                <div class="room-icon-box accent-emerald">
-                                    <svg class="room-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                    <!-- Unified Dashboard: Scheme Canvas on Left, 4 Room Cards on Right -->
+                    <div class="house-unified-grid">
+                        <!-- Left Column: Energy Flow Diagram Scheme -->
+                        <div class="house-scheme-col">
+                            <div class="canvas-container" id="simulator">
+                                <canvas id="energy-canvas"></canvas>
+                                
+                                <div class="node-badge node-grid" id="node-grid">
+                                    <svg class="node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
                                     </svg>
+                                    <span data-i18n="hero.node_grid">Сеть 220V</span>
                                 </div>
-                                <span class="room-badge badge-ok" id="badge-boiler">230V OK</span>
-                            </div>
-                            <h3 class="room-title">Котельная</h3>
-                            <p class="room-desc" id="desc-boiler">Котел и насосы (24°C)</p>
-                        </div>
 
-                        <!-- Room 2: Kitchen & Fridge -->
-                        <div class="room-card room-kitchen active" id="room-kitchen">
-                            <div class="room-header">
-                                <div class="room-icon-box accent-cyan">
-                                    <svg class="room-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <rect x="2" y="2" width="20" height="20" rx="2"></rect>
-                                        <path d="M7 2v20"></path>
+                                <div class="node-badge node-inverter" id="node-inverter">
+                                    <svg class="node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
                                     </svg>
+                                    <span data-i18n="hero.node_inverter">Інвертор 6кВт</span>
                                 </div>
-                                <span class="room-badge badge-ok" id="badge-kitchen">230V OK</span>
-                            </div>
-                            <h3 class="room-title">Кухня</h3>
-                            <p class="room-desc" id="desc-kitchen">Холодильник OK</p>
-                        </div>
 
-                        <!-- Room 3: Home Office & Internet -->
-                        <div class="room-card room-office active" id="room-office">
-                            <div class="room-header">
-                                <div class="room-icon-box accent-gold">
-                                    <svg class="room-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <rect x="5" y="2" width="14" height="20" rx="2"></rect>
-                                        <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                                <div class="node-badge node-battery" id="node-battery">
+                                    <svg class="node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="7" width="16" height="12" rx="2"></rect>
+                                        <line x1="22" y1="11" x2="22" y2="15"></line>
                                     </svg>
+                                    <span data-i18n="hero.node_battery">LiFePO4 5.12кВт·ч</span>
                                 </div>
-                                <span class="room-badge badge-ok" id="badge-office">230V OK</span>
-                            </div>
-                            <h3 class="room-title">Кабинет</h3>
-                            <p class="room-desc" id="desc-office">Wi-Fi роутер & ПК</p>
-                        </div>
 
-                        <!-- Room 4: Living Room & Light -->
-                        <div class="room-card room-living active" id="room-living">
-                            <div class="room-header">
-                                <div class="room-icon-box accent-emerald">
-                                    <svg class="room-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <div class="node-badge node-home" id="node-home">
+                                    <svg class="node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                                         <polyline points="9 22 9 12 15 12 15 22"></polyline>
                                     </svg>
+                                    <span data-i18n="hero.node_home">Нагрузка дома</span>
                                 </div>
-                                <span class="room-badge badge-ok" id="badge-living">230V OK</span>
                             </div>
-                            <h3 class="room-title">Гостиная</h3>
-                            <p class="room-desc" id="desc-living">Свет & ТВ</p>
+                        </div>
+
+                        <!-- Right Column: 4 Room Cards (2x2 Grid) -->
+                        <div class="house-rooms-grid" id="house-rooms-container">
+                            <!-- Room 1: Heating Boiler Room -->
+                            <div class="room-card room-boiler active" id="room-boiler">
+                                <div class="room-header">
+                                    <div class="room-icon-box accent-emerald">
+                                        <svg class="room-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                        </svg>
+                                    </div>
+                                    <span class="room-badge badge-ok" id="badge-boiler">230V OK</span>
+                                </div>
+                                <h3 class="room-title">Котельная</h3>
+                                <p class="room-desc" id="desc-boiler">Котел и насосы (24°C)</p>
+                            </div>
+
+                            <!-- Room 2: Kitchen & Fridge -->
+                            <div class="room-card room-kitchen active" id="room-kitchen">
+                                <div class="room-header">
+                                    <div class="room-icon-box accent-cyan">
+                                        <svg class="room-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="2" y="2" width="20" height="20" rx="2"></rect>
+                                            <path d="M7 2v20"></path>
+                                        </svg>
+                                    </div>
+                                    <span class="room-badge badge-ok" id="badge-kitchen">230V OK</span>
+                                </div>
+                                <h3 class="room-title">Кухня</h3>
+                                <p class="room-desc" id="desc-kitchen">Холодильник OK</p>
+                            </div>
+
+                            <!-- Room 3: Home Office & Internet -->
+                            <div class="room-card room-office active" id="room-office">
+                                <div class="room-header">
+                                    <div class="room-icon-box accent-gold">
+                                        <svg class="room-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="5" y="2" width="14" height="20" rx="2"></rect>
+                                            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                                        </svg>
+                                    </div>
+                                    <span class="room-badge badge-ok" id="badge-office">230V OK</span>
+                                </div>
+                                <h3 class="room-title">Кабинет</h3>
+                                <p class="room-desc" id="desc-office">Wi-Fi роутер & ПК</p>
+                            </div>
+
+                            <!-- Room 4: Living Room & Light -->
+                            <div class="room-card room-living active" id="room-living">
+                                <div class="room-header">
+                                    <div class="room-icon-box accent-emerald">
+                                        <svg class="room-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                        </svg>
+                                    </div>
+                                    <span class="room-badge badge-ok" id="badge-living">230V OK</span>
+                                </div>
+                                <h3 class="room-title">Гостиная</h3>
+                                <p class="room-desc" id="desc-living">Свет & ТВ</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Interactive Bento Box & BMS Cell Inspection -->
-        <section class="section bento-section" id="bms-inspection">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Интерактивная инспекция ячеек BMS</h2>
-                    <p class="section-subtitle">Кликните по любой из 16 ячеек батарейного блока LiFePO4, чтобы увидеть напряжение и статус балансировки.</p>
-                </div>
 
-                <div class="bento-grid">
-                    <!-- Top Full-Width Hero Bento Card (16 Battery Cells Matrix) -->
-                    <div class="bento-card glass-panel bento-full tilt-card">
-                        <div class="bento-header-flex">
-                            <div>
-                                <h3>Инспекция 16 ячеек LiFePO4 (51.2V 100Ah)</h3>
-                                <p class="bento-sub">Умный микроконтроллер BMS контролирует каждую ячейку 1000 раз в секунду.</p>
-                            </div>
-                            <span class="status-pill status-online"><span class="status-dot"></span> BMS: Active Balancing</span>
-                        </div>
-
-                        <!-- 16 Battery Cells Grid -->
-                        <div class="cells-grid" id="cells-container">
-                            <!-- JS will generate 16 interactive cell elements -->
-                        </div>
-
-                        <div class="cell-telemetry-hud" id="cell-telemetry">
-                            <span>Выбранная ячейка: <strong id="cell-id-val">#01</strong></span>
-                            <span>Напряжение: <strong id="cell-volt-val" class="text-emerald">3.205 V</strong></span>
-                            <span>Температура: <strong id="cell-temp-val" class="text-cyan">24.2 °C</strong></span>
-                            <span>Статус: <strong class="text-emerald">Балансировка OK</strong></span>
-                        </div>
-                    </div>
-
-                    <!-- Bottom Row: 3 Equal Feature Cards -->
-                    <!-- Card 1: MPPT Solar -->
-                    <div class="bento-card glass-panel tilt-card">
-                        <div class="bento-icon-box accent-cyan">
-                            <svg class="bento-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="5"></circle>
-                                <line x1="12" y1="1" x2="12" y2="3"></line>
-                                <line x1="12" y1="21" x2="12" y2="23"></line>
-                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                            </svg>
-                        </div>
-                        <h3>Поддержка солнечных панелей</h3>
-                        <p>Встроенный контроллер MPPT позволяет подключать солнечные батареи до 5000 Вт для полной независимости.</p>
-                        <div class="bento-tags">
-                            <span class="tag">MPPT КПД 99%</span>
-                            <span class="tag">Solar-First Mode</span>
-                        </div>
-                    </div>
-
-                    <!-- Card 2: Zero Sound -->
-                    <div class="bento-card glass-panel tilt-card">
-                        <div class="bento-icon-box accent-gold">
-                            <svg class="bento-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                                <line x1="23" y1="9" x2="17" y2="15"></line>
-                                <line x1="17" y1="9" x2="23" y2="15"></line>
-                            </svg>
-                        </div>
-                        <h3>0 dB Бесшумность</h3>
-                        <p>Никакого запаха выхлопных газов, шума мотора и обслуживания масла как у бензогенераторов.</p>
-                        <div class="bento-tags">
-                            <span class="tag">100% Тишина</span>
-                            <span class="tag">Без газов</span>
-                        </div>
-                    </div>
-
-                    <!-- Card 3: Mobile App -->
-                    <div class="bento-card glass-panel tilt-card">
-                        <div class="bento-icon-box accent-emerald">
-                            <svg class="bento-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-                                <line x1="12" y1="18" x2="12.01" y2="18"></line>
-                            </svg>
-                        </div>
-                        <h3>Мониторинг со смартфона</h3>
-                        <p>Wi-Fi и Bluetooth мобильное приложение: смотрите уровень заряда, потребляемую мощность и статистику.</p>
-                        <div class="bento-tags">
-                            <span class="tag">iOS / Android</span>
-                            <span class="tag">Wi-Fi / BT</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <!-- Calculator Section -->
         <section class="section calc-section" id="calculator">
             <div class="container">
                 <div class="section-header">
-                    <h2 class="section-title">Калькулятор времени автономии</h2>
-                    <p class="section-subtitle">Выберите приборы, которые должны работать во время отключения света, чтобы рассчитать необходимый запас энергии.</p>
+                    <h2 class="section-title" data-i18n="calc.title">Калькулятор часу автономності</h2>
+                    <p class="section-subtitle" data-i18n="calc.subtitle">Оберіть прилади, які мають працювати під час відключення світла, щоб розрахувати необхідний запас енергії.</p>
                 </div>
 
                 <div class="calc-grid glass-panel tilt-card">
                     <!-- Appliance Selector Toggles -->
                     <div class="appliances-list">
-                        <h3 class="calc-subtitle">Ваши приоритетные приборы:</h3>
+                        <h3 class="calc-subtitle" data-i18n="calc.appliances_title">Ваші пріоритетні прилади:</h3>
                         
                         <div class="appliance-item active" data-power="150">
                             <div class="appliance-info">
@@ -396,8 +392,8 @@
                                     <path d="M7 2v20"></path>
                                 </svg>
                                 <div>
-                                    <div class="appliance-name">Двухкамерный холодильник</div>
-                                    <div class="appliance-watt">~150 Вт/ч</div>
+                                    <div class="appliance-name" data-i18n="calc.appliance_1">Двокамерний холодильник</div>
+                                    <div class="appliance-watt">~150 Вт/год</div>
                                 </div>
                             </div>
                             <input type="checkbox" class="toggle-checkbox" checked>
@@ -409,8 +405,8 @@
                                     <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
                                 </svg>
                                 <div>
-                                    <div class="appliance-name">Газовый котел + Насос отопления</div>
-                                    <div class="appliance-watt">~120 Вт/ч</div>
+                                    <div class="appliance-name" data-i18n="calc.appliance_2">Газовий котел + Насос опалення</div>
+                                    <div class="appliance-watt">~120 Вт/год</div>
                                 </div>
                             </div>
                             <input type="checkbox" class="toggle-checkbox" checked>
@@ -423,8 +419,8 @@
                                     <line x1="12" y1="18" x2="12.01" y2="18"></line>
                                 </svg>
                                 <div>
-                                    <div class="appliance-name">Интернет-роутер + Освещение (LED)</div>
-                                    <div class="appliance-watt">~60 Вт/ч</div>
+                                    <div class="appliance-name" data-i18n="calc.appliance_3">Інтернет-роутер + Освітлення (LED)</div>
+                                    <div class="appliance-watt">~60 Вт/год</div>
                                 </div>
                             </div>
                             <input type="checkbox" class="toggle-checkbox" checked>
@@ -438,8 +434,8 @@
                                     <line x1="12" y1="17" x2="12" y2="21"></line>
                                 </svg>
                                 <div>
-                                    <div class="appliance-name">Рабочий ПК + 2 Монитора</div>
-                                    <div class="appliance-watt">~250 Вт/ч</div>
+                                    <div class="appliance-name" data-i18n="calc.appliance_4">Робочий ПК + 2 Монітори</div>
+                                    <div class="appliance-watt">~250 Вт/год</div>
                                 </div>
                             </div>
                             <input type="checkbox" class="toggle-checkbox" checked>
@@ -455,8 +451,8 @@
                                     <line x1="14" y1="1" x2="14" y2="4"></line>
                                 </svg>
                                 <div>
-                                    <div class="appliance-name">Кондиционер / Климат-контроль</div>
-                                    <div class="appliance-watt">~1200 Вт/ч</div>
+                                    <div class="appliance-name" data-i18n="calc.appliance_5">Кондиціонер / Клімат-контроль</div>
+                                    <div class="appliance-watt">~1200 Вт/год</div>
                                 </div>
                             </div>
                             <input type="checkbox" class="toggle-checkbox">
@@ -466,20 +462,20 @@
                     <!-- Interactive Result Output -->
                     <div class="calc-results">
                         <div class="result-card">
-                            <span class="result-label">Текущая потребляемая мощность</span>
+                            <span class="result-label" data-i18n="calc.total_load">Сумарне навантаження:</span>
                             <div class="result-value" id="total-watts">580 <span class="unit">Вт</span></div>
                         </div>
 
                         <div class="result-card main-result">
-                            <span class="result-label">Ориентировочное время автономии</span>
-                            <div class="result-value text-gradient" id="runtime-hours">8.8 <span class="unit">часов</span></div>
-                            <span class="result-subtext">на базе аккумулятора LiFePO4 5.12 кВт·ч (48V 100Ah)</span>
+                            <span class="result-label" data-i18n="calc.autonomy_time">Очікуваний час автономності:</span>
+                            <div class="result-value text-gradient" id="runtime-hours">7.9 <span class="unit">годин</span></div>
+                            <span class="result-subtext" id="battery-subtext" data-i18n="calc.battery_base">на базі акумулятора LiFePO4 5.12 кВт·год (48V 100Ah)</span>
                         </div>
 
                         <div class="recommended-system">
-                            <h4>Рекомендуемый комплект:</h4>
-                            <p class="rec-title" id="rec-package-title">Комплект «Комфорт 5 кВт» (Инвертор 5.5кВт + Батарея 5.12кВт·ч)</p>
-                            <button class="btn btn-emerald btn-block glow-btn" id="btn-order-rec">Заказать этот комплект</button>
+                            <h4 data-i18n="calc.rec_title">Рекомендований комплект:</h4>
+                            <p class="rec-title" id="rec-package-title">Комплект «Комфорт 6 кВт» (Інвертор 6кВт + Батарея 5.12кВт·год)</p>
+                            <button class="btn btn-emerald btn-block glow-btn" id="btn-order-rec" data-pack="Комплект 6 кВт" data-i18n="calc.btn_order">Замовити цей комплект</button>
                         </div>
                     </div>
                 </div>
@@ -490,82 +486,345 @@
         <section class="section packages-section" id="packages">
             <div class="container">
                 <div class="section-header">
-                    <h2 class="section-title">Готовые решения под ключ</h2>
-                    <p class="section-subtitle">Профессиональный монтаж, бесплатная доставка и официальная гарантия 5 лет.</p>
+                    <h2 class="section-title" data-i18n="pkg.title">Готові комплекти автономності</h2>
+                    <p class="section-subtitle" data-i18n="pkg.subtitle">Підібрані рішення для квартир, котеджів та бізнесу з гарантією 5 років та оперативною доставкою.</p>
                 </div>
 
                 <div class="packages-grid">
-                    <!-- Package 1 -->
-                    <div class="package-card glass-panel tilt-card">
-                        <div class="package-badge">Квартира / Офис</div>
-                        <h3 class="package-name">Старт 3 кВт</h3>
-                        <div class="package-price">89 000 <span class="currency">₽</span></div>
-                        <ul class="package-features">
-                            <li>Инвертор 3.2 кВт (Чистый синус)</li>
-                            <li>Батарея LiFePO4 2.56 кВт·ч</li>
-                            <li>До 6 часов автономной работы</li>
-                            <li>Мгновенный автозапуск (&lt;3.8мс)</li>
-                        </ul>
-                        <button class="btn btn-glass btn-block select-pack-btn" data-pack="Старт 3 кВт">Выбрать комплект</button>
-                    </div>
-
-                    <!-- Package 2 Featured -->
+                    <!-- Package 1 Featured (6 kW) -->
                     <div class="package-card glass-panel package-featured tilt-card">
-                        <div class="package-badge badge-featured">Хит продаж</div>
-                        <h3 class="package-name">Комфорт 5 кВт</h3>
-                        <div class="package-price">149 000 <span class="currency">₽</span></div>
+                        <div class="package-badge badge-featured" data-i18n="pkg.badge_featured">Хіт продажів</div>
+                        
+                        <!-- Image Container / Slot -->
+                        <div class="package-img-box">
+                            <img src="assets/images/package-6kw.jpg" alt="Комфорт 6 кВт" class="package-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="package-img-placeholder">
+                                <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                <span data-i18n="pkg.photo_slot">Місце під фото комплекту</span>
+                            </div>
+                        </div>
+
+                        <h3 class="package-name" data-i18n="pkg.name_1">Комфорт 6 кВт</h3>
+                        
+                        <!-- Key Specs Bar -->
+                        <div class="package-specs-bar">
+                            <div class="spec-pill">
+                                <span class="spec-val">6 кВт</span>
+                                <span class="spec-lbl" data-i18n="pkg.spec_power">Потужність</span>
+                            </div>
+                            <div class="spec-pill">
+                                <span class="spec-val">5.12 кВт·год</span>
+                                <span class="spec-lbl" data-i18n="pkg.spec_cap">Ємність LiFePO4</span>
+                            </div>
+                            <div class="spec-pill">
+                                <span class="spec-val">5–8 год</span>
+                                <span class="spec-lbl" data-i18n="pkg.spec_time">Час роботи</span>
+                            </div>
+                        </div>
+
+                        <!-- Price Box: Old Crossed-out + New Price + Savings Badge -->
+                        <div class="package-price-box">
+                            <div class="price-old-wrap">
+                                <span class="price-old">175 000 <span class="currency">₴</span></span>
+                                <span class="badge-discount" data-i18n="pkg.save_1">-15% Економія 26 000 ₴</span>
+                            </div>
+                            <div class="package-price">149 000 <span class="currency">₴</span></div>
+                        </div>
+
                         <ul class="package-features">
-                            <li>Гибридный Инвертор 5.5 кВт</li>
-                            <li>Батарея LiFePO4 5.12 кВт·ч (100Ah 48V)</li>
-                            <li>До 12-16 часов питания дома</li>
-                            <li>Подключение к солнечным панелям</li>
-                            <li>Мониторинг со смартфона</li>
+                            <li data-i18n="pkg.p1_f1">Гібридний Інвертор 6 кВт (Чистий синус)</li>
+                            <li data-i18n="pkg.p1_f2">Батарея LiFePO4 5.12 кВт·год (100Ah 48V)</li>
+                            <li data-i18n="pkg.p1_f3">До 5–8 годин повної автономності</li>
+                            <li data-i18n="pkg.p1_f4">Підключення сонячних панелей</li>
+                            <li data-i18n="pkg.p1_f5">Моніторинг зі смартфона</li>
                         </ul>
-                        <button class="btn btn-emerald btn-block glow-btn select-pack-btn" data-pack="Комфорт 5 кВт">Заказать со скидкой</button>
+                        <button class="btn btn-emerald btn-block glow-btn select-pack-btn" data-pack="Комфорт 6 кВт" data-i18n="pkg.btn_order_discount">Замовити зі знижкою</button>
                     </div>
 
-                    <!-- Package 3 -->
+                    <!-- Package 2 (12 kW) -->
                     <div class="package-card glass-panel tilt-card">
-                        <div class="package-badge">Загородный дом</div>
-                        <h3 class="package-name">Максимум 10 кВт</h3>
-                        <div class="package-price">269 000 <span class="currency">₽</span></div>
+                        <div class="package-badge" data-i18n="pkg.badge_2">Будинок / Котедж</div>
+
+                        <!-- Image Container / Slot -->
+                        <div class="package-img-box">
+                            <img src="assets/images/package-12kw.jpg" alt="Оптима 12 кВт" class="package-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="package-img-placeholder">
+                                <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                <span data-i18n="pkg.photo_slot">Місце під фото комплекту</span>
+                            </div>
+                        </div>
+
+                        <h3 class="package-name" data-i18n="pkg.name_2">Оптима 12 кВт</h3>
+
+                        <!-- Key Specs Bar -->
+                        <div class="package-specs-bar">
+                            <div class="spec-pill">
+                                <span class="spec-val">12 кВт</span>
+                                <span class="spec-lbl" data-i18n="pkg.spec_power">Потужність</span>
+                            </div>
+                            <div class="spec-pill">
+                                <span class="spec-val">10.24 кВт·год</span>
+                                <span class="spec-lbl" data-i18n="pkg.spec_cap">Ємність LiFePO4</span>
+                            </div>
+                            <div class="spec-pill">
+                                <span class="spec-val">12–24 год</span>
+                                <span class="spec-lbl" data-i18n="pkg.spec_time">Час роботи</span>
+                            </div>
+                        </div>
+
+                        <!-- Price Box: Old Crossed-out + New Price + Savings Badge -->
+                        <div class="package-price-box">
+                            <div class="price-old-wrap">
+                                <span class="price-old">279 000 <span class="currency">₴</span></span>
+                                <span class="badge-discount" data-i18n="pkg.save_2">-14% Економія 40 000 ₴</span>
+                            </div>
+                            <div class="package-price">239 000 <span class="currency">₴</span></div>
+                        </div>
+
                         <ul class="package-features">
-                            <li>Трехфазный Инвертор 10 кВт</li>
-                            <li>2x Батареи LiFePO4 (10.24 кВт·ч)</li>
-                            <li>До 24+ часов полной автономии</li>
-                            <li>Запитка силового оборудования</li>
+                            <li data-i18n="pkg.p2_f1">Гібридний Інвертор 12 кВт</li>
+                            <li data-i18n="pkg.p2_f2">Батарея LiFePO4 10.24 кВт·год</li>
+                            <li data-i18n="pkg.p2_f3">До 12–24+ годин живлення дому</li>
+                            <li data-i18n="pkg.p2_f4">Повний захист великого будинку</li>
                         </ul>
-                        <button class="btn btn-glass btn-block select-pack-btn" data-pack="Максимум 10 кВт">Выбрать комплект</button>
+                        <button class="btn btn-emerald btn-block glow-btn select-pack-btn" data-pack="Оптима 12 кВт" data-i18n="pkg.btn_order_discount">Замовити зі знижкою</button>
+                    </div>
+
+                    <!-- Package 3 (15 kW) -->
+                    <div class="package-card glass-panel tilt-card">
+                        <div class="package-badge" data-i18n="pkg.badge_3">Заміський будинок / Бізнес</div>
+
+                        <!-- Image Container / Slot -->
+                        <div class="package-img-box">
+                            <img src="assets/images/package-15kw.jpg" alt="Максимум 15 кВт" class="package-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="package-img-placeholder">
+                                <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                <span data-i18n="pkg.photo_slot">Місце під фото комплекту</span>
+                            </div>
+                        </div>
+
+                        <h3 class="package-name" data-i18n="pkg.name_3">Максимум 15 кВт</h3>
+
+                        <!-- Key Specs Bar -->
+                        <div class="package-specs-bar">
+                            <div class="spec-pill">
+                                <span class="spec-val">15 кВт</span>
+                                <span class="spec-lbl" data-i18n="pkg.spec_power">Потужність</span>
+                            </div>
+                            <div class="spec-pill">
+                                <span class="spec-val">15.36 кВт·год</span>
+                                <span class="spec-lbl" data-i18n="pkg.spec_cap">Ємність LiFePO4</span>
+                            </div>
+                            <div class="spec-pill">
+                                <span class="spec-val">24–48 год</span>
+                                <span class="spec-lbl" data-i18n="pkg.spec_time">Час роботи</span>
+                            </div>
+                        </div>
+
+                        <!-- Price Box: Old Crossed-out + New Price + Savings Badge -->
+                        <div class="package-price-box">
+                            <div class="price-old-wrap">
+                                <span class="price-old">369 000 <span class="currency">₴</span></span>
+                                <span class="badge-discount" data-i18n="pkg.save_3">-14% Економія 50 000 ₴</span>
+                            </div>
+                            <div class="package-price">319 000 <span class="currency">₴</span></div>
+                        </div>
+
+                        <ul class="package-features">
+                            <li data-i18n="pkg.p3_f1">Трифазний Інвертор 15 кВт</li>
+                            <li data-i18n="pkg.p3_f2">3x Батареї LiFePO4 (15.36 кВт·год)</li>
+                            <li data-i18n="pkg.p3_f3">До 48 годин автономної роботи</li>
+                            <li data-i18n="pkg.p3_f4">Живлення будь-якого силового обладнання</li>
+                        </ul>
+                        <button class="btn btn-emerald btn-block glow-btn select-pack-btn" data-pack="Максимум 15 кВт" data-i18n="pkg.btn_order_discount">Замовити зі знижкою</button>
+                    </div>
+                </div>
+
+                <!-- Mobile Carousel Controls -->
+                <div class="pkg-mobile-controls">
+                    <button type="button" class="pkg-nav-btn pkg-prev" id="pkg-prev-btn" aria-label="Попередній комплект">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <div class="pkg-dots" id="pkg-dots">
+                        <span class="pkg-dot active" data-index="0"></span>
+                        <span class="pkg-dot" data-index="1"></span>
+                        <span class="pkg-dot" data-index="2"></span>
+                    </div>
+                    <button type="button" class="pkg-nav-btn pkg-next" id="pkg-next-btn" aria-label="Наступний комплект">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                </div>
+                <div class="pkg-swipe-hint">
+                    <svg class="swipe-hand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v6M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8.5"/><path d="M18 11a2 2 0 0 1 2 2v2a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.83L7 15"/></svg>
+                    <span data-i18n="pkg.swipe_hint">👉 Свайпайте ліворуч / праворуч для вибору</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Callback / Contact Section -->
+        <section class="section callback-section" id="callback">
+            <div class="container">
+                <div class="callback-card glass-panel">
+                    <div class="callback-content">
+                        <!-- Top Badge -->
+                        <div class="callback-badge">
+                            <span class="status-dot"></span>
+                            <span data-i18n="callback.badge">Безкоштовна консультація інженера</span>
+                        </div>
+
+                        <h2 class="callback-title" data-i18n="callback.title">Отримайте індивідуальний розрахунок автономності</h2>
+                        <p class="callback-desc" data-i18n="callback.desc">Залиште номер — наш інженер безкоштовно підбере комплект інвертора та LiFePO4 акумулятора під ваші прилади та бюджет.</p>
+                        
+                        <!-- 3 Benefit Pills -->
+                        <div class="callback-benefits-row">
+                            <div class="cb-benefit-pill">
+                                <svg class="cb-pill-icon text-emerald" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span data-i18n="callback.pill_1">⚡ Швидка доставка по Україні</span>
+                            </div>
+                            <div class="cb-benefit-pill">
+                                <svg class="cb-pill-icon text-cyan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span data-i18n="callback.pill_2">📞 Підбір та консультація 0 грн</span>
+                            </div>
+                            <div class="cb-benefit-pill">
+                                <svg class="cb-pill-icon text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span data-i18n="callback.pill_3">🛡️ Гарантія 5 років</span>
+                            </div>
+                        </div>
+
+                        <!-- Main Lead Form -->
+                        <form class="callback-form" id="main-callback-form">
+                            <div style="display:none;" aria-hidden="true">
+                                <input type="text" id="cb-hp" name="hp_field" tabindex="-1" autocomplete="off">
+                            </div>
+
+                            <div class="callback-fields-grid">
+                                <div class="form-field-group">
+                                    <label for="cb-name" class="field-label" data-i18n="modal.label_name">Ваше імʼя</label>
+                                    <div class="input-with-icon">
+                                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                        <input type="text" id="cb-name" class="form-input" placeholder="Іван" data-i18n-placeholder="modal.ph_name" autocomplete="off">
+                                    </div>
+                                </div>
+
+                                <div class="form-field-group">
+                                    <label for="cb-phone" class="field-label" data-i18n="modal.label_phone">Телефон для звʼязку</label>
+                                    <div class="phone-input-group">
+                                        <span class="phone-prefix">+380</span>
+                                        <input type="tel" id="cb-phone" class="phone-number-input" placeholder="67 000 00 00" maxlength="13" required autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-emerald btn-lg glow-btn btn-block cb-submit-btn">
+                                <span data-i18n="callback.btn_submit">Отримати безкоштовну консультацію</span>
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                            </button>
+
+                            <p class="form-privacy" data-i18n="callback.privacy">🔒 Ваші дані захищені. Без спаму та нав'язливих дзвінків.</p>
+                        </form>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Brand & Coverage -->
+                <div class="footer-brand">
+                    <a href="#top" class="brand-logo footer-brand-logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+                        <div class="logo-icon-wrapper">
+                            <svg class="logo-icon-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="footer-logo-neon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#10B981" />
+                                        <stop offset="100%" stop-color="#059669" />
+                                    </linearGradient>
+                                    <linearGradient id="footer-logo-bolt-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#34D399" />
+                                        <stop offset="50%" stop-color="#10B981" />
+                                        <stop offset="100%" stop-color="#059669" />
+                                    </linearGradient>
+                                    <linearGradient id="footer-logo-bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#0F172A" stop-opacity="0.95" />
+                                        <stop offset="100%" stop-color="#1E293B" stop-opacity="0.95" />
+                                    </linearGradient>
+                                </defs>
+                                <rect class="logo-badge" x="2" y="2" width="36" height="36" rx="10" fill="url(#footer-logo-bg-grad)" stroke="url(#footer-logo-neon-grad)" stroke-width="1.5" />
+                                <circle class="logo-ring" cx="20" cy="20" r="13" stroke="url(#footer-logo-neon-grad)" stroke-width="1.8" stroke-linecap="round" fill="none" />
+                                <path class="logo-bolt" d="M22.5 6L12.5 21H19.5L18 34L28.5 18H21.5L24 6Z" fill="url(#footer-logo-bolt-grad)" />
+                            </svg>
+                        </div>
+                        <span class="logo-text footer-logo-text">SVITLO<span class="logo-accent">24</span></span>
+                    </a>
+                    <div class="footer-coverage" data-i18n="footer.coverage">
+                        <svg class="coverage-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span>Працюємо по всій Україні 🇺🇦</span>
+                    </div>
+                </div>
+
+                <!-- Contacts Links -->
+                <div class="footer-contacts">
+                    <a href="tel:+380800330024" class="footer-link phone-link">
+                        <svg class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <span>+380 (800) 33-00-24</span>
+                    </a>
+                    <a href="mailto:info@svitlo24.com.ua" class="footer-link email-link">
+                        <svg class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        <span>info@svitlo24.com.ua</span>
+                    </a>
+            </div>
+
+            <!-- SEO Content Box in Footer -->
+            <div class="footer-seo-box">
+                <h3 class="seo-title" data-i18n="callback.seo_title">Надійна автономність та резервне живлення для вашого будинку</h3>
+                <p class="seo-desc" data-i18n="callback.seo_text">
+                    Компанія SVITLO24 є офіційним постачальником готових комплектів резервного живлення: гібридних інверторів (6 кВт, 12 кВт, 15 кВт) та надійних LiFePO4 акумуляторів з ресурсом понад 6000 циклів. Ми надаємо професійну технічну консультацію, точно підбираємо обладнання під навантаження вашого будинку та забезпечуємо оперативну доставку та офіційну гарантію по всій Україні.
+                </p>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright" data-i18n="footer.copyright">© 2026 SVITLO24. Всі права захищені.</p>
+            </div>
+        </div>
+    </footer>
+
     <!-- Modal Form -->
     <div class="modal-backdrop" id="order-modal">
         <div class="modal-content glass-panel">
-            <button class="modal-close" id="modal-close-btn">&times;</button>
-            <h3 class="modal-title">Оставить заявку на комплект REZERV</h3>
-            <p class="modal-subtitle">Инженер свяжется с вами в течение 10 минут и подберет точную конфигурацию оборудования.</p>
+            <button type="button" class="modal-close" id="modal-close-btn" onclick="closeModal()" aria-label="Закрити">&times;</button>
+            <h3 class="modal-title" data-i18n="modal.title">Розрахунок автономної системи</h3>
+            <p class="modal-subtitle" data-i18n="modal.subtitle">Залиште контакти, і наш інженер підбере оптимальний інвертор та батарею під ваші прилади.</p>
             
             <form id="order-form">
+                <div style="display:none;" aria-hidden="true">
+                    <input type="text" id="form-hp" name="hp_field" tabindex="-1" autocomplete="off">
+                </div>
                 <div class="form-group">
-                    <label for="form-name">Ваше имя</label>
-                    <input type="text" id="form-name" class="form-input" placeholder="Иван" required>
+                    <label for="form-name" data-i18n="modal.label_name">Ваше імʼя</label>
+                    <input type="text" id="form-name" class="form-input" placeholder="Іван" data-i18n-placeholder="modal.ph_name" autocomplete="off">
                 </div>
 
                 <div class="form-group">
-                    <label for="form-phone">Телефон для связи</label>
-                    <input type="tel" id="form-phone" class="form-input" placeholder="+7 (999) 000-00-00" required>
+                    <label for="form-phone" data-i18n="modal.label_phone">Телефон для звʼязку</label>
+                    <div class="phone-input-group">
+                        <span class="phone-prefix">+380</span>
+                        <input type="tel" id="form-phone" class="phone-number-input" placeholder="00 000 00 00" maxlength="13" required autocomplete="off">
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="form-package">Выбранный комплект</label>
-                    <input type="text" id="form-package" class="form-input" value="Комфорт 5 кВт" readonly>
+                    <label for="form-package" data-i18n="modal.label_package">Обраний комплект</label>
+                    <select id="form-package" class="form-input">
+                        <option value="Комплект 6 кВт">Комплект 6 кВт</option>
+                        <option value="Комплект 12 кВт">Комплект 12 кВт</option>
+                        <option value="Комплект 15 кВт">Комплект 15 кВт</option>
+                    </select>
                 </div>
 
-                <button type="submit" class="btn btn-emerald btn-block btn-lg glow-btn">Получить расчет и консультацию</button>
+                <button type="submit" class="btn btn-emerald btn-block btn-lg glow-btn" data-i18n="modal.btn_submit">Отримати розрахунок</button>
             </form>
         </div>
     </div>
@@ -578,6 +837,7 @@
         <span id="toast-msg">Заявка успешно отправлена!</span>
     </div>
 
+    <script src="telegram-config.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

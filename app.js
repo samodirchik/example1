@@ -1,4 +1,353 @@
+function validateUkrainianPhone(phoneStr) {
+    if (!phoneStr) return false;
+    let digits = phoneStr.replace(/\D/g, '');
+
+    if (digits.length === 9) {
+        digits = '380' + digits;
+    } else if (digits.length === 10 && digits.startsWith('0')) {
+        digits = '380' + digits.substring(1);
+    }
+
+    if (digits.length !== 12 || !digits.startsWith('380')) {
+        return false;
+    }
+
+    const mobileDigits = digits.substring(3);
+    const opCode = mobileDigits.substring(0, 2);
+    const validOpCodes = ['50', '63', '66', '67', '68', '73', '77', '89', '91', '92', '93', '94', '95', '96', '97', '98', '99'];
+    
+    if (!validOpCodes.includes(opCode)) {
+        return false;
+    }
+
+    const fakePatterns = [
+        '123456789', '987654321', '012345678', '876543210',
+        '000000000', '111111111', '222222222', '333333333', '444444444',
+        '555555555', '666666666', '777777777', '888888888', '999999999'
+    ];
+    if (fakePatterns.includes(mobileDigits)) {
+        return false;
+    }
+
+    const subPart = mobileDigits.substring(2);
+    if (/^(\d)\1{5,}/.test(subPart)) {
+        return false;
+    }
+
+    return true;
+}
+
+function openModal(packageName = 'Комплект 6 кВт') {
+    const modalEl = document.getElementById('order-modal');
+    const formPackageInputEl = document.getElementById('form-package');
+    if (formPackageInputEl) {
+        let matched = false;
+        for (let i = 0; i < formPackageInputEl.options.length; i++) {
+            const optVal = formPackageInputEl.options[i].value;
+            if (optVal === packageName || packageName.includes(optVal) || optVal.includes(packageName)) {
+                formPackageInputEl.selectedIndex = i;
+                matched = true;
+                break;
+            }
+        }
+        if (!matched) {
+            const powers = ['15', '12', '6', '10', '5', '3'];
+            for (const p of powers) {
+                if (packageName.includes(p)) {
+                    for (let i = 0; i < formPackageInputEl.options.length; i++) {
+                        if (formPackageInputEl.options[i].value.includes(p)) {
+                            formPackageInputEl.selectedIndex = i;
+                            matched = true;
+                            break;
+                        }
+                    }
+                    if (matched) break;
+                }
+            }
+        }
+    }
+    if (modalEl) {
+        modalEl.classList.add('active');
+    }
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    const modalEl = document.getElementById('order-modal');
+    if (modalEl) {
+        modalEl.classList.remove('active');
+    }
+    document.body.style.overflow = '';
+}
+
+window.validateUkrainianPhone = validateUkrainianPhone;
+window.openModal = openModal;
+window.closeModal = closeModal;
+
 document.addEventListener('DOMContentLoaded', () => {
+    // --- 0.0 i18n Localization Engine (UA / RU) ---
+    const translations = {
+        ua: {
+            'nav.autonomy': 'Автономність',
+            'nav.calculator': 'Калькулятор',
+            'nav.packages': 'Комплекти',
+            'header.grid_status': 'Мережа: 230V 50Hz',
+            'header.btn_order': 'Замовити розрахунок',
+            'hero.badge': 'Резервне живлення під ключ з гарантією',
+            'hero.title_1': 'Автономна енергосистема.',
+            'hero.title_2': 'Забудьте про відключення світла',
+                        'hero.metric_1_val': '< 4 мс',
+            'hero.metric_1_lbl': 'Миттєве перемикання',
+            'hero.metric_2_val': '1 день',
+            'hero.metric_2_lbl': 'Швидка доставка',
+            'hero.metric_3_val': '15+ років',
+            'hero.metric_3_lbl': 'Термін служби',
+            'hero.visual_title': 'Схема потоків енергії',
+            'hero.grid_active': 'Мережа 220V: АКТИВНА',
+            'hero.grid_blackout': 'Мережа 220V: АВАРІЯ (БЛЕКАУТ)',
+            'hero.node_grid': 'Мережа 220V',
+            'hero.node_inverter': 'Інвертор 6кВт',
+            'hero.node_battery': 'LiFePO4 5.12кВт·год',
+            'hero.node_home': 'Навантаження дому',
+            'hero.btn_outage': 'Симулювати відключення мережі',
+            'hero.btn_restore': 'Відновити мережу 220V',
+            'hero.tag_hit': '🔥 ХІТ ПРОДАЖІВ',
+            'hero.tag_warranty': '🛡️ Гарантія 5 років',
+            'hero.card_title': 'Комплект «Комфорт 6 кВт»',
+            'hero.card_sub': 'Інвертор 6 кВт + Акумулятор LiFePO4 5.12 кВт·год',
+            'hero.pill_1': 'Автономність',
+            'hero.pill_2': 'Перемикання',
+            'hero.pill_3': 'Циклів LiFePO4',
+            'hero.bullet_1': 'Живить котел, холодильник, Wi-Fi, світло та ТВ',
+            'hero.bullet_2': 'Безкоштовна консультація',
+            'hero.bullet_3': 'Безкоштовна доставка',
+            'hero.btn_callback': 'Отримати консультацію',
+            'hero.btn_other_packages': 'Інші комплекти',
+            'hero.microtext': '🔒 Консультація та підбір під ваш бюджет — безкоштовно',
+            'house.title': 'Як працює автономність у вашому будинку',
+            'house.subtitle': 'Перемикайте режим нижче, щоб побачити захист кімнат при збої мережі.',
+            'house.mode_rezerv': 'Режим: Резерв 230V',
+            'house.mode_blackout': 'Режим: Блекаут 0V',
+            'calc.title': 'Калькулятор часу автономності',
+            'calc.subtitle': 'Оберіть прилади, які мають працювати під час відключення світла, щоб розрахувати необхідний запас енергії.',
+            'calc.appliances_title': 'Ваші пріоритетні прилади:',
+            'calc.appliance_1': 'Двокамерний холодильник',
+            'calc.appliance_2': 'Газовий котел + Насос опалення',
+            'calc.appliance_3': 'Інтернет-роутер + Освітлення (LED)',
+            'calc.appliance_4': 'Робочий ПК + 2 Монитори',
+            'calc.appliance_5': 'Кондиціонер / Клімат-контроль',
+            'calc.total_load': 'Сумарне навантаження:',
+            'calc.autonomy_time': 'Очікуваний час автономності:',
+            'calc.battery_base': 'на базі акумулятора LiFePO4 5.12 кВт·год (48V 100Ah)',
+            'calc.rec_title': 'Рекомендований комплект:',
+            'calc.btn_order': 'Замовити цей комплект',
+            'pkg.title': 'Готові комплекти автономності',
+            'pkg.subtitle': 'Підібрані рішення для квартир, котеджів та бізнесу з гарантією 5 років та оперативною доставкою.',
+            'pkg.badge_featured': 'Хіт продажів',
+            'pkg.badge_1': 'Квартира / Офіс',
+            'pkg.badge_2': 'Будинок / Котедж',
+            'pkg.badge_3': 'Заміський будинок / Бізнес',
+            'pkg.photo_slot': 'Місце під фото комплекту',
+            'pkg.spec_power': 'Потужність',
+            'pkg.spec_cap': 'Ємність LiFePO4',
+            'pkg.spec_time': 'Час роботи',
+            'pkg.save_1': '-15% Економія 26 000 ₴',
+            'pkg.save_2': '-14% Економія 40 000 ₴',
+            'pkg.save_3': '-14% Економія 50 000 ₴',
+            'pkg.name_1': 'Комфорт 6 кВт',
+            'pkg.name_2': 'Оптима 12 кВт',
+            'pkg.name_3': 'Максимум 15 кВт',
+            'pkg.p1_f1': 'Гібридний Інвертор 6 кВт (Чистий синус)',
+            'pkg.p1_f2': 'Батарея LiFePO4 5.12 кВт·год (100Ah 48V)',
+            'pkg.p1_f3': 'До 5–8 годин повної автономності',
+            'pkg.p2_f1': 'Гібридний Інвертор 12 кВт',
+            'pkg.p2_f2': 'Батарея LiFePO4 10.24 кВт·год',
+            'pkg.p2_f3': 'До 12–24+ годин живлення дому',
+            'pkg.p3_f1': 'Трифазний Інвертор 15 кВт',
+            'pkg.p3_f2': '3x Батареї LiFePO4 (15.36 кВт·год)',
+            'pkg.p3_f3': 'До 48 годин автономної роботи',
+            'pkg.btn_order_discount': 'Замовити зі знижкою',
+            'pkg.swipe_hint': '👉 Свайпайте ліворуч / праворуч для вибору',
+            'modal.label_name': 'Ваше імʼя',
+            'modal.ph_name': 'Іван',
+            'modal.label_phone': 'Телефон для звʼязку',
+            'modal.label_package': 'Обраний комплект',
+            'modal.btn_submit': 'Отримати розрахунок',
+            'callback.badge': 'Безкоштовна консультація інженера',
+            'callback.title': 'Отримайте індивідуальний розрахунок автономності',
+            'callback.desc': 'Залиште номер — наш інженер безкоштовно підбере комплект інвертора та LiFePO4 акумулятора під ваші прилади та бюджет.',
+            'callback.pill_1': '⚡ Швидка доставка по Україні',
+            'callback.pill_2': '📞 Підбір та консультація 0 грн',
+            'callback.pill_3': '🛡️ Гарантія 5 років',
+            'callback.ph_name': 'Ваше імʼя',
+            'callback.btn_submit': 'Отримати безкоштовну консультацію',
+            'callback.privacy': '🔒 Ваші дані захищені. Без спаму та нав\'язливих дзвінків.',
+            'callback.seo_title': 'Надійна автономність та резервне живлення для вашого будинку',
+            'callback.seo_text': 'Компанія SVITLO24 є офіційним постачальником готових комплектів резервного живлення: гібридних інверторів (6 кВт, 12 кВт, 15 кВт) та надійних LiFePO4 акумуляторів з ресурсом понад 6000 циклів. Ми надаємо професійну технічну консультацію, точно підбираємо обладнання під навантаження вашого будинку та забезпечуємо оперативну доставку та офіційну гарантію по всій Україні.',
+            'footer.coverage': 'Працюємо по всій Україні 🇺🇦',
+            'footer.copyright': '© 2026 SVITLO24. Всі права захищені.',
+            'drawer.sub_1': 'Симуляція живлення приладів',
+            'drawer.sub_2': 'Розрахунок часу автономії',
+            'drawer.sub_3': 'Готові інвертори + акумулятори',
+            'drawer.phone_lbl': '📞 Натисніть для безкоштовного дзвінка'
+        },
+        ru: {
+            'nav.autonomy': 'Автономия',
+            'nav.calculator': 'Калькулятор',
+            'nav.packages': 'Комплекты',
+            'header.grid_status': 'Сеть: 230V 50Hz',
+            'header.btn_order': 'Заказать расчет',
+            'hero.badge': 'Резервное питание под ключ с гарантией',
+            'hero.title_1': 'Автономная энергосистема.',
+            'hero.title_2': 'Забудьте об отключениях света',
+            'hero.description': 'Готовые комплекты «инвертор + аккумулятор» с доставкой. Автоматически питает технику, защищает от скачков напряжения и работает бесшумно.',
+            'hero.metric_1_val': '< 4 мс',
+            'hero.metric_1_lbl': 'Мгновенное переключение',
+            'hero.metric_2_val': '1 день',
+            'hero.metric_2_lbl': 'Быстрая доставка',
+            'hero.metric_3_val': '15+ лет',
+            'hero.metric_3_lbl': 'Срок службы',
+            'hero.visual_title': 'Схема потоков энергии',
+            'hero.grid_active': 'Сеть 220V: АКТИВНА',
+            'hero.grid_blackout': 'Сеть 220V: АВАРИЯ (БЛЭКАУТ)',
+            'hero.node_grid': 'Сеть 220V',
+            'hero.node_inverter': 'Инвертор 6кВт',
+            'hero.node_battery': 'LiFePO4 5.12кВт·ч',
+            'hero.node_home': 'Нагрузка дома',
+            'hero.btn_outage': 'Симулировать отключение сети',
+            'hero.btn_restore': 'Восстановить сеть 220V',
+            'hero.tag_hit': '🔥 ХИТ ПРОДАЖ',
+            'hero.tag_warranty': '🛡️ Гарантия 5 лет',
+            'hero.card_title': 'Комплект «Комфорт 6 кВт»',
+            'hero.card_sub': 'Инвертор 6 кВт + Аккумулятор LiFePO4 5.12 кВт·ч',
+            'hero.pill_1': 'Автономия',
+            'hero.pill_2': 'Переключение',
+            'hero.pill_3': 'Циклов LiFePO4',
+            'hero.bullet_1': 'Питает котел, холодильник, Wi-Fi, свет и ТВ',
+            'hero.bullet_2': 'Бесплатная консультация',
+            'hero.bullet_3': 'Бесплатная доставка',
+            'hero.btn_callback': 'Получить консультацию',
+            'hero.btn_other_packages': 'Другие комплекты',
+            'hero.microtext': '🔒 Консультация и подбор под ваш бюджет — бесплатно',
+            'house.title': 'Как работает автономия в вашем доме',
+            'house.subtitle': 'Переключите режим ниже, чтобы увидеть защиту комнат при сбое сети.',
+            'house.mode_rezerv': 'Режим: Резерв 230V',
+            'house.mode_blackout': 'Режим: Блэкаут 0V',
+            'calc.title': 'Калькулятор времени автономии',
+            'calc.subtitle': 'Выберите приборы, которые должны работать во время отключения света, чтобы рассчитать необходимый запас энергии.',
+            'calc.appliances_title': 'Ваши приоритетные приборы:',
+            'calc.appliance_1': 'Двухкамерный холодильник',
+            'calc.appliance_2': 'Газовый котел + Насос отопления',
+            'calc.appliance_3': 'Интернет-роутер + Освещение (LED)',
+            'calc.appliance_4': 'Рабочий ПК + 2 Монитора',
+            'calc.appliance_5': 'Кондиционер / Климат-контроль',
+            'calc.total_load': 'Суммарная нагрузка:',
+            'calc.autonomy_time': 'Ожидаемое время автономии:',
+            'calc.battery_base': 'на базе аккумулятора LiFePO4 5.12 кВт·ч (48V 100Ah)',
+            'calc.rec_title': 'Рекомендуемый комплект:',
+            'calc.btn_order': 'Заказать этот комплект',
+            'pkg.title': 'Готовые комплекты автономии',
+            'pkg.subtitle': 'Подобранные решения для квартир, коттеджей и бизнеса с гарантией 5 лет и оперативной доставкой.',
+            'pkg.badge_featured': 'Хит продаж',
+            'pkg.badge_1': 'Квартира / Офис',
+            'pkg.badge_2': 'Дом / Коттедж',
+            'pkg.badge_3': 'Загородный дом / Бизнес',
+            'pkg.photo_slot': 'Место под фото комплекта',
+            'pkg.spec_power': 'Мощность',
+            'pkg.spec_cap': 'Емкость LiFePO4',
+            'pkg.spec_time': 'Время работы',
+            'pkg.save_1': '-15% Экономия 26 000 ₴',
+            'pkg.save_2': '-14% Экономия 40 000 ₴',
+            'pkg.save_3': '-14% Экономия 50 000 ₴',
+            'pkg.name_1': 'Комфорт 6 кВт',
+            'pkg.name_2': 'Оптима 12 кВт',
+            'pkg.name_3': 'Максимум 15 кВт',
+            'pkg.p1_f1': 'Гибридный Инвертор 6 кВт (Чистый синус)',
+            'pkg.p1_f2': 'Батарея LiFePO4 5.12 кВт·ч (100Ah 48V)',
+            'pkg.p1_f3': 'До 5–8 часов полной автономии',
+            'pkg.p2_f1': 'Гибридный Инвертор 12 кВт',
+            'pkg.p2_f2': 'Батарея LiFePO4 10.24 кВт·ч',
+            'pkg.p2_f3': 'До 12–24+ часов питания дома',
+            'pkg.p3_f1': 'Трехфазный Инвертор 15 кВт',
+            'pkg.p3_f2': '3x Батареи LiFePO4 (15.36 кВт·ч)',
+            'pkg.p3_f3': 'До 48 часов автономной работы',
+            'pkg.btn_order_discount': 'Заказать со скидкой',
+            'pkg.swipe_hint': '👉 Свайпайте влево / вправо для выбора',
+            'modal.title': 'Расчет автономной системы',
+            'modal.subtitle': 'Оставьте контакты, и наш инженер подберет оптимальный инвертор и батарею под ваши приборы.',
+            'modal.label_name': 'Ваше имя',
+            'modal.ph_name': 'Иван',
+            'modal.label_phone': 'Телефон для связи',
+            'modal.label_package': 'Выбранный комплект',
+            'modal.btn_submit': 'Получить расчет',
+            'callback.badge': 'Бесплатная консультация инженера',
+            'callback.title': 'Получите индивидуальный расчет автономии',
+            'callback.desc': 'Оставьте номер — инженер бесплатно подберет комплект инвертора и LiFePO4 аккумулятора под ваши приборы и бюджет.',
+            'callback.pill_1': '⚡ Быстрая доставка по Украине',
+            'callback.pill_2': '📞 Подбор и консультация 0 грн',
+            'callback.pill_3': '🛡️ Гарантия 5 лет',
+            'callback.ph_name': 'Ваше имя',
+            'callback.btn_submit': 'Получить бесплатную консультацию',
+            'callback.privacy': '🔒 Ваши данные защищены. Без спама и навязчивых звонков.',
+            'callback.seo_title': 'Надежная автономия и резервное питание для вашего дома',
+            'callback.seo_text': 'Компания SVITLO24 является официальным поставщиком готовых комплектов резервного питания: гибридных инверторов (6 кВт, 12 кВт, 15 кВт) и надежных LiFePO4 аккумуляторов с ресурсом более 6000 циклов. Мы предоставляем профессиональную техническую консультацию, точно подбираем оборудование под нагрузку вашего дома и обеспечиваем оперативную доставку и официальную гарантию по всей Украине.',
+            'footer.coverage': 'Работаем по всей Украине 🇺🇦',
+            'footer.copyright': '© 2026 SVITLO24. Все права защищены.',
+            'drawer.sub_1': 'Симуляция питания приборов',
+            'drawer.sub_2': 'Расчет времени автономии',
+            'drawer.sub_3': 'Готовые инверторы + аккумуляторы',
+            'drawer.phone_lbl': '📞 Нажмите для бесплатного звонка'
+        }
+    };
+
+    let currentLang = localStorage.getItem('svitlo24_lang') || 'ua';
+
+    function setLanguage(lang) {
+        if (!translations[lang]) return;
+        currentLang = lang;
+        localStorage.setItem('svitlo24_lang', lang);
+        document.documentElement.lang = lang;
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            if (btn.getAttribute('data-lang') === lang) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (translations[lang] && translations[lang][key]) {
+                el.innerHTML = translations[lang][key];
+            }
+        });
+
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+            const key = el.getAttribute('data-i18n-placeholder');
+            if (translations[lang] && translations[lang][key]) {
+                el.placeholder = translations[lang][key];
+            }
+        });
+
+        if (typeof updateCalculator === 'function') {
+            updateCalculator();
+        }
+    };
+
+    document.addEventListener('click', (e) => {
+        const langBtn = e.target.closest('.lang-btn');
+        if (langBtn) {
+            e.preventDefault();
+            const lang = langBtn.getAttribute('data-lang');
+            if (lang) {
+                setLanguage(lang);
+            }
+        }
+    });
+
+    setLanguage(currentLang);
+
     // --- 0. Brand Logo Neon Ignition Spark ---
     const brandLogo = document.getElementById('brand-logo');
     if (brandLogo) {
@@ -15,17 +364,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 0.1 Burger Menu & Mobile Drawer Logic ---
     const burgerBtn = document.getElementById('burger-btn');
     const mobileDrawer = document.getElementById('mobile-menu-drawer');
-    const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
-    const mobileOrderBtn = document.getElementById('mobile-order-btn');
+
+    function closeMobileDrawer() {
+        if (burgerBtn) burgerBtn.classList.remove('active');
+        if (mobileDrawer) mobileDrawer.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    window.closeMobileDrawer = closeMobileDrawer;
 
     function toggleBurgerMenu() {
         if (!burgerBtn || !mobileDrawer) return;
         const isActive = burgerBtn.classList.contains('active');
 
         if (isActive) {
-            burgerBtn.classList.remove('active');
-            mobileDrawer.classList.remove('active');
-            document.body.style.overflow = '';
+            closeMobileDrawer();
         } else {
             burgerBtn.classList.add('active');
             mobileDrawer.classList.add('active');
@@ -37,24 +389,29 @@ document.addEventListener('DOMContentLoaded', () => {
         burgerBtn.addEventListener('click', toggleBurgerMenu);
     }
 
-    mobileNavItems.forEach(item => {
-        item.addEventListener('click', () => {
-            if (burgerBtn && mobileDrawer) {
-                burgerBtn.classList.remove('active');
-                mobileDrawer.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-    });
+    // Attach click listener to ALL links & buttons inside mobileDrawer for auto-close + smooth scroll
+    if (mobileDrawer) {
+        mobileDrawer.addEventListener('click', (e) => {
+            const linkOrBtn = e.target.closest('a, button');
+            if (!linkOrBtn) return;
 
-    if (mobileOrderBtn) {
-        mobileOrderBtn.addEventListener('click', () => {
-            if (burgerBtn && mobileDrawer) {
-                burgerBtn.classList.remove('active');
-                mobileDrawer.classList.remove('active');
-                document.body.style.overflow = '';
+            // Ignore language switcher buttons inside drawer if any
+            if (linkOrBtn.classList.contains('lang-btn')) return;
+
+            // Close mobile drawer immediately
+            closeMobileDrawer();
+
+            // Handle smooth scroll for anchor links
+            const href = linkOrBtn.getAttribute('href');
+            if (href && href.startsWith('#') && href.length > 1) {
+                const targetEl = document.querySelector(href);
+                if (targetEl) {
+                    e.preventDefault();
+                    setTimeout(() => {
+                        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 60);
+                }
             }
-            openModal('Комфорт 5 кВт');
         });
     }
 
@@ -318,222 +675,258 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 5. Hero Energy Diagram Canvas (Tesla / Apple Energy Aesthetics) ---
     const canvas = document.getElementById('energy-canvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    let initComets = () => {};
 
-    function resizeCanvas() {
-        const rect = canvas.parentElement.getBoundingClientRect();
-        canvas.width = rect.width;
-        canvas.height = rect.height;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
 
-    function getNodes() {
-        const w = canvas.width;
-        const h = canvas.height;
+        function resizeCanvas() {
+            const parent = canvas.parentElement;
+            if (!parent) return;
+            const rect = parent.getBoundingClientRect();
+            const w = Math.floor(rect.width || parent.clientWidth || 600);
+            const h = Math.floor(rect.height || parent.clientHeight || 380);
+            if (w > 0 && h > 0 && (canvas.width !== w || canvas.height !== h)) {
+                canvas.width = w;
+                canvas.height = h;
+            }
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
 
-        return {
-            grid: { x: w * 0.18, y: h * 0.22 },
-            inverter: { x: w * 0.50, y: h * 0.50 },
-            battery: { x: w * 0.22, y: h * 0.78 },
-            home: { x: w * 0.82, y: h * 0.22 }
+        function getNodes() {
+            const parent = canvas.parentElement;
+            if (!parent) return null;
+            const pRect = parent.getBoundingClientRect();
+            const w = canvas.width || 600;
+            const h = canvas.height || 380;
+
+            const getCenter = (id, defaultX, defaultY) => {
+                const el = document.getElementById(id);
+                if (!el) return { x: w * defaultX, y: h * defaultY };
+                const eRect = el.getBoundingClientRect();
+                if (eRect.width === 0 || eRect.height === 0 || pRect.width === 0) {
+                    return { x: w * defaultX, y: h * defaultY };
+                }
+                return {
+                    x: (eRect.left + eRect.width / 2) - pRect.left,
+                    y: (eRect.top + eRect.height / 2) - pRect.top
+                };
+            };
+
+            return {
+                grid: getCenter('node-grid', 0.18, 0.22),
+                inverter: getCenter('node-inverter', 0.50, 0.50),
+                battery: getCenter('node-battery', 0.22, 0.78),
+                home: getCenter('node-home', 0.82, 0.22)
+            };
+        }
+
+        let dashOffset = 0;
+        let pulseR1 = 0;
+        let pulseR2 = 22;
+
+        class LaserComet {
+            constructor(fromFn, toFn, color, speed = 0.0035, offset = 0) {
+                this.fromFn = fromFn;
+                this.toFn = toFn;
+                this.progress = offset;
+                this.speed = speed;
+                this.color = color;
+            }
+
+            update() {
+                this.progress += this.speed;
+                if (this.progress >= 1) {
+                    this.progress = 0;
+                }
+            }
+
+            draw(nodes) {
+                const from = nodes[this.fromFn];
+                const to = nodes[this.toFn];
+                if (!from || !to) return;
+
+                const curX = from.x + (to.x - from.x) * this.progress;
+                const curY = from.y + (to.y - from.y) * this.progress;
+
+                const tailProgress = Math.max(0, this.progress - 0.18);
+                const tailX = from.x + (to.x - from.x) * tailProgress;
+                const tailY = from.y + (to.y - from.y) * tailProgress;
+
+                // Tail laser gradient
+                const grad = ctx.createLinearGradient(tailX, tailY, curX, curY);
+                grad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+                grad.addColorStop(0.5, this.color);
+                grad.addColorStop(1, '#ffffff');
+
+                ctx.beginPath();
+                ctx.moveTo(tailX, tailY);
+                ctx.lineTo(curX, curY);
+                ctx.strokeStyle = grad;
+                ctx.lineWidth = 4;
+                ctx.lineCap = 'round';
+                ctx.stroke();
+
+                // Bright head node
+                ctx.beginPath();
+                ctx.arc(curX, curY, 4, 0, Math.PI * 2);
+                ctx.fillStyle = '#ffffff';
+                ctx.shadowColor = this.color;
+                ctx.shadowBlur = 10;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+        }
+
+        let comets = [];
+
+        initComets = function() {
+            comets = [];
+            const count = 5;
+
+            if (!isOutage) {
+                // Grid -> Inverter (Cyan)
+                for (let i = 0; i < count; i++) {
+                    comets.push(new LaserComet('grid', 'inverter', '#0284c7', 0.0035, i / count));
+                }
+                // Inverter -> Home (Cyan)
+                for (let i = 0; i < count; i++) {
+                    comets.push(new LaserComet('inverter', 'home', '#0284c7', 0.0035, i / count));
+                }
+                // Inverter -> Battery charging (Emerald)
+                for (let i = 0; i < count; i++) {
+                    comets.push(new LaserComet('inverter', 'battery', '#059669', 0.003, i / count));
+                }
+            } else {
+                // Battery -> Inverter (Emerald)
+                for (let i = 0; i < count * 1.4; i++) {
+                    comets.push(new LaserComet('battery', 'inverter', '#10B981', 0.0045, i / (count * 1.4)));
+                }
+                // Inverter -> Home (Emerald)
+                for (let i = 0; i < count * 1.4; i++) {
+                    comets.push(new LaserComet('inverter', 'home', '#10B981', 0.0045, i / (count * 1.4)));
+                }
+            }
         };
-    }
+        initComets();
 
-    let dashOffset = 0;
-    let pulseR1 = 0;
-    let pulseR2 = 22;
-
-    class LaserComet {
-        constructor(fromFn, toFn, color, speed = 0.003, offset = 0) {
-            this.fromFn = fromFn;
-            this.toFn = toFn;
-            this.progress = offset;
-            this.speed = speed;
-            this.color = color;
-        }
-
-        update() {
-            this.progress += this.speed;
-            if (this.progress >= 1) {
-                this.progress = 0;
-            }
-        }
-
-        draw(nodes) {
-            const from = nodes[this.fromFn];
-            const to = nodes[this.toFn];
-
-            const curX = from.x + (to.x - from.x) * this.progress;
-            const curY = from.y + (to.y - from.y) * this.progress;
-
-            const tailProgress = Math.max(0, this.progress - 0.14);
-            const tailX = from.x + (to.x - from.x) * tailProgress;
-            const tailY = from.y + (to.y - from.y) * tailProgress;
-
-            // Tail laser gradient
-            const grad = ctx.createLinearGradient(tailX, tailY, curX, curY);
-            grad.addColorStop(0, 'rgba(255, 255, 255, 0)');
-            grad.addColorStop(1, this.color);
+        function drawArrow(from, to, color) {
+            const midX = (from.x + to.x) / 2;
+            const midY = (from.y + to.y) / 2;
+            const angle = Math.atan2(to.y - from.y, to.x - from.x);
+            const headLen = 9;
 
             ctx.beginPath();
-            ctx.moveTo(tailX, tailY);
-            ctx.lineTo(curX, curY);
-            ctx.strokeStyle = grad;
+            ctx.moveTo(midX, midY);
+            ctx.lineTo(midX - headLen * Math.cos(angle - Math.PI / 6), midY - headLen * Math.sin(angle - Math.PI / 6));
+            ctx.moveTo(midX, midY);
+            ctx.lineTo(midX - headLen * Math.cos(angle + Math.PI / 6), midY - headLen * Math.sin(angle + Math.PI / 6));
+            ctx.strokeStyle = color;
             ctx.lineWidth = 2.5;
-            ctx.lineCap = 'round';
             ctx.stroke();
-
-            // Bright head node
-            ctx.beginPath();
-            ctx.arc(curX, curY, 2.5, 0, Math.PI * 2);
-            ctx.fillStyle = '#ffffff';
-            ctx.fill();
         }
-    }
 
-    let comets = [];
+        function drawCircuitTracks() {
+            const nodes = getNodes();
+            if (!nodes) return;
+            dashOffset += 0.45;
 
-    function initComets() {
-        comets = [];
-        const count = 5;
-
-        if (!isOutage) {
-            // Grid -> Inverter (Cyan)
-            for (let i = 0; i < count; i++) {
-                comets.push(new LaserComet('grid', 'inverter', '#0284c7', 0.0028, i / count));
-            }
-            // Inverter -> Home (Cyan)
-            for (let i = 0; i < count; i++) {
-                comets.push(new LaserComet('inverter', 'home', '#0284c7', 0.0028, i / count));
-            }
-            // Inverter -> Battery charging (Emerald)
-            for (let i = 0; i < count; i++) {
-                comets.push(new LaserComet('inverter', 'battery', '#059669', 0.0022, i / count));
-            }
-        } else {
-            // Battery -> Inverter (Emerald)
-            for (let i = 0; i < count * 1.4; i++) {
-                comets.push(new LaserComet('battery', 'inverter', '#059669', 0.0035, i / (count * 1.4)));
-            }
-            // Inverter -> Home (Emerald)
-            for (let i = 0; i < count * 1.4; i++) {
-                comets.push(new LaserComet('inverter', 'home', '#059669', 0.0035, i / (count * 1.4)));
-            }
-        }
-    }
-    initComets();
-
-    function drawArrow(from, to, color) {
-        const midX = (from.x + to.x) / 2;
-        const midY = (from.y + to.y) / 2;
-        const angle = Math.atan2(to.y - from.y, to.x - from.x);
-        const headLen = 7;
-
-        ctx.beginPath();
-        ctx.moveTo(midX, midY);
-        ctx.lineTo(midX - headLen * Math.cos(angle - Math.PI / 6), midY - headLen * Math.sin(angle - Math.PI / 6));
-        ctx.moveTo(midX, midY);
-        ctx.lineTo(midX - headLen * Math.cos(angle + Math.PI / 6), midY - headLen * Math.sin(angle + Math.PI / 6));
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 2;
-        ctx.stroke();
-    }
-
-    function drawCircuitTracks() {
-        const nodes = getNodes();
-        dashOffset += 0.35;
-
-        // Track 1: Grid -> Inverter
-        ctx.beginPath();
-        ctx.moveTo(nodes.grid.x, nodes.grid.y);
-        ctx.lineTo(nodes.inverter.x, nodes.inverter.y);
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = isOutage ? 'rgba(220, 38, 38, 0.2)' : 'rgba(2, 132, 199, 0.25)';
-        ctx.stroke();
-
-        if (!isOutage) {
+            // Track 1: Grid -> Inverter
             ctx.beginPath();
             ctx.moveTo(nodes.grid.x, nodes.grid.y);
             ctx.lineTo(nodes.inverter.x, nodes.inverter.y);
-            ctx.setLineDash([6, 10]);
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = isOutage ? 'rgba(239, 68, 68, 0.25)' : 'rgba(2, 132, 199, 0.3)';
+            ctx.stroke();
+
+            if (!isOutage) {
+                ctx.beginPath();
+                ctx.moveTo(nodes.grid.x, nodes.grid.y);
+                ctx.lineTo(nodes.inverter.x, nodes.inverter.y);
+                ctx.lineWidth = 2.5;
+                ctx.setLineDash([8, 8]);
+                ctx.lineDashOffset = -dashOffset;
+                ctx.strokeStyle = '#0284c7';
+                ctx.stroke();
+                ctx.setLineDash([]);
+                drawArrow(nodes.grid, nodes.inverter, '#0284c7');
+            }
+
+            // Track 2: Battery -> Inverter
+            ctx.beginPath();
+            ctx.moveTo(nodes.battery.x, nodes.battery.y);
+            ctx.lineTo(nodes.inverter.x, nodes.inverter.y);
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = isOutage ? 'rgba(16, 185, 129, 0.35)' : 'rgba(5, 150, 105, 0.3)';
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(isOutage ? nodes.battery.x : nodes.inverter.x, isOutage ? nodes.battery.y : nodes.inverter.y);
+            ctx.lineTo(isOutage ? nodes.inverter.x : nodes.battery.x, isOutage ? nodes.inverter.y : nodes.battery.y);
+            ctx.lineWidth = 2.5;
+            ctx.setLineDash([8, 8]);
             ctx.lineDashOffset = -dashOffset;
-            ctx.strokeStyle = 'rgba(2, 132, 199, 0.6)';
+            ctx.strokeStyle = isOutage ? '#10B981' : '#059669';
             ctx.stroke();
             ctx.setLineDash([]);
-            drawArrow(nodes.grid, nodes.inverter, 'rgba(2, 132, 199, 0.75)');
+            drawArrow(isOutage ? nodes.battery : nodes.inverter, isOutage ? nodes.inverter : nodes.battery, isOutage ? '#10B981' : '#059669');
+
+            // Track 3: Inverter -> Home
+            ctx.beginPath();
+            ctx.moveTo(nodes.inverter.x, nodes.inverter.y);
+            ctx.lineTo(nodes.home.x, nodes.home.y);
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = isOutage ? 'rgba(16, 185, 129, 0.35)' : 'rgba(2, 132, 199, 0.3)';
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(nodes.inverter.x, nodes.inverter.y);
+            ctx.lineTo(nodes.home.x, nodes.home.y);
+            ctx.lineWidth = 2.5;
+            ctx.setLineDash([8, 8]);
+            ctx.lineDashOffset = -dashOffset;
+            ctx.strokeStyle = isOutage ? '#10B981' : '#0284c7';
+            ctx.stroke();
+            ctx.setLineDash([]);
+            drawArrow(nodes.inverter, nodes.home, isOutage ? '#10B981' : '#0284c7');
+
+            // Radar pulses around central Inverter
+            pulseR1 = (pulseR1 + 0.3) % 40;
+            pulseR2 = (pulseR2 + 0.3) % 40;
+
+            const pColor = isOutage ? '16, 185, 129' : '2, 132, 199';
+
+            ctx.beginPath();
+            ctx.arc(nodes.inverter.x, nodes.inverter.y, pulseR1 + 25, 0, Math.PI * 2);
+            ctx.strokeStyle = `rgba(${pColor}, ${(1 - pulseR1 / 40) * 0.4})`;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(nodes.inverter.x, nodes.inverter.y, pulseR2 + 25, 0, Math.PI * 2);
+            ctx.strokeStyle = `rgba(${pColor}, ${(1 - pulseR2 / 45) * 0.4})`;
+            ctx.lineWidth = 2;
+            ctx.stroke();
         }
 
-        // Track 2: Battery -> Inverter
-        ctx.beginPath();
-        ctx.moveTo(nodes.battery.x, nodes.battery.y);
-        ctx.lineTo(nodes.inverter.x, nodes.inverter.y);
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = 'rgba(5, 150, 105, 0.25)';
-        ctx.stroke();
+        function animate() {
+            resizeCanvas();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const nodes = getNodes();
 
-        ctx.beginPath();
-        ctx.moveTo(isOutage ? nodes.battery.x : nodes.inverter.x, isOutage ? nodes.battery.y : nodes.inverter.y);
-        ctx.lineTo(isOutage ? nodes.inverter.x : nodes.battery.x, isOutage ? nodes.inverter.y : nodes.battery.y);
-        ctx.setLineDash([6, 10]);
-        ctx.lineDashOffset = -dashOffset;
-        ctx.strokeStyle = 'rgba(5, 150, 105, 0.6)';
-        ctx.stroke();
-        ctx.setLineDash([]);
-        drawArrow(isOutage ? nodes.battery : nodes.inverter, isOutage ? nodes.inverter : nodes.battery, 'rgba(5, 150, 105, 0.75)');
+            if (nodes) {
+                drawCircuitTracks();
+                comets.forEach(c => {
+                    c.update();
+                    c.draw(nodes);
+                });
+            }
 
-        // Track 3: Inverter -> Home
-        ctx.beginPath();
-        ctx.moveTo(nodes.inverter.x, nodes.inverter.y);
-        ctx.lineTo(nodes.home.x, nodes.home.y);
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = isOutage ? 'rgba(5, 150, 105, 0.3)' : 'rgba(2, 132, 199, 0.25)';
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.moveTo(nodes.inverter.x, nodes.inverter.y);
-        ctx.lineTo(nodes.home.x, nodes.home.y);
-        ctx.setLineDash([6, 10]);
-        ctx.lineDashOffset = -dashOffset;
-        ctx.strokeStyle = isOutage ? 'rgba(5, 150, 105, 0.7)' : 'rgba(2, 132, 199, 0.6)';
-        ctx.stroke();
-        ctx.setLineDash([]);
-        drawArrow(nodes.inverter, nodes.home, isOutage ? 'rgba(5, 150, 105, 0.85)' : 'rgba(2, 132, 199, 0.75)');
-
-        // Radar pulses around central Inverter
-        pulseR1 = (pulseR1 + 0.25) % 40;
-        pulseR2 = (pulseR2 + 0.25) % 40;
-
-        const pColor = isOutage ? 'rgba(5, 150, 105,' : 'rgba(2, 132, 199,';
-
-        ctx.beginPath();
-        ctx.arc(nodes.inverter.x, nodes.inverter.y, pulseR1 + 25, 0, Math.PI * 2);
-        ctx.strokeStyle = `${pColor} ${(1 - pulseR1 / 40) * 0.35})`;
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(nodes.inverter.x, nodes.inverter.y, pulseR2 + 25, 0, Math.PI * 2);
-        ctx.strokeStyle = `${pColor} ${(1 - pulseR2 / 45) * 0.35})`;
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
+            requestAnimationFrame(animate);
+        }
+        animate();
     }
-
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        const nodes = getNodes();
-
-        drawCircuitTracks();
-
-        comets.forEach(c => {
-            c.update();
-            c.draw(nodes);
-        });
-
-        requestAnimationFrame(animate);
-    }
-    animate();
 
     // --- Outage Trigger Simulator ---
     const outageBtn = document.getElementById('trigger-outage-btn');
@@ -549,18 +942,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.triggerBgPulse(e.clientX, e.clientY, isOutage ? '#dc2626' : '#059669');
             }
 
+            const restoreText = currentLang === 'ua' ? 'Відновити міську мережу 220V' : 'Восстановить городскую сеть';
+            const outageText = currentLang === 'ua' ? 'Симулювати відключення мережі' : 'Симулировать отключение сети';
+
+            const badgeBoiler = document.getElementById('badge-boiler');
+            const badgeKitchen = document.getElementById('badge-kitchen');
+            const badgeOffice = document.getElementById('badge-office');
+            const badgeLiving = document.getElementById('badge-living');
+
+            const descBoiler = document.getElementById('desc-boiler');
+            const descKitchen = document.getElementById('desc-kitchen');
+            const descOffice = document.getElementById('desc-office');
+            const descLiving = document.getElementById('desc-living');
+
             if (isOutage) {
-                outageBtn.classList.replace('btn-emerald', 'btn-primary');
+                outageBtn.classList.remove('btn-emerald');
+                outageBtn.classList.add('btn-primary');
                 outageBtn.innerHTML = `
                     <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <polyline points="23 4 23 10 17 10"></polyline>
                         <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
                     </svg>
-                    <span>Восстановить городскую сеть</span>
+                    <span>${restoreText}</span>
                 `;
 
-                gridStatusText.textContent = 'Сеть 220V: БЛЭКАУТ';
-                gridStatusText.classList.add('outage');
+                if (gridStatusText) {
+                    gridStatusText.textContent = currentLang === 'ua' ? 'Мережа 220V: АВАРІЯ (БЛЕКАУТ)' : 'Сеть 220V: БЛЭКАУТ';
+                    gridStatusText.classList.add('outage');
+                }
                 if (globalStatusPill) {
                     globalStatusPill.classList.add('outage');
                     globalStatusPill.innerHTML = `<span class="status-dot"></span> Блэкаут (Резерв LiFePO4 100%)`;
@@ -568,19 +977,35 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (cursorGlow) cursorGlow.classList.add('outage-mode');
                 if (nodeGrid) nodeGrid.style.opacity = '0.35';
 
-                showToast('Сбой сети! Резервная система LiFePO4 подхватила питание за 0 мс.');
+                // Update House Room Cards to Blackout Protection state
+                const resBadgeText = currentLang === 'ua' ? 'LiFePO4 0мс' : 'LiFePO4 0мс';
+                if (badgeBoiler) badgeBoiler.textContent = resBadgeText;
+                if (badgeKitchen) badgeKitchen.textContent = resBadgeText;
+                if (badgeOffice) badgeOffice.textContent = resBadgeText;
+                if (badgeLiving) badgeLiving.textContent = resBadgeText;
+
+                if (descBoiler) descBoiler.textContent = currentLang === 'ua' ? 'Котел під захистом' : 'Котел под защитой';
+                if (descKitchen) descKitchen.textContent = currentLang === 'ua' ? 'Морозилка працює' : 'Морозилка работает';
+                if (descOffice) descOffice.textContent = currentLang === 'ua' ? 'Wi-Fi 100% ONLINE' : 'Wi-Fi 100% ONLINE';
+                if (descLiving) descLiving.textContent = currentLang === 'ua' ? 'Автономне світло' : 'Автономный свет';
+
+                const toastMsg = currentLang === 'ua' ? 'Сбій мережі! Резервна система LiFePO4 підхопила живлення за 0 мс.' : 'Сбой сети! Резервная система LiFePO4 подхватила питание за 0 мс.';
+                showToast(toastMsg);
             } else {
-                outageBtn.classList.replace('btn-primary', 'btn-emerald');
+                outageBtn.classList.remove('btn-primary');
+                outageBtn.classList.add('btn-emerald');
                 outageBtn.innerHTML = `
                     <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
                         <line x1="12" y1="2" x2="12" y2="12"></line>
                     </svg>
-                    <span>Симулировать отключение сети</span>
+                    <span>${outageText}</span>
                 `;
 
-                gridStatusText.textContent = 'Сеть 220V: АКТИВНА';
-                gridStatusText.classList.remove('outage');
+                if (gridStatusText) {
+                    gridStatusText.textContent = currentLang === 'ua' ? 'Мережа 220V: АКТИВНА' : 'Сеть 220V: АКТИВНА';
+                    gridStatusText.classList.remove('outage');
+                }
                 if (globalStatusPill) {
                     globalStatusPill.classList.remove('outage');
                     globalStatusPill.innerHTML = `<span class="status-dot"></span> Сеть: 230V 50Hz`;
@@ -588,7 +1013,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (cursorGlow) cursorGlow.classList.remove('outage-mode');
                 if (nodeGrid) nodeGrid.style.opacity = '1';
 
-                showToast('Сеть восстановлена. Инвертор перешел в режим автозарядки.');
+                // Restore House Room Cards to Normal Grid state
+                const okBadgeText = '230V OK';
+                if (badgeBoiler) badgeBoiler.textContent = okBadgeText;
+                if (badgeKitchen) badgeKitchen.textContent = okBadgeText;
+                if (badgeOffice) badgeOffice.textContent = okBadgeText;
+                if (badgeLiving) badgeLiving.textContent = okBadgeText;
+
+                if (descBoiler) descBoiler.textContent = currentLang === 'ua' ? 'Котел і насоси (24°C)' : 'Котел и насосы (24°C)';
+                if (descKitchen) descKitchen.textContent = currentLang === 'ua' ? 'Холодильник OK' : 'Холодильник OK';
+                if (descOffice) descOffice.textContent = currentLang === 'ua' ? 'Wi-Fi роутер & ПК' : 'Wi-Fi роутер & ПК';
+                if (descLiving) descLiving.textContent = currentLang === 'ua' ? 'Світло & ТВ' : 'Свет & ТВ';
+
+                const toastMsg = currentLang === 'ua' ? 'Мережу відновлено. Інвертор перейшов у режим автозарядки.' : 'Сеть восстановлена. Инвертор перешел в режим автозарядки.';
+                showToast(toastMsg);
             }
 
             initComets();
@@ -596,19 +1034,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Appliance Runtime Calculator ---
-    const applianceItems = document.querySelectorAll('.appliance-item');
-    const totalWattsEl = document.getElementById('total-watts');
-    const runtimeHoursEl = document.getElementById('runtime-hours');
-    const recPackageTitle = document.getElementById('rec-package-title');
-
-    const BATTERY_CAPACITY_WH = 5120;
-
     function updateCalculator() {
+        const applianceItems = document.querySelectorAll('.appliance-item');
+        const totalWattsEl = document.getElementById('total-watts');
+        const runtimeHoursEl = document.getElementById('runtime-hours');
+        const batterySubtextEl = document.getElementById('battery-subtext');
+        const recPackageTitle = document.getElementById('rec-package-title');
+        const btnOrderRec = document.getElementById('btn-order-rec');
+
         let totalWatts = 0;
 
         applianceItems.forEach(item => {
             const checkbox = item.querySelector('.toggle-checkbox');
-            const power = parseInt(item.getAttribute('data-power'), 10);
+            const power = parseInt(item.getAttribute('data-power'), 10) || 0;
 
             if (checkbox && checkbox.checked) {
                 item.classList.add('active');
@@ -620,69 +1058,187 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (totalWattsEl) totalWattsEl.textContent = totalWatts;
 
+        // Select suitable package from the 3 models on sale (6 kW, 12 kW, 15 kW)
+        let batteryWh = 5120;
+        let selectedPackageCode = 'Комплект 6 кВт';
+        let recTitleText = '';
+        let subtextText = '';
+
+        if (totalWatts > 1500) {
+            batteryWh = 15360;
+            selectedPackageCode = 'Комплект 15 кВт';
+            recTitleText = currentLang === 'ua'
+                ? 'Комплект «Максимум 15 кВт» (Трифазний Інвертор 15кВт + 3x Батареї 15.36кВт·год)'
+                : 'Комплект «Максимум 15 кВт» (Трехфазный Инвертор 15кВт + 3x Батареи 15.36кВт·ч)';
+            subtextText = currentLang === 'ua'
+                ? 'на базі 3x акумуляторів LiFePO4 (15.36 кВт·год)'
+                : 'на базе 3x аккумуляторов LiFePO4 (15.36 кВт·ч)';
+        } else if (totalWatts > 600) {
+            batteryWh = 10240;
+            selectedPackageCode = 'Комплект 12 кВт';
+            recTitleText = currentLang === 'ua'
+                ? 'Комплект «Оптима 12 кВт» (Гібридний Інвертор 12кВт + Батарея 10.24кВт·год)'
+                : 'Комплект «Оптима 12 кВт» (Гибридный Инвертор 12кВт + Батарея 10.24кВт·ч)';
+            subtextText = currentLang === 'ua'
+                ? 'на базі 2x акумуляторів LiFePO4 (10.24 кВт·год)'
+                : 'на базе 2x аккумуляторов LiFePO4 (10.24 кВт·ч)';
+        } else {
+            batteryWh = 5120;
+            selectedPackageCode = 'Комплект 6 кВт';
+            recTitleText = currentLang === 'ua'
+                ? 'Комплект «Комфорт 6 кВт» (Гібридний Інвертор 6кВт + Батарея 5.12кВт·год)'
+                : 'Комплект «Комфорт 6 кВт» (Гибридный Инвертор 6кВт + Батарея 5.12кВт·ч)';
+            subtextText = currentLang === 'ua'
+                ? 'на базі акумулятора LiFePO4 5.12 кВт·год (48V 100Ah)'
+                : 'на базе аккумулятора LiFePO4 5.12 кВт·ч (48V 100Ah)';
+        }
+
+        const unitText = currentLang === 'ua' ? 'годин' : 'часов';
         if (runtimeHoursEl) {
             if (totalWatts === 0) {
-                runtimeHoursEl.innerHTML = `&infin; <span class="unit">часов</span>`;
+                runtimeHoursEl.innerHTML = `&infin; <span class="unit">${unitText}</span>`;
             } else {
-                const hours = ((BATTERY_CAPACITY_WH * 0.9) / totalWatts).toFixed(1);
-                runtimeHoursEl.innerHTML = `${hours} <span class="unit">часов</span>`;
+                const hours = ((batteryWh * 0.9) / totalWatts).toFixed(1);
+                runtimeHoursEl.innerHTML = `${hours} <span class="unit">${unitText}</span>`;
             }
+        }
+
+        if (batterySubtextEl) {
+            batterySubtextEl.textContent = subtextText;
         }
 
         if (recPackageTitle) {
-            if (totalWatts > 1500) {
-                recPackageTitle.textContent = 'Комплект «Максимум 10 кВт» (Инвертор 10кВт + Батарея 10.24кВт·ч)';
-            } else if (totalWatts > 500) {
-                recPackageTitle.textContent = 'Комплект «Комфорт 5 кВт» (Инвертор 5.5кВт + Батарея 5.12кВт·ч)';
-            } else {
-                recPackageTitle.textContent = 'Комплект «Старт 3 кВт» (Инвертор 3.2кВт + Батарея 2.56кВт·ч)';
-            }
+            recPackageTitle.textContent = recTitleText;
+        }
+
+        if (btnOrderRec) {
+            btnOrderRec.setAttribute('data-pack', selectedPackageCode);
         }
     }
 
+    const applianceItems = document.querySelectorAll('.appliance-item');
     applianceItems.forEach(item => {
+        const checkbox = item.querySelector('.toggle-checkbox');
+
         item.addEventListener('click', (e) => {
-            const checkbox = item.querySelector('.toggle-checkbox');
-            if (e.target !== checkbox) {
+            if (checkbox && e.target !== checkbox) {
                 checkbox.checked = !checkbox.checked;
+                updateCalculator();
             }
-            updateCalculator();
         });
+
+        if (checkbox) {
+            checkbox.addEventListener('change', () => {
+                updateCalculator();
+            });
+        }
     });
 
     updateCalculator();
 
-    // --- Modal & Toast ---
+    // --- Modal & Toast Engine ---
     const modal = document.getElementById('order-modal');
-    const btnQuickOrder = document.getElementById('btn-quick-order');
     const modalCloseBtn = document.getElementById('modal-close-btn');
     const orderForm = document.getElementById('order-form');
     const formPackageInput = document.getElementById('form-package');
-    const btnOrderRec = document.getElementById('btn-order-rec');
-    const selectPackBtns = document.querySelectorAll('.select-pack-btn');
+    const mainCallbackForm = document.getElementById('main-callback-form');
 
-    function openModal(packageName = 'Комфорт 5 кВт') {
-        if (formPackageInput) formPackageInput.value = packageName;
-        if (modal) modal.classList.add('active');
+    function openModal(packageName = 'Комплект 6 кВт') {
+        const modalEl = document.getElementById('order-modal');
+        const formPackageInputEl = document.getElementById('form-package');
+        if (formPackageInputEl) {
+            let matched = false;
+            for (let i = 0; i < formPackageInputEl.options.length; i++) {
+                const optVal = formPackageInputEl.options[i].value;
+                if (optVal === packageName || packageName.includes(optVal) || optVal.includes(packageName)) {
+                    formPackageInputEl.selectedIndex = i;
+                    matched = true;
+                    break;
+                }
+            }
+            if (!matched) {
+                const powers = ['15', '12', '6', '10', '5', '3'];
+                for (const p of powers) {
+                    if (packageName.includes(p)) {
+                        for (let i = 0; i < formPackageInputEl.options.length; i++) {
+                            if (formPackageInputEl.options[i].value.includes(p)) {
+                                formPackageInputEl.selectedIndex = i;
+                                matched = true;
+                                break;
+                            }
+                        }
+                        if (matched) break;
+                    }
+                }
+            }
+        }
+        if (modalEl) {
+            modalEl.classList.add('active');
+        }
+        document.body.style.overflow = 'hidden';
     }
 
     function closeModal() {
-        if (modal) modal.classList.remove('active');
+        const modalEl = document.getElementById('order-modal');
+        if (modalEl) {
+            modalEl.classList.remove('active');
+        }
+        document.body.style.overflow = '';
     }
 
-    if (btnQuickOrder) btnQuickOrder.addEventListener('click', () => openModal());
-    if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
-    if (btnOrderRec) btnOrderRec.addEventListener('click', () => {
-        const text = recPackageTitle ? recPackageTitle.textContent : 'Комфорт 5 кВт';
-        openModal(text);
+    window.openModal = openModal;
+    window.closeModal = closeModal;
+
+    // Formatting phone input numbers inside phone-input-group (e.g., 67 632 34 44)
+    function attachPhoneFormatter(inputEl) {
+        if (!inputEl) return;
+
+        const group = inputEl.closest('.phone-input-group');
+
+        const formatValue = () => {
+            if (group) group.classList.remove('is-invalid');
+            inputEl.classList.remove('is-invalid');
+
+            let raw = inputEl.value;
+            let digits = raw.replace(/\D/g, '');
+
+            if (digits.startsWith('380')) {
+                digits = digits.substring(3);
+            } else if (digits.startsWith('0')) {
+                digits = digits.substring(1);
+            }
+            digits = digits.substring(0, 9);
+
+            let formatted = '';
+            if (digits.length > 0) formatted += digits.substring(0, 2);
+            if (digits.length >= 3) formatted += ' ' + digits.substring(2, 5);
+            if (digits.length >= 6) formatted += ' ' + digits.substring(5, 7);
+            if (digits.length >= 8) formatted += ' ' + digits.substring(7, 9);
+
+            inputEl.value = formatted;
+        };
+
+        inputEl.addEventListener('input', formatValue);
+    }
+
+    const formPhoneEl = document.getElementById('form-phone');
+    const cbPhoneEl = document.getElementById('cb-phone');
+    const heroPhoneEl = document.getElementById('hero-phone-field');
+    attachPhoneFormatter(formPhoneEl);
+    attachPhoneFormatter(cbPhoneEl);
+    attachPhoneFormatter(heroPhoneEl);
+
+    // Global Event Delegation for ALL Order / Calculation buttons
+    document.addEventListener('click', (e) => {
+        const orderBtn = e.target.closest('#btn-quick-order, .header-order-btn, #mobile-order-btn, #btn-order-rec, .select-pack-btn, [data-open-modal]');
+        if (orderBtn) {
+            e.preventDefault();
+            const packName = orderBtn.getAttribute('data-pack') || (recPackageTitle ? recPackageTitle.textContent : 'Комфорт 5 кВт');
+            openModal(packName);
+        }
     });
 
-    selectPackBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const packName = btn.getAttribute('data-pack') || 'Комфорт 5 кВт';
-            openModal(packName);
-        });
-    });
+    if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
 
     if (modal) {
         modal.addEventListener('click', (e) => {
@@ -690,13 +1246,234 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Telegram Bot Integration ---
+    async function sendToTelegram(messageText) {
+        const config = window.SVITLO24_TELEGRAM_CONFIG || {};
+        const botToken = config.botToken || '';
+        const chatId = config.chatId || '';
+
+        if (!botToken || botToken === 'YOUR_TELEGRAM_BOT_TOKEN' || !chatId || chatId === 'YOUR_TELEGRAM_CHAT_ID') {
+            console.log('[Telegram Bot Payload (Mock Mode)]', messageText);
+            return true;
+        }
+        try {
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: messageText,
+                    parse_mode: 'HTML'
+                })
+            });
+            return res.ok;
+        } catch (err) {
+            console.error('[Telegram Bot Error]', err);
+            return false;
+        }
+    }
+
+    // Anti-Spam Cooldown & Honeypot Protection
+    const SPAM_COOLDOWN_MS = 30000;
+
+    function checkSpamRateLimit() {
+        const lastSubmit = localStorage.getItem('svitlo24_last_submit');
+        const now = Date.now();
+        if (lastSubmit && (now - parseInt(lastSubmit, 10)) < SPAM_COOLDOWN_MS) {
+            const remainingSec = Math.ceil((SPAM_COOLDOWN_MS - (now - parseInt(lastSubmit, 10))) / 1000);
+            return remainingSec;
+        }
+        return 0;
+    }
+
+    function recordSubmitTime() {
+        localStorage.setItem('svitlo24_last_submit', Date.now().toString());
+    }
+
     if (orderForm) {
         orderForm.addEventListener('click', (e) => e.stopPropagation());
-        orderForm.addEventListener('submit', (e) => {
+        orderForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            // Honeypot check
+            const hpInput = document.getElementById('form-hp');
+            if (hpInput && hpInput.value.trim() !== '') {
+                return;
+            }
+
+            // Cooldown check
+            const cooldownSec = checkSpamRateLimit();
+            if (cooldownSec > 0) {
+                const msg = currentLang === 'ua'
+                    ? `Зачекайте ${cooldownSec} сек. перед повторною відправкою заявки.`
+                    : `Подождите ${cooldownSec} сек. перед повторной отправкой заявки.`;
+                showToast(msg);
+                return;
+            }
+
+            const phoneInput = document.getElementById('form-phone');
+            const nameInput = document.getElementById('form-name');
+            const packageInput = document.getElementById('form-package');
+
+            const rawDigits = phoneInput ? phoneInput.value : '';
+            const fullPhone = '+380 ' + rawDigits;
+            const nameVal = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : 'Не вказано';
+            const packageVal = packageInput ? packageInput.value : 'Комплект 6 кВт';
+
+            const phoneGroup = phoneInput ? phoneInput.closest('.phone-input-group') : null;
+
+            if (!validateUkrainianPhone(fullPhone)) {
+                if (phoneGroup) phoneGroup.classList.add('is-invalid');
+                if (phoneInput) {
+                    phoneInput.classList.add('is-invalid');
+                    phoneInput.focus();
+                }
+                const errMsg = currentLang === 'ua'
+                    ? 'Введіть реальний номер телефону України'
+                    : 'Введите реальный номер телефона Украины';
+                showToast(errMsg);
+                return;
+            }
+
+            if (phoneGroup) phoneGroup.classList.remove('is-invalid');
+            if (phoneInput) phoneInput.classList.remove('is-invalid');
             closeModal();
-            showToast('Заявка успешно отправлена! Менеджер перезвонит вам.');
+            recordSubmitTime();
+
+            const msgText = `⚡ <b>Нова заявка на розрахунок!</b>\n\n` +
+                `👤 <b>Ім'я:</b> ${nameVal}\n` +
+                `📞 <b>Телефон:</b> ${fullPhone}\n` +
+                `📦 <b>Обраний комплект:</b> ${packageVal}`;
+
+            sendToTelegram(msgText);
+
+            const msg = currentLang === 'ua' 
+                ? 'Заявку успішно надіслано! Менеджер зателефонує вам протягом 5 хвилин.' 
+                : 'Заявка успешно отправлена! Менеджер перезвонит вам в течение 5 минут.';
+            showToast(msg);
             orderForm.reset();
+        });
+    }
+
+    if (mainCallbackForm) {
+        mainCallbackForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Honeypot check
+            const hpInput = document.getElementById('cb-hp');
+            if (hpInput && hpInput.value.trim() !== '') {
+                return;
+            }
+
+            // Cooldown check
+            const cooldownSec = checkSpamRateLimit();
+            if (cooldownSec > 0) {
+                const msg = currentLang === 'ua'
+                    ? `Зачекайте ${cooldownSec} сек. перед повторною відправкою заявки.`
+                    : `Подождите ${cooldownSec} сек. перед повторной отправкой заявки.`;
+                showToast(msg);
+                return;
+            }
+
+            const phoneInput = document.getElementById('cb-phone');
+            const nameInput = document.getElementById('cb-name');
+
+            const rawDigits = phoneInput ? phoneInput.value : '';
+            const fullPhone = '+380 ' + rawDigits;
+            const nameVal = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : 'Не вказано';
+
+            const phoneGroup = phoneInput ? phoneInput.closest('.phone-input-group') : null;
+
+            if (!validateUkrainianPhone(fullPhone)) {
+                if (phoneGroup) phoneGroup.classList.add('is-invalid');
+                if (phoneInput) {
+                    phoneInput.classList.add('is-invalid');
+                    phoneInput.focus();
+                }
+                const errMsg = currentLang === 'ua'
+                    ? 'Введіть реальний номер телефону України'
+                    : 'Введите реальный номер телефона Украины';
+                showToast(errMsg);
+                return;
+            }
+
+            if (phoneGroup) phoneGroup.classList.remove('is-invalid');
+            if (phoneInput) phoneInput.classList.remove('is-invalid');
+            recordSubmitTime();
+
+            const msgText = `📞 <b>Заявка на звонок інженера!</b>\n\n` +
+                `👤 <b>Ім'я:</b> ${nameVal}\n` +
+                `📞 <b>Телефон:</b> ${fullPhone}`;
+
+            sendToTelegram(msgText);
+
+            const msg = currentLang === 'ua'
+                ? 'Дякуємо! Інженер зателефонує вам протягом 5 хвилин.'
+                : 'Спасибо! Инженер перезвонит вам в течение 5 минут.';
+            showToast(msg);
+            mainCallbackForm.reset();
+        });
+    }
+
+    // --- Hero Quick Lead Form Submission & Other Packages Handling ---
+    const heroQuickForm = document.getElementById('hero-quick-lead-form');
+    if (heroQuickForm) {
+        heroQuickForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const phoneInput = document.getElementById('hero-phone-field');
+            const rawDigits = phoneInput ? phoneInput.value : '';
+            const fullPhone = '+380 ' + rawDigits;
+            const phoneGroup = phoneInput ? phoneInput.closest('.phone-input-group') : null;
+
+            if (!validateUkrainianPhone(fullPhone)) {
+                if (phoneGroup) phoneGroup.classList.add('is-invalid');
+                if (phoneInput) {
+                    phoneInput.classList.add('is-invalid');
+                    phoneInput.focus();
+                }
+                const errMsg = currentLang === 'ua'
+                    ? 'Введіть реальний номер телефону України'
+                    : 'Введите реальный номер телефона Украины';
+                showToast(errMsg);
+                return;
+            }
+
+            if (phoneGroup) phoneGroup.classList.remove('is-invalid');
+            if (phoneInput) phoneInput.classList.remove('is-invalid');
+            recordSubmitTime();
+
+            const msgText = `🔥 <b>Нова заявка на консультацію (Хіт 6 кВт)!</b>\n\n` +
+                `📞 <b>Телефон:</b> ${fullPhone}`;
+
+            sendToTelegram(msgText);
+
+            const msg = currentLang === 'ua'
+                ? 'Заявку прийнято! Інженер зателефонує вам протягом 5 хвилин.'
+                : 'Заявка принята! Инженер перезвонит вам в течение 5 минут.';
+            showToast(msg);
+            heroQuickForm.reset();
+        });
+    }
+
+    const heroOtherPkgsBtn = document.getElementById('hero-other-pkgs-btn');
+    if (heroOtherPkgsBtn) {
+        heroOtherPkgsBtn.addEventListener('click', (e) => {
+            const phoneInput = document.getElementById('hero-phone-field');
+            const rawDigits = phoneInput ? phoneInput.value.replace(/\D/g, '') : '';
+
+            // If user filled in a phone number before clicking "Other Packages"
+            if (rawDigits.length >= 3) {
+                const fullPhone = '+380 ' + (phoneInput ? phoneInput.value : '');
+                const msgText = `🔍 <b>Клієнт переглянув інші комплекти (зі збереженням контакту)!</b>\n\n` +
+                    `📞 <b>Залишений телефон:</b> ${fullPhone}`;
+                
+                sendToTelegram(msgText);
+                const toastMsg = currentLang === 'ua'
+                    ? 'Дякуємо! Контакт збережено, дивіться інші комплекти.'
+                    : 'Спасибо! Контакт сохранен, смотрите другие комплекты.';
+                showToast(toastMsg);
+            }
         });
     }
 
@@ -711,5 +1488,47 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             toast.classList.remove('show');
         }, 4000);
+    }
+
+    // --- 16.0 Mobile Packages Carousel Sync ---
+    const pkgGrid = document.querySelector('.packages-grid');
+    const pkgPrevBtn = document.getElementById('pkg-prev-btn');
+    const pkgNextBtn = document.getElementById('pkg-next-btn');
+    const pkgDots = document.querySelectorAll('.pkg-dot');
+
+    if (pkgGrid) {
+        const cards = pkgGrid.querySelectorAll('.package-card');
+        
+        const updateDots = () => {
+            if (!cards.length) return;
+            const scrollLeft = pkgGrid.scrollLeft;
+            const cardWidth = cards[0].offsetWidth + 16;
+            const activeIdx = Math.min(cards.length - 1, Math.max(0, Math.round(scrollLeft / cardWidth)));
+            pkgDots.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === activeIdx);
+            });
+        };
+
+        pkgGrid.addEventListener('scroll', updateDots, { passive: true });
+
+        if (pkgPrevBtn) {
+            pkgPrevBtn.addEventListener('click', () => {
+                pkgGrid.scrollBy({ left: -(pkgGrid.offsetWidth * 0.85), behavior: 'smooth' });
+            });
+        }
+
+        if (pkgNextBtn) {
+            pkgNextBtn.addEventListener('click', () => {
+                pkgGrid.scrollBy({ left: pkgGrid.offsetWidth * 0.85, behavior: 'smooth' });
+            });
+        }
+
+        pkgDots.forEach((dot, idx) => {
+            dot.addEventListener('click', () => {
+                if (cards[idx]) {
+                    cards[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                }
+            });
+        });
     }
 });
