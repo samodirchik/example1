@@ -1247,6 +1247,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Telegram Bot Integration ---
+    function formatPhoneLink(phoneStr) {
+        const cleanDigits = phoneStr.replace(/\D/g, '');
+        const telNumber = cleanDigits.startsWith('380') ? '+' + cleanDigits : (cleanDigits.startsWith('0') ? '+38' + cleanDigits : '+380' + cleanDigits);
+        return `<a href="tel:${telNumber}">${phoneStr}</a>`;
+    }
+
     async function sendToTelegram(messageText) {
         const config = window.SVITLO24_TELEGRAM_CONFIG || {};
         const botToken = config.botToken || '';
@@ -1289,6 +1295,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function recordSubmitTime() {
         localStorage.setItem('svitlo24_last_submit', Date.now().toString());
+    }
+
+    function validateUkrainianPhone(phoneStr) {
+        const cleanDigits = phoneStr.replace(/\D/g, '');
+        return cleanDigits.length === 12 && cleanDigits.startsWith('380');
     }
 
     if (orderForm) {
