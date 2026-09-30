@@ -482,161 +482,360 @@
             </div>
         </section>
 
-        <!-- Packages Showcase -->
+        <!-- Unified Catalog Showcase Section -->
         <section class="section packages-section" id="packages">
             <div class="container">
                 <div class="section-header">
-                    <h2 class="section-title" data-i18n="pkg.title">Готові комплекти автономності</h2>
-                    <p class="section-subtitle" data-i18n="pkg.subtitle">Підібрані рішення для квартир, котеджів та бізнесу з гарантією 5 років та оперативною доставкою.</p>
+                    <h2 class="section-title" id="catalog-main-title" data-i18n="pkg.title">Готові комплекти та акумулятори</h2>
+                    <p class="section-subtitle" id="catalog-main-subtitle" data-i18n="pkg.subtitle">Підібрані рішення для квартир, котеджів та бізнесу з гарантією 5 років та оперативною доставкою.</p>
+                    
+                    <!-- Segmented Tab Switcher -->
+                    <div class="catalog-tab-switcher">
+                        <button type="button" class="catalog-tab-btn active" data-tab-target="tab-packages">
+                            ⚡ Готові комплекти автономності
+                        </button>
+                        <button type="button" class="catalog-tab-btn" data-tab-target="tab-tadiran">
+                            🔋 Акумулятори Tadiran LiFePO4
+                        </button>
+                    </div>
                 </div>
 
-                <div class="packages-grid">
-                    <!-- Package 1 Featured (6 kW) -->
-                    <div class="package-card glass-panel package-featured tilt-card">
-                        <div class="package-badge badge-featured" data-i18n="pkg.badge_featured">Хіт продажів</div>
-                        
-                        <!-- Image Container / Slot -->
-                        <div class="package-img-box">
-                            <img src="assets/images/package-6kw.jpg" alt="Комфорт 6 кВт" class="package-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="package-img-placeholder">
-                                <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                                <span data-i18n="pkg.photo_slot">Місце під фото комплекту</span>
+                <!-- Tab 1: Ready-made packages -->
+                <div class="catalog-tab-pane active" id="tab-packages">
+                    <div class="packages-grid">
+                        <!-- Package 1 Featured (6 kW) -->
+                        <div class="package-card glass-panel package-featured tilt-card">
+                            <div class="package-badge badge-featured" data-i18n="pkg.badge_featured">Хіт продажів</div>
+                            
+                            <!-- Image Container / Slot -->
+                            <div class="package-img-box">
+                                <img src="assets/images/package-6kw.jpg" alt="Комфорт 6 кВт" class="package-img">
+                            </div>
+
+                            <h3 class="package-name" data-i18n="pkg.name_1">Комфорт 6 кВт</h3>
+                            
+                            <!-- Key Specs Bar -->
+                            <div class="package-specs-bar">
+                                <div class="spec-pill">
+                                    <span class="spec-val">6 кВт</span>
+                                    <span class="spec-lbl" data-i18n="pkg.spec_power">Потужність</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">5.12 кВт·год</span>
+                                    <span class="spec-lbl" data-i18n="pkg.spec_cap">Ємність LiFePO4</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">5–8 год</span>
+                                    <span class="spec-lbl" data-i18n="pkg.spec_time">Час роботи</span>
+                                </div>
+                            </div>
+
+                            <!-- Price Box: Old Crossed-out + New Price + Savings Badge -->
+                            <div class="package-price-box">
+                                <div class="price-old-wrap">
+                                    <span class="price-old">175 000 <span class="currency">₴</span></span>
+                                    <span class="badge-discount" data-i18n="pkg.save_1">-15% Економія 26 000 ₴</span>
+                                </div>
+                                <div class="package-price">149 000 <span class="currency">₴</span></div>
+                            </div>
+
+                            <ul class="package-features">
+                                <li data-i18n="pkg.p1_f1">Гібридний Інвертор 6 кВт (Чистий синус)</li>
+                                <li data-i18n="pkg.p1_f2">Батарея LiFePO4 5.12 кВт·год (100Ah 48V)</li>
+                                <li data-i18n="pkg.p1_f3">До 5–8 годин повної автономності</li>
+                                <li data-i18n="pkg.p1_f4">Підключення сонячних панелей</li>
+                                <li data-i18n="pkg.p1_f5">Моніторинг зі смартфона</li>
+                            </ul>
+                            <div class="package-btns-row" style="display: flex; gap: 10px; margin-top: auto;">
+                                <button type="button" class="btn btn-outline view-details-btn" data-pack-id="pkg-6kw" style="flex: 1; padding: 12px 8px; font-weight: 600; font-size: 0.88rem;">Деталі моделі</button>
+                                <button type="button" class="btn btn-emerald glow-btn select-pack-btn" data-pack="Комфорт 6 кВт" style="flex: 1.2; padding: 12px 8px; font-size: 0.88rem;">Замовити</button>
                             </div>
                         </div>
 
-                        <h3 class="package-name" data-i18n="pkg.name_1">Комфорт 6 кВт</h3>
-                        
-                        <!-- Key Specs Bar -->
-                        <div class="package-specs-bar">
-                            <div class="spec-pill">
-                                <span class="spec-val">6 кВт</span>
-                                <span class="spec-lbl" data-i18n="pkg.spec_power">Потужність</span>
+                        <!-- Package 2 (12 kW) -->
+                        <div class="package-card glass-panel tilt-card">
+                            <div class="package-badge" data-i18n="pkg.badge_2">Будинок / Котедж</div>
+
+                            <!-- Image Container / Slot -->
+                            <div class="package-img-box">
+                                <img src="assets/images/package-12kw.jpg" alt="Оптима 12 кВт" class="package-img">
                             </div>
-                            <div class="spec-pill">
-                                <span class="spec-val">5.12 кВт·год</span>
-                                <span class="spec-lbl" data-i18n="pkg.spec_cap">Ємність LiFePO4</span>
+
+                            <h3 class="package-name" data-i18n="pkg.name_2">Оптима 12 кВт</h3>
+
+                            <!-- Key Specs Bar -->
+                            <div class="package-specs-bar">
+                                <div class="spec-pill">
+                                    <span class="spec-val">12 кВт</span>
+                                    <span class="spec-lbl" data-i18n="pkg.spec_power">Потужність</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">10.24 кВт·год</span>
+                                    <span class="spec-lbl" data-i18n="pkg.spec_cap">Ємність LiFePO4</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">12–24 год</span>
+                                    <span class="spec-lbl" data-i18n="pkg.spec_time">Час роботи</span>
+                                </div>
                             </div>
-                            <div class="spec-pill">
-                                <span class="spec-val">5–8 год</span>
-                                <span class="spec-lbl" data-i18n="pkg.spec_time">Час роботи</span>
+
+                            <!-- Price Box: Old Crossed-out + New Price + Savings Badge -->
+                            <div class="package-price-box">
+                                <div class="price-old-wrap">
+                                    <span class="price-old">279 000 <span class="currency">₴</span></span>
+                                    <span class="badge-discount" data-i18n="pkg.save_2">-14% Економія 40 000 ₴</span>
+                                </div>
+                                <div class="package-price">239 000 <span class="currency">₴</span></div>
+                            </div>
+
+                            <ul class="package-features">
+                                <li data-i18n="pkg.p2_f1">Гібридний Інвертор 12 кВт</li>
+                                <li data-i18n="pkg.p2_f2">Батарея LiFePO4 10.24 кВт·год</li>
+                                <li data-i18n="pkg.p2_f3">До 12–24+ годин живлення дому</li>
+                                <li data-i18n="pkg.p2_f4">Повний захист великого будинку</li>
+                            </ul>
+                            <div class="package-btns-row" style="display: flex; gap: 10px; margin-top: auto;">
+                                <button type="button" class="btn btn-outline view-details-btn" data-pack-id="pkg-12kw" style="flex: 1; padding: 12px 8px; font-weight: 600; font-size: 0.88rem;">Деталі моделі</button>
+                                <button type="button" class="btn btn-emerald glow-btn select-pack-btn" data-pack="Оптима 12 кВт" style="flex: 1.2; padding: 12px 8px; font-size: 0.88rem;">Замовити</button>
                             </div>
                         </div>
 
-                        <!-- Price Box: Old Crossed-out + New Price + Savings Badge -->
-                        <div class="package-price-box">
-                            <div class="price-old-wrap">
-                                <span class="price-old">175 000 <span class="currency">₴</span></span>
-                                <span class="badge-discount" data-i18n="pkg.save_1">-15% Економія 26 000 ₴</span>
-                            </div>
-                            <div class="package-price">149 000 <span class="currency">₴</span></div>
-                        </div>
+                        <!-- Package 3 (15 kW) -->
+                        <div class="package-card glass-panel tilt-card">
+                            <div class="package-badge" data-i18n="pkg.badge_3">Заміський будинок / Бізнес</div>
 
-                        <ul class="package-features">
-                            <li data-i18n="pkg.p1_f1">Гібридний Інвертор 6 кВт (Чистий синус)</li>
-                            <li data-i18n="pkg.p1_f2">Батарея LiFePO4 5.12 кВт·год (100Ah 48V)</li>
-                            <li data-i18n="pkg.p1_f3">До 5–8 годин повної автономності</li>
-                            <li data-i18n="pkg.p1_f4">Підключення сонячних панелей</li>
-                            <li data-i18n="pkg.p1_f5">Моніторинг зі смартфона</li>
-                        </ul>
-                        <button class="btn btn-emerald btn-block glow-btn select-pack-btn" data-pack="Комфорт 6 кВт" data-i18n="pkg.btn_order_discount">Замовити зі знижкою</button>
+                            <!-- Image Container / Slot -->
+                            <div class="package-img-box">
+                                <img src="assets/images/package-15kw.jpg" alt="Максимум 15 кВт" class="package-img">
+                            </div>
+
+                            <h3 class="package-name" data-i18n="pkg.name_3">Максимум 15 кВт</h3>
+
+                            <!-- Key Specs Bar -->
+                            <div class="package-specs-bar">
+                                <div class="spec-pill">
+                                    <span class="spec-val">15 кВт</span>
+                                    <span class="spec-lbl" data-i18n="pkg.spec_power">Потужність</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">15.36 кВт·год</span>
+                                    <span class="spec-lbl" data-i18n="pkg.spec_cap">Ємність LiFePO4</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">24–48 год</span>
+                                    <span class="spec-lbl" data-i18n="pkg.spec_time">Час роботи</span>
+                                </div>
+                            </div>
+
+                            <!-- Price Box: Old Crossed-out + New Price + Savings Badge -->
+                            <div class="package-price-box">
+                                <div class="price-old-wrap">
+                                    <span class="price-old">369 000 <span class="currency">₴</span></span>
+                                    <span class="badge-discount" data-i18n="pkg.save_3">-14% Економія 50 000 ₴</span>
+                                </div>
+                                <div class="package-price">319 000 <span class="currency">₴</span></div>
+                            </div>
+
+                            <ul class="package-features">
+                                <li data-i18n="pkg.p3_f1">Трифазний Інвертор 15 кВт</li>
+                                <li data-i18n="pkg.p3_f2">3x Батареї LiFePO4 (15.36 кВт·год)</li>
+                                <li data-i18n="pkg.p3_f3">До 48 годин автономної роботи</li>
+                                <li data-i18n="pkg.p3_f4">Живлення будь-якого силового обладнання</li>
+                            </ul>
+                            <div class="package-btns-row" style="display: flex; gap: 10px; margin-top: auto;">
+                                <button type="button" class="btn btn-outline view-details-btn" data-pack-id="pkg-24kw" style="flex: 1; padding: 12px 8px; font-weight: 600; font-size: 0.88rem;">Деталі моделі</button>
+                                <button type="button" class="btn btn-emerald glow-btn select-pack-btn" data-pack="Максимум 15 кВт" style="flex: 1.2; padding: 12px 8px; font-size: 0.88rem;">Замовити</button>
+                            </div>
+                        </div>
                     </div>
+                </div>
 
-                    <!-- Package 2 (12 kW) -->
-                    <div class="package-card glass-panel tilt-card">
-                        <div class="package-badge" data-i18n="pkg.badge_2">Будинок / Котедж</div>
+                <!-- Tab 2: Tadiran Batteries Showcase -->
+                <div class="catalog-tab-pane" id="tab-tadiran">
+                    <div class="packages-grid tadiran-grid">
+                        <!-- Tadiran Card 1 (314Ah) -->
+                        <div class="package-card glass-panel package-featured tilt-card">
+                            <div class="package-badge badge-featured" data-i18n="tadiran.b314_badge">ФЛАГМАН / 8000 ЦИКЛІВ</div>
 
-                        <!-- Image Container / Slot -->
-                        <div class="package-img-box">
-                            <img src="assets/images/package-12kw.jpg" alt="Оптима 12 кВт" class="package-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="package-img-placeholder">
-                                <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                                <span data-i18n="pkg.photo_slot">Місце під фото комплекту</span>
+                            <div class="package-img-box">
+                                <img src="assets/images/tadiran-314ah.jpg" alt="Tadiran LFP 51.2V 314Ah" class="package-img">
+                            </div>
+
+                            <h3 class="package-name">Tadiran LFP 51.2V 314Ah</h3>
+
+                            <div class="package-specs-bar">
+                                <div class="spec-pill">
+                                    <span class="spec-val">16.08 кВт·год</span>
+                                    <span class="spec-lbl">Ємність</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">51.2 В</span>
+                                    <span class="spec-lbl">Напруга</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">8000</span>
+                                    <span class="spec-lbl">Циклів (80% DoD)</span>
+                                </div>
+                            </div>
+
+                            <div class="package-price-box">
+                                <div class="price-old-wrap">
+                                    <span class="price-old">210 000 <span class="currency">₴</span></span>
+                                    <span class="badge-discount">-12% Економія 25 000 ₴</span>
+                                </div>
+                                <div class="package-price">185 000 <span class="currency">₴</span></div>
+                            </div>
+
+                            <ul class="package-features">
+                                <li>Осередки класу A+ з BMS моніторингом JBD</li>
+                                <li>Підлоговий монтаж з роликами та посиленим корпусом</li>
+                                <li>Масштабування до 15 модулів (241 кВт·год)</li>
+                                <li>Порти CAN / RS485 для Deye, Must, Victron</li>
+                            </ul>
+
+                            <div class="package-btns-row" style="display: flex; gap: 10px; margin-top: auto;">
+                                <button type="button" class="btn btn-outline view-tadiran-btn" data-tadiran-id="314ah" style="flex: 1; padding: 12px 8px; font-weight: 600; font-size: 0.88rem;">Деталі моделі</button>
+                                <button type="button" class="btn btn-emerald glow-btn select-pack-btn" data-pack="Tadiran LFP-51.2V 314Ah (16.08 кВт·год)" style="flex: 1.2; padding: 12px 8px; font-size: 0.88rem;">Замовити</button>
                             </div>
                         </div>
 
-                        <h3 class="package-name" data-i18n="pkg.name_2">Оптима 12 кВт</h3>
+                        <!-- Tadiran Card 2 (200Ah) -->
+                        <div class="package-card glass-panel tilt-card">
+                            <div class="package-badge" data-i18n="tadiran.b200_badge">ПОПУЛЯРНИЙ ВИБІР</div>
 
-                        <!-- Key Specs Bar -->
-                        <div class="package-specs-bar">
-                            <div class="spec-pill">
-                                <span class="spec-val">12 кВт</span>
-                                <span class="spec-lbl" data-i18n="pkg.spec_power">Потужність</span>
+                            <div class="package-img-box">
+                                <img src="assets/images/tadiran-200ah.jpg" alt="Tadiran LFP 51.2V 200Ah" class="package-img">
                             </div>
-                            <div class="spec-pill">
-                                <span class="spec-val">10.24 кВт·год</span>
-                                <span class="spec-lbl" data-i18n="pkg.spec_cap">Ємність LiFePO4</span>
+
+                            <h3 class="package-name">Tadiran LFP 51.2V 200Ah</h3>
+
+                            <div class="package-specs-bar">
+                                <div class="spec-pill">
+                                    <span class="spec-val">10.24 кВт·год</span>
+                                    <span class="spec-lbl">Ємність</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">51.2 В</span>
+                                    <span class="spec-lbl">Напруга</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">6000</span>
+                                    <span class="spec-lbl">Циклів (80% DoD)</span>
+                                </div>
                             </div>
-                            <div class="spec-pill">
-                                <span class="spec-val">12–24 год</span>
-                                <span class="spec-lbl" data-i18n="pkg.spec_time">Час роботи</span>
+
+                            <div class="package-price-box">
+                                <div class="price-old-wrap">
+                                    <span class="price-old">145 000 <span class="currency">₴</span></span>
+                                    <span class="badge-discount">-14% Економія 20 000 ₴</span>
+                                </div>
+                                <div class="package-price">125 000 <span class="currency">₴</span></div>
                             </div>
-                        </div>
 
-                        <!-- Price Box: Old Crossed-out + New Price + Savings Badge -->
-                        <div class="package-price-box">
-                            <div class="price-old-wrap">
-                                <span class="price-old">279 000 <span class="currency">₴</span></span>
-                                <span class="badge-discount" data-i18n="pkg.save_2">-14% Економія 40 000 ₴</span>
-                            </div>
-                            <div class="package-price">239 000 <span class="currency">₴</span></div>
-                        </div>
+                            <ul class="package-features">
+                                <li>Оптимальний підлоговий модуль для будинку</li>
+                                <li>Вбудований LCD дисплей стану елементів</li>
+                                <li>Подвійне активне балансування ячейок</li>
+                                <li>Повна сумісність з інверторами 48 В</li>
+                            </ul>
 
-                        <ul class="package-features">
-                            <li data-i18n="pkg.p2_f1">Гібридний Інвертор 12 кВт</li>
-                            <li data-i18n="pkg.p2_f2">Батарея LiFePO4 10.24 кВт·год</li>
-                            <li data-i18n="pkg.p2_f3">До 12–24+ годин живлення дому</li>
-                            <li data-i18n="pkg.p2_f4">Повний захист великого будинку</li>
-                        </ul>
-                        <button class="btn btn-emerald btn-block glow-btn select-pack-btn" data-pack="Оптима 12 кВт" data-i18n="pkg.btn_order_discount">Замовити зі знижкою</button>
-                    </div>
-
-                    <!-- Package 3 (15 kW) -->
-                    <div class="package-card glass-panel tilt-card">
-                        <div class="package-badge" data-i18n="pkg.badge_3">Заміський будинок / Бізнес</div>
-
-                        <!-- Image Container / Slot -->
-                        <div class="package-img-box">
-                            <img src="assets/images/package-15kw.jpg" alt="Максимум 15 кВт" class="package-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="package-img-placeholder">
-                                <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                                <span data-i18n="pkg.photo_slot">Місце під фото комплекту</span>
+                            <div class="package-btns-row" style="display: flex; gap: 10px; margin-top: auto;">
+                                <button type="button" class="btn btn-outline view-tadiran-btn" data-tadiran-id="200ah" style="flex: 1; padding: 12px 8px; font-weight: 600; font-size: 0.88rem;">Деталі моделі</button>
+                                <button type="button" class="btn btn-emerald glow-btn select-pack-btn" data-pack="Tadiran LFP-51.2V 200Ah (10.24 кВт·год)" style="flex: 1.2; padding: 12px 8px; font-size: 0.88rem;">Замовити</button>
                             </div>
                         </div>
 
-                        <h3 class="package-name" data-i18n="pkg.name_3">Максимум 15 кВт</h3>
+                        <!-- Tadiran Card 3 (100Ah-WM) -->
+                        <div class="package-card glass-panel tilt-card">
+                            <div class="package-badge" data-i18n="tadiran.b100wm_badge">НАСТІННИЙ МОНТАЖ</div>
 
-                        <!-- Key Specs Bar -->
-                        <div class="package-specs-bar">
-                            <div class="spec-pill">
-                                <span class="spec-val">15 кВт</span>
-                                <span class="spec-lbl" data-i18n="pkg.spec_power">Потужність</span>
+                            <div class="package-img-box">
+                                <img src="assets/images/tadiran-100ah-wm.jpg" alt="Tadiran LFP 51.2V 100Ah-WM" class="package-img">
                             </div>
-                            <div class="spec-pill">
-                                <span class="spec-val">15.36 кВт·год</span>
-                                <span class="spec-lbl" data-i18n="pkg.spec_cap">Ємність LiFePO4</span>
+
+                            <h3 class="package-name">Tadiran LFP 51.2V 100Ah-WM</h3>
+
+                            <div class="package-specs-bar">
+                                <div class="spec-pill">
+                                    <span class="spec-val">5.12 кВт·год</span>
+                                    <span class="spec-lbl">Ємність</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">51.2 В</span>
+                                    <span class="spec-lbl">Напруга</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">6000</span>
+                                    <span class="spec-lbl">Циклів (80% DoD)</span>
+                                </div>
                             </div>
-                            <div class="spec-pill">
-                                <span class="spec-val">24–48 год</span>
-                                <span class="spec-lbl" data-i18n="pkg.spec_time">Час роботи</span>
+
+                            <div class="package-price-box">
+                                <div class="price-old-wrap">
+                                    <span class="price-old">78 000 <span class="currency">₴</span></span>
+                                    <span class="badge-discount">-17% Економія 13 000 ₴</span>
+                                </div>
+                                <div class="package-price">65 000 <span class="currency">₴</span></div>
+                            </div>
+
+                            <ul class="package-features">
+                                <li>Компактне настінне кріплення для квартири</li>
+                                <li>Вбудований вимикач постійного струму</li>
+                                <li>Ступінь захисту IP65 від пилу та вологи</li>
+                                <li>Масштабування до 16 модулів у паралель</li>
+                            </ul>
+
+                            <div class="package-btns-row" style="display: flex; gap: 10px; margin-top: auto;">
+                                <button type="button" class="btn btn-outline view-tadiran-btn" data-tadiran-id="100ah-wm" style="flex: 1; padding: 12px 8px; font-weight: 600; font-size: 0.88rem;">Деталі моделі</button>
+                                <button type="button" class="btn btn-emerald glow-btn select-pack-btn" data-pack="Tadiran LFP-51.2V 100Ah-WM (5.12 кВт·год)" style="flex: 1.2; padding: 12px 8px; font-size: 0.88rem;">Замовити</button>
                             </div>
                         </div>
 
-                        <!-- Price Box: Old Crossed-out + New Price + Savings Badge -->
-                        <div class="package-price-box">
-                            <div class="price-old-wrap">
-                                <span class="price-old">369 000 <span class="currency">₴</span></span>
-                                <span class="badge-discount" data-i18n="pkg.save_3">-14% Економія 50 000 ₴</span>
-                            </div>
-                            <div class="package-price">319 000 <span class="currency">₴</span></div>
-                        </div>
+                        <!-- Tadiran Card 4 (100Ah-S) -->
+                        <div class="package-card glass-panel tilt-card">
+                            <div class="package-badge" data-i18n="tadiran.b100s_badge">ДЛЯ 19" СТІЙКИ</div>
 
-                        <ul class="package-features">
-                            <li data-i18n="pkg.p3_f1">Трифазний Інвертор 15 кВт</li>
-                            <li data-i18n="pkg.p3_f2">3x Батареї LiFePO4 (15.36 кВт·год)</li>
-                            <li data-i18n="pkg.p3_f3">До 48 годин автономної роботи</li>
-                            <li data-i18n="pkg.p3_f4">Живлення будь-якого силового обладнання</li>
-                        </ul>
-                        <button class="btn btn-emerald btn-block glow-btn select-pack-btn" data-pack="Максимум 15 кВт" data-i18n="pkg.btn_order_discount">Замовити зі знижкою</button>
+                            <div class="package-img-box">
+                                <img src="assets/images/tadiran-100ah-s.jpg" alt="Tadiran LFP 51.2V 100Ah-S" class="package-img">
+                            </div>
+
+                            <h3 class="package-name">Tadiran LFP 51.2V 100Ah-S</h3>
+
+                            <div class="package-specs-bar">
+                                <div class="spec-pill">
+                                    <span class="spec-val">5.12 кВт·год</span>
+                                    <span class="spec-lbl">Ємність</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">51.2 В</span>
+                                    <span class="spec-lbl">Напруга</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">6000</span>
+                                    <span class="spec-lbl">Циклів (80% DoD)</span>
+                                </div>
+                            </div>
+
+                            <div class="package-price-box">
+                                <div class="price-old-wrap">
+                                    <span class="price-old">74 000 <span class="currency">₴</span></span>
+                                    <span class="badge-discount">-16% Економія 12 000 ₴</span>
+                                </div>
+                                <div class="package-price">62 000 <span class="currency">₴</span></div>
+                            </div>
+
+                            <ul class="package-features">
+                                <li>Стандартний форм-фактор для серверних шаф 19"</li>
+                                <li>Підтримка паралельного підключення до 32 шт</li>
+                                <li>Інтерфейси RS485/CAN/RS232 для моніторингу</li>
+                                <li>Сертифікація UL9540A, UL1973, CE-EMC</li>
+                            </ul>
+
+                            <div class="package-btns-row" style="display: flex; gap: 10px; margin-top: auto;">
+                                <button type="button" class="btn btn-outline view-tadiran-btn" data-tadiran-id="100ah-s" style="flex: 1; padding: 12px 8px; font-weight: 600; font-size: 0.88rem;">Деталі моделі</button>
+                                <button type="button" class="btn btn-emerald glow-btn select-pack-btn" data-pack="Tadiran LFP-51.2V 100Ah-S (5.12 кВт·год)" style="flex: 1.2; padding: 12px 8px; font-size: 0.88rem;">Замовити</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -818,11 +1017,127 @@
                         <option value="Комплект 6 кВт">Комплект 6 кВт</option>
                         <option value="Комплект 12 кВт">Комплект 12 кВт</option>
                         <option value="Комплект 15 кВт">Комплект 15 кВт</option>
+                        <option value="Tadiran LFP-51.2V 314Ah (16.08 кВт·год)">Tadiran LFP-51.2V 314Ah (16.08 кВт·год)</option>
+                        <option value="Tadiran LFP-51.2V 200Ah (10.24 кВт·год)">Tadiran LFP-51.2V 200Ah (10.24 кВт·год)</option>
+                        <option value="Tadiran LFP-51.2V 100Ah-WM (5.12 кВт·год)">Tadiran LFP-51.2V 100Ah-WM (5.12 кВт·год)</option>
+                        <option value="Tadiran LFP-51.2V 100Ah-S (5.12 кВт·год)">Tadiran LFP-51.2V 100Ah-S (5.12 кВт·год)</option>
                     </select>
                 </div>
 
                 <button type="submit" class="btn btn-emerald btn-block btn-lg glow-btn" data-i18n="modal.btn_submit">Отримати розрахунок</button>
             </form>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div class="modal-backdrop" id="product-modal">
+        <div class="modal-content glass-panel product-modal-content">
+            <button type="button" class="modal-close" id="prod-modal-close-btn" aria-label="Закрити">&times;</button>
+            
+            <div class="product-modal-grid">
+                <!-- Left Column: Visual & Accessories -->
+                <div class="product-visual-col">
+                    <div class="product-badge-bar">
+                        <span class="package-badge badge-featured" id="pm-badge">Флагман / 8000 циклів</span>
+                    </div>
+                    <div class="product-main-visual" id="pm-visual-box">
+                        <!-- Rendered Image dynamically -->
+                    </div>
+                    
+                    <!-- Gallery Thumbnails Row -->
+                    <div class="gallery-thumb-row" id="pm-gallery-thumbs">
+                        <!-- Rendered Gallery Thumbnails dynamically -->
+                    </div>
+
+                    <!-- Accessories Box -->
+                    <div class="product-accessories-box">
+                        <h4 class="acc-title" data-i18n="pm.acc_title">📦 Входить до комплектації:</h4>
+                        <div class="acc-grid" id="pm-acc-grid">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Specs & Selector -->
+                <div class="product-info-col">
+                    <h2 class="product-title" id="pm-title">Tadiran LFP 51.2V 314Ah</h2>
+                    <p class="product-subtitle" id="pm-subtitle">Низьковольтна підлогова LiFePO4 акумуляторна батарея 51,2 В, 314 А</p>
+
+                    <!-- Model Switcher -->
+                    <div class="model-selector-wrap">
+                        <label class="model-sel-lbl" data-i18n="pm.sel_model">Модельний ряд:</label>
+                        <div class="model-tabs">
+                            <button type="button" class="model-tab active" data-tadiran-tab="314ah">314Ah</button>
+                            <button type="button" class="model-tab" data-tadiran-tab="200ah">200Ah</button>
+                            <button type="button" class="model-tab" data-tadiran-tab="100ah-wm">100Ah-WM</button>
+                            <button type="button" class="model-tab" data-tadiran-tab="100ah-s">100Ah-S</button>
+                        </div>
+                    </div>
+
+                    <!-- Specs Table -->
+                    <div class="product-specs-table" id="pm-specs-table">
+                        <div class="spec-row">
+                            <span class="spec-name">Номінальна напруга:</span>
+                            <span class="spec-val-bold" id="pm-voltage">51.2 В</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-name">Ємність батареї:</span>
+                            <span class="spec-val-bold" id="pm-capacity">314 А·год</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-name">Номінальна / Доступна енергія:</span>
+                            <span class="spec-val-bold" id="pm-energy">16.08 кВт·год</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-name">Струм (Номін. / Заряд / Розряд):</span>
+                            <span class="spec-val-bold" id="pm-current">100А / 200А / 200А</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-name">Життєвий цикл:</span>
+                            <span class="spec-val-bold" id="pm-cycles">8000 циклів (80% DoD, 0.5C)</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-name">Масштабованість:</span>
+                            <span class="spec-val-bold" id="pm-scaling">1–15 модулів (до 241 кВт·год)</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-name">Робоча температура (Заряд / Розряд):</span>
+                            <span class="spec-val-bold" id="pm-temp">0…+55 °C / -20…+60 °C</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-name">Розміри виробу (ШхВхГ):</span>
+                            <span class="spec-val-bold" id="pm-dim">807 × 520 × 252 мм</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-name">Вага (Нетто / Брутто):</span>
+                            <span class="spec-val-bold" id="pm-weight">130 кг / 144 кг</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-name">Порти зв'язку & BMS:</span>
+                            <span class="spec-val-bold" id="pm-ports">CAN / RS485 / RS232 (JBD APP)</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-name">Сертифікація:</span>
+                            <span class="spec-val-bold" id="pm-certs">MSDS, UN38.3, CE-EMC, IEC62619</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-name">Монтаж & Ступінь захисту:</span>
+                            <span class="spec-val-bold" id="pm-montage">Підлоговий (IP30)</span>
+                        </div>
+                    </div>
+
+                    <!-- Footer Action -->
+                    <div class="product-modal-footer">
+                        <div class="pm-price-wrap">
+                            <span class="pm-price-lbl" data-i18n="pm.price_lbl">Офіційна ціна:</span>
+                            <span class="pm-price" id="pm-price">від 185 000 ₴</span>
+                        </div>
+                        <button type="button" class="btn btn-emerald btn-lg glow-btn pm-order-btn" id="pm-order-btn" data-i18n="pm.btn_order">
+                            Замовити розрахунок
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

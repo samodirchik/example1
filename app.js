@@ -1542,4 +1542,263 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // --- 17.0 Tadiran Product Details Modal Engine ---
+    const PRODUCT_DATA = {
+        '314ah': {
+            id: '314ah',
+            title: 'Tadiran LFP 51.2V 314Ah',
+            subtitle: 'Низьковольтна підлогова LiFePO4 акумуляторна батарея 51,2 В, 314 А',
+            badge: 'Флагман / 8000 циклів',
+            voltage: '51.2 В',
+            capacity: '314 А·год',
+            energy: '16.08 кВт·год',
+            current: '100А (Номін.) / 200А (Заряд) / 200А (Розряд)',
+            cycles: '8000 циклів (при 80% DoD, 0.5C)',
+            scaling: '1–15 модулів (до 241.2 кВт·год)',
+            temp: 'Заряд: 0…+55 °C | Розряд: -20…+60 °C',
+            dim: '807 × 520 × 252 мм (упаковка: 865 × 580 × 415 мм)',
+            weight: '130 кг (Нетто) / 144 кг (Брутто)',
+            ports: 'CAN / RS485 / RS232 (JBD APP Моніторинг)',
+            certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
+            montage: 'Підлоговий на роликах (IP30)',
+            price: 'від 185 000 ₴',
+            packName: 'Tadiran LFP-51.2V 314Ah (16.08 кВт·год)',
+            accessories: ['Комплект батареї x1', 'Кабель для інвертора x2', 'Кабель зв’язку x1', 'Інструкція x1'],
+            gallery: [
+                'assets/images/tadiran-314ah-1.jpg',
+                'assets/images/tadiran-314ah-2.jpg',
+                'assets/images/tadiran-314ah-3.jpg'
+            ]
+        },
+        '200ah': {
+            id: '200ah',
+            title: 'Tadiran LFP 51.2V 200Ah',
+            subtitle: 'Низьковольтна підлогова LiFePO4 акумуляторна батарея для котеджів',
+            badge: 'Популярний вибір',
+            voltage: '51.2 В',
+            capacity: '200 А·год',
+            energy: '10.24 кВт·год',
+            current: '100А (Номін.) / 200А (Заряд) / 200А (Розряд)',
+            cycles: '6000 циклів (при 80% DoD, 0.5C)',
+            scaling: '1–15 модулів (до 153.6 кВт·год)',
+            temp: 'Заряд: 0…+55 °C | Розряд: -20…+60 °C',
+            dim: '628 × 490 × 250 мм (упаковка: 710 × 570 × 475 мм)',
+            weight: '100 кг (Нетто) / 110 кг (Брутто)',
+            ports: 'CAN / RS485 / RS232 (JBD APP)',
+            certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
+            montage: 'Підлоговий (IP30)',
+            price: 'від 125 000 ₴',
+            packName: 'Tadiran LFP-51.2V 200Ah (10.24 кВт·год)',
+            accessories: ['Комплект батареї x1', 'Кабель парал. підключення x2', 'Кабель зв’язку x1', 'Інструкція x1'],
+            gallery: [
+                'assets/images/tadiran-200ah-1.jpg',
+                'assets/images/tadiran-200ah-2.jpg',
+                'assets/images/tadiran-200ah-3.jpg'
+            ]
+        },
+        '100ah-wm': {
+            id: '100ah-wm',
+            title: 'Tadiran LFP 51.2V 100Ah-WM',
+            subtitle: 'Низьковольтна настінна LiFePO4 акумуляторна батарея 51,2 В, 100 А',
+            badge: 'Настінний монтаж',
+            voltage: '51.2 В',
+            capacity: '100 А·год',
+            energy: '5.12 кВт·год',
+            current: '50А (Номін.) / 100А (Заряд) / 100А (Розряд)',
+            cycles: '6000 циклів (при 80% DoD, 0.5C)',
+            scaling: '1–15 модулів (до 76.8 кВт·год)',
+            temp: 'Заряд: 0…+55 °C | Розряд: -20…+60 °C',
+            dim: '450 × 580 × 210 мм (упаковка: 672 × 522 × 305 мм)',
+            weight: '53 кг (Нетто) / 56 кг (Брутто)',
+            ports: 'CAN / RS485 / RS232 (JBD APP)',
+            certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
+            montage: 'Настінний (IP30)',
+            price: 'від 65 000 ₴',
+            packName: 'Tadiran LFP-51.2V 100Ah-WM (5.12 кВт·год)',
+            accessories: ['Батарея x1', 'Кабель парал. підключення x2', 'Кабель зв’язку x1', 'Інструкція x1'],
+            gallery: [
+                'assets/images/tadiran-100ah-wm-1.jpg',
+                'assets/images/tadiran-100ah-wm-2.jpg',
+                'assets/images/tadiran-100ah-wm-3.jpg'
+            ]
+        },
+        '100ah-s': {
+            id: '100ah-s',
+            title: 'Tadiran LFP 51.2V 100Ah-S',
+            subtitle: 'Низьковольтна LiFePO4 акумуляторна батарея для 19" серверної стійки',
+            badge: 'Для 19" Стійки (до 32 шт)',
+            voltage: '51.2 В',
+            capacity: '100 А·год',
+            energy: '5.12 кВт·год',
+            current: '50А (Номін.) / 100А (Заряд) / 100А (Розряд)',
+            cycles: '6000 циклів (при 80% DoD, 0.2C)',
+            scaling: '1–32 модулів (до 163.84 кВт·год)',
+            temp: 'Заряд: 0…+55 °C | Розряд: -20…+60 °C',
+            dim: '550 × 483 × 180 мм (упаковка: 647 × 537 × 265 мм)',
+            weight: '47 кг (Нетто) / 52 кг (Брутто)',
+            ports: 'CAN / RS485 / RS232 (JBD APP)',
+            certs: 'MSDS, UN38.3, CE-EMC, UL9540A, UL1973, UL9540',
+            montage: 'Підлоговий / Штабельований 19" (IP30)',
+            price: 'від 62 000 ₴',
+            packName: 'Tadiran LFP-51.2V 100Ah-S (5.12 кВт·год)',
+            accessories: ['Батарея x1', 'Стійки x4', 'Кабель заземлення x1', 'Кабель парал. x2', 'Кабель зв’язку x1', 'Інструкція x1'],
+            gallery: [
+                'assets/images/tadiran-100ah-s-1.jpg',
+                'assets/images/tadiran-100ah-s-2.jpg',
+                'assets/images/tadiran-100ah-s-3.jpg'
+            ]
+        }
+    };
+
+    function renderTadiranModal(tadId) {
+        const data = PRODUCT_DATA[tadId] || PRODUCT_DATA['314ah'];
+        
+        const pmTitle = document.getElementById('pm-title');
+        const pmSubtitle = document.getElementById('pm-subtitle');
+        const pmBadge = document.getElementById('pm-badge');
+        const pmVolt = document.getElementById('pm-voltage');
+        const pmCapacity = document.getElementById('pm-capacity');
+        const pmEnergy = document.getElementById('pm-energy');
+        const pmCurrent = document.getElementById('pm-current');
+        const pmCycles = document.getElementById('pm-cycles');
+        const pmScaling = document.getElementById('pm-scaling');
+        const pmTemp = document.getElementById('pm-temp');
+        const pmDim = document.getElementById('pm-dim');
+        const pmWeight = document.getElementById('pm-weight');
+        const pmPorts = document.getElementById('pm-ports');
+        const pmCerts = document.getElementById('pm-certs');
+        const pmMontage = document.getElementById('pm-montage');
+        const pmPrice = document.getElementById('pm-price');
+        
+        if (pmTitle) pmTitle.textContent = data.title;
+        if (pmSubtitle) pmSubtitle.textContent = data.subtitle;
+        if (pmBadge) pmBadge.textContent = data.badge;
+        if (pmVolt) pmVolt.textContent = data.voltage;
+        if (pmCapacity) pmCapacity.textContent = data.capacity;
+        if (pmEnergy) pmEnergy.textContent = data.energy;
+        if (pmCurrent) pmCurrent.textContent = data.current;
+        if (pmCycles) pmCycles.textContent = data.cycles;
+        if (pmScaling) pmScaling.textContent = data.scaling;
+        if (pmTemp) pmTemp.textContent = data.temp;
+        if (pmDim) pmDim.textContent = data.dim;
+        if (pmWeight) pmWeight.textContent = data.weight;
+        if (pmPorts) pmPorts.textContent = data.ports;
+        if (pmCerts) pmCerts.textContent = data.certs;
+        if (pmMontage) pmMontage.textContent = data.montage;
+        if (pmPrice) pmPrice.textContent = data.price;
+        
+        const visualBox = document.getElementById('pm-visual-box');
+        if (visualBox) {
+            const mainImg = data.gallery ? data.gallery[0] : (data.img || 'assets/images/tadiran-314ah.jpg');
+            visualBox.innerHTML = `<img src="${mainImg}" alt="${data.title}" class="pm-visual-img" id="pm-active-img" style="max-width: 100%; max-height: 220px; object-fit: contain; filter: drop-shadow(0 10px 20px rgba(15,23,42,0.12));">`;
+        }
+
+        const galleryThumbs = document.getElementById('pm-gallery-thumbs');
+        if (galleryThumbs && data.gallery) {
+            galleryThumbs.innerHTML = data.gallery.map((imgSrc, idx) => `
+                <img src="${imgSrc}" alt="${data.title} view ${idx + 1}" class="gallery-thumb ${idx === 0 ? 'active' : ''}" data-gallery-src="${imgSrc}">
+            `).join('');
+        }
+
+        const accGrid = document.getElementById('pm-acc-grid');
+        if (accGrid) {
+            accGrid.innerHTML = data.accessories.map(acc => `<span class="acc-tag">${acc}</span>`).join('');
+        }
+
+        const pmOrderBtn = document.getElementById('pm-order-btn');
+        if (pmOrderBtn) {
+            pmOrderBtn.setAttribute('data-pack', data.packName);
+        }
+
+        document.querySelectorAll('.model-tab').forEach(tab => {
+            tab.classList.toggle('active', tab.getAttribute('data-tadiran-tab') === tadId);
+        });
+    }
+
+    function openProductModal(tadId) {
+        renderTadiranModal(tadId);
+        const prodModalEl = document.getElementById('product-modal');
+        if (prodModalEl) {
+            prodModalEl.classList.add('active');
+        }
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeProductModal() {
+        const prodModalEl = document.getElementById('product-modal');
+        if (prodModalEl) {
+            prodModalEl.classList.remove('active');
+        }
+        document.body.style.overflow = '';
+    }
+
+    document.addEventListener('click', (e) => {
+        const galThumb = e.target.closest('.gallery-thumb');
+        if (galThumb) {
+            e.preventDefault();
+            const src = galThumb.getAttribute('data-gallery-src');
+            const mainImg = document.getElementById('pm-active-img');
+            if (mainImg && src) {
+                mainImg.src = src;
+                document.querySelectorAll('.gallery-thumb').forEach(t => {
+                    t.classList.toggle('active', t === galThumb);
+                });
+            }
+            return;
+        }
+
+        const catTabBtn = e.target.closest('.catalog-tab-btn');
+        if (catTabBtn) {
+            e.preventDefault();
+            const targetId = catTabBtn.getAttribute('data-tab-target');
+            if (targetId) {
+                document.querySelectorAll('.catalog-tab-btn').forEach(b => {
+                    b.classList.toggle('active', b === catTabBtn);
+                });
+                document.querySelectorAll('.catalog-tab-pane').forEach(pane => {
+                    pane.classList.toggle('active', pane.id === targetId);
+                });
+            }
+            return;
+        }
+
+        const viewBtn = e.target.closest('.view-tadiran-btn, .view-details-btn');
+        if (viewBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            const tadId = viewBtn.getAttribute('data-tadiran-id') || viewBtn.getAttribute('data-pack-id') || '314ah';
+            openProductModal(tadId);
+            return;
+        }
+
+        const tabBtn = e.target.closest('.model-tab');
+        if (tabBtn) {
+            e.preventDefault();
+            const tadId = tabBtn.getAttribute('data-tadiran-tab');
+            if (tadId) renderTadiranModal(tadId);
+            return;
+        }
+
+        const pmOrderBtn = e.target.closest('#pm-order-btn');
+        if (pmOrderBtn) {
+            e.preventDefault();
+            const packName = pmOrderBtn.getAttribute('data-pack');
+            closeProductModal();
+            openModal(packName);
+            return;
+        }
+
+        const closeBtn = e.target.closest('#prod-modal-close-btn');
+        if (closeBtn) {
+            e.preventDefault();
+            closeProductModal();
+            return;
+        }
+
+        const prodModalEl = document.getElementById('product-modal');
+        if (prodModalEl && e.target === prodModalEl) {
+            closeProductModal();
+        }
+    });
 });
