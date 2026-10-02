@@ -1,0 +1,20 @@
+<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="fav-neon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#10B981" />
+            <stop offset="100%" stop-color="#059669" />
+        </linearGradient>
+        <linearGradient id="fav-bolt-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#34D399" />
+            <stop offset="50%" stop-color="#10B981" />
+            <stop offset="100%" stop-color="#059669" />
+        </linearGradient>
+        <linearGradient id="fav-bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0F172A" />
+            <stop offset="100%" stop-color="#1E293B" />
+        </linearGradient>
+    </defs>
+    <rect x="2" y="2" width="36" height="36" rx="10" fill="url(#fav-bg-grad)" stroke="url(#fav-neon-grad)" stroke-width="1.5" />
+    <circle cx="20" cy="20" r="13" stroke="url(#fav-neon-grad)" stroke-width="1.8" stroke-linecap="round" fill="none" />
+    <path d="M22.5 6L12.5 21H19.5L18 34L28.5 18H21.5L24 6Z" fill="url(#fav-bolt-grad)" />
+</svg>

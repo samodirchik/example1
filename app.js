@@ -84,6 +84,100 @@ window.validateUkrainianPhone = validateUkrainianPhone;
 window.openModal = openModal;
 window.closeModal = closeModal;
 
+// --- Hero Showcase Interactive Power Switcher ---
+window.heroShowcaseData = {
+    '6': {
+        img: 'assets/images/hero-kit-6kwt-trans.png?v=3',
+        title: { ua: '6 кВт·год', ru: '6 кВт·ч' },
+        price: '55 000 ₴',
+        sub: { ua: 'Ідеально для резерву квартири', ru: 'Идеально для резерва квартиры' },
+        bullets: {
+            ua: ['Квартира', 'Котел', 'Холодильник', 'Інтернет'],
+            ru: ['Квартира', 'Котел', 'Холодильник', 'Интернет']
+        }
+    },
+    '12': {
+        img: 'assets/images/hero-kit-12kwt-trans.png?v=3',
+        title: { ua: '12 кВт·год', ru: '12 кВт·ч' },
+        price: '96 000 ₴',
+        sub: { ua: 'Квартира та невеликий будинок', ru: 'Квартира и небольшой дом' },
+        bullets: {
+            ua: ['Квартира', 'Невеликий будинок', 'Котел', 'Холодильник', 'Інтернет'],
+            ru: ['Квартира', 'Небольшой дом', 'Котел', 'Холодильник', 'Интернет']
+        }
+    },
+    '24': {
+        img: 'assets/images/hero-kit-24kwt-trans.png?v=3',
+        title: { ua: '24 кВт·год', ru: '24 кВт·ч' },
+        price: '168 300 ₴',
+        sub: { ua: 'Масштабований резерв будинку', ru: 'Масштабируемый резерв дома' },
+        bullets: {
+            ua: ['Великий будинок', 'Тепловий насос', 'Кондиціонування', 'Критичні системи'],
+            ru: ['Большой дом', 'Тепловой насос', 'Кондиционирование', 'Критические системы']
+        }
+    },
+    '36': {
+        img: 'assets/images/hero-kit-36kwt-trans.png?v=3',
+        title: { ua: '36 кВт·год', ru: '36 кВт·ч' },
+        price: '247 500 ₴',
+        sub: { ua: 'Рішення для бізнесу', ru: 'Решение для бизнеса' },
+        bullets: {
+            ua: ['Офіс', 'Комерційна будівля', 'Сервери', 'Підтримка бізнес-процесів'],
+            ru: ['Офис', 'Коммерческое здание', 'Серверы', 'Поддержка бизнес-процессов']
+        }
+    }
+};
+
+window.currentHeroPower = '6';
+
+window.selectHeroPower = function(p) {
+    if (!window.heroShowcaseData[p]) return;
+    window.currentHeroPower = String(p);
+
+    document.querySelectorAll('.hero-power-pill').forEach(btn => {
+        if (btn.getAttribute('data-power') === String(p)) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+
+    const data = window.heroShowcaseData[p];
+    const lang = localStorage.getItem('svitlo24_lang') || document.documentElement.lang || 'ua';
+
+    const imgEl = document.getElementById('hero-showcase-img');
+    const titleEl = document.getElementById('hero-spec-title');
+    const subEl = document.getElementById('hero-spec-sub');
+    const priceEl = document.getElementById('hero-spec-price');
+    const listEl = document.getElementById('hero-spec-list');
+
+    if (imgEl) {
+        imgEl.style.opacity = '0';
+        imgEl.style.transform = 'scale(0.96)';
+        setTimeout(() => {
+            imgEl.src = data.img;
+            imgEl.style.opacity = '1';
+            imgEl.style.transform = 'scale(1)';
+        }, 80);
+    }
+
+    if (titleEl) titleEl.textContent = typeof data.title === 'object' ? (data.title[lang] || data.title.ua) : data.title;
+    if (subEl) subEl.textContent = typeof data.sub === 'object' ? (data.sub[lang] || data.sub.ua) : data.sub;
+    if (priceEl) priceEl.textContent = data.price;
+
+    if (listEl && data.bullets) {
+        const bullets = data.bullets[lang] || data.bullets.ua || [];
+        listEl.innerHTML = bullets.map(b => `
+            <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>${b}</span>
+            </li>
+        `).join('');
+    }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     // --- 0.0 i18n Localization Engine (UA / RU) ---
     const translations = {
@@ -189,7 +283,30 @@ document.addEventListener('DOMContentLoaded', () => {
             'drawer.sub_1': 'Симуляція живлення приладів',
             'drawer.sub_2': 'Розрахунок часу автономії',
             'drawer.sub_3': 'Готові інвертори + акумулятори',
-            'drawer.phone_lbl': '📞 Натисніть для безкоштовного дзвінка'
+            'drawer.phone_lbl': '📞 Натисніть для безкоштовного дзвінка',
+            'pm.acc_title': '📦 Входить до комплектації:',
+            'pm.sel_pkg': 'Лінійка систем:',
+            'pm.sel_model': 'Модельний ряд:',
+            'pm.kpi_power': 'Потужність',
+            'pm.kpi_capacity': 'Ємність',
+            'pm.kpi_cycles': 'Ресурс',
+            'pm.sec_electrical': '⚡ Електричні параметри',
+            'pm.lbl_voltage': 'Номінальна напруга:',
+            'pm.lbl_energy': 'Номінальна енергія:',
+            'pm.lbl_capacity': 'Ємність батареї:',
+            'pm.lbl_current': 'Струм (Номін. / Заряд / Розряд):',
+            'pm.sec_performance': '🔋 Акумулятор та надійність',
+            'pm.lbl_cycles': 'Життєвий цикл:',
+            'pm.lbl_scaling': 'Масштабованість / PV вхід:',
+            'pm.lbl_temp': 'Робоча температура:',
+            'pm.sec_physical': '📐 Конструкція та стандарти',
+            'pm.lbl_dim': 'Розміри виробу (ШхВхГ):',
+            'pm.lbl_weight': 'Вага комплекту:',
+            'pm.lbl_ports': 'Порти зв\'язку & BMS:',
+            'pm.lbl_certs': 'Сертифікація:',
+            'pm.lbl_montage': 'Монтаж & Ступінь захисту:',
+            'pm.price_lbl': 'Офіційна ціна:',
+            'pm.btn_order': 'Замовити розрахунок'
         },
         ru: {
             'nav.autonomy': 'Автономия',
@@ -296,7 +413,30 @@ document.addEventListener('DOMContentLoaded', () => {
             'drawer.sub_1': 'Симуляция питания приборов',
             'drawer.sub_2': 'Расчет времени автономии',
             'drawer.sub_3': 'Готовые инверторы + аккумуляторы',
-            'drawer.phone_lbl': '📞 Нажмите для бесплатного звонка'
+            'drawer.phone_lbl': '📞 Нажмите для бесплатного звонка',
+            'pm.acc_title': '📦 Входит в комплектацию:',
+            'pm.sel_pkg': 'Линейка систем:',
+            'pm.sel_model': 'Модельный ряд:',
+            'pm.kpi_power': 'Мощность',
+            'pm.kpi_capacity': 'Емкость',
+            'pm.kpi_cycles': 'Ресурс',
+            'pm.sec_electrical': '⚡ Электрические параметры',
+            'pm.lbl_voltage': 'Номинальное напряжение:',
+            'pm.lbl_energy': 'Номинальная энергия:',
+            'pm.lbl_capacity': 'Емкость батареи:',
+            'pm.lbl_current': 'Ток (Номин. / Заряд / Разряд):',
+            'pm.sec_performance': '🔋 Аккумулятор и надежность',
+            'pm.lbl_cycles': 'Жизненный цикл:',
+            'pm.lbl_scaling': 'Масштабируемость / PV вход:',
+            'pm.lbl_temp': 'Рабочая температура:',
+            'pm.sec_physical': '📐 Конструкция и стандарты',
+            'pm.lbl_dim': 'Размеры изделия (ШхВхГ):',
+            'pm.lbl_weight': 'Вес комплекта:',
+            'pm.lbl_ports': 'Порты связи & BMS:',
+            'pm.lbl_certs': 'Сертификация:',
+            'pm.lbl_montage': 'Монтаж & Степень защиты:',
+            'pm.price_lbl': 'Официальная цена:',
+            'pm.btn_order': 'Заказать расчет'
         }
     };
 
@@ -332,6 +472,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (typeof updateCalculator === 'function') {
             updateCalculator();
+        }
+
+        if (typeof window.selectHeroPower === 'function') {
+            window.selectHeroPower(window.currentHeroPower || '6');
+        }
+
+        const prodModalEl = document.getElementById('product-modal');
+        if (prodModalEl && prodModalEl.classList.contains('active') && typeof renderTadiranModal === 'function') {
+            renderTadiranModal();
         }
     };
 
@@ -414,6 +563,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- 0.2 Hero Power Switcher Click Delegation ---
+    document.addEventListener('click', (e) => {
+        const pill = e.target.closest('.hero-power-pill');
+        if (pill) {
+            const power = pill.getAttribute('data-power');
+            if (power && typeof window.selectHeroPower === 'function') {
+                window.selectHeroPower(power);
+            }
+        }
+    });
 
     // --- 1. 3D Tilt Card Interaction ---
     const tiltCards = document.querySelectorAll('.tilt-card');
@@ -614,17 +774,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const cx = bgCanvas.width / 2;
             const cy = bgCanvas.height / 2;
+            const time = Date.now() * 0.0007;
 
-            bgCtx.lineWidth = 1;
-            bgCtx.strokeStyle = isOutage ? 'rgba(5, 150, 105, 0.08)' : 'rgba(2, 132, 199, 0.08)';
-            
-            for (let i = -4; i <= 4; i++) {
+            // 1. Bright 3D undulating energy ribbon waves across the screen
+            const waveCount = 5;
+            for (let i = -waveCount; i <= waveCount; i++) {
+                const yBase = cy + i * 130;
+                const distCenter = Math.abs(i) / waveCount;
+                const alpha = (0.24 - distCenter * 0.08);
+
+                const grad = bgCtx.createLinearGradient(0, 0, bgCanvas.width, 0);
+                if (isOutage) {
+                    grad.addColorStop(0, `rgba(16, 185, 129, ${alpha * 0.4})`);
+                    grad.addColorStop(0.5, `rgba(5, 150, 105, ${alpha * 1.3})`);
+                    grad.addColorStop(1, `rgba(16, 185, 129, ${alpha * 0.4})`);
+                } else {
+                    grad.addColorStop(0, `rgba(2, 132, 199, ${alpha * 0.4})`);
+                    grad.addColorStop(0.5, `rgba(14, 165, 233, ${alpha * 1.3})`);
+                    grad.addColorStop(1, `rgba(2, 132, 199, ${alpha * 0.4})`);
+                }
+
                 bgCtx.beginPath();
-                bgCtx.moveTo(0, cy + i * 150);
-                bgCtx.quadraticCurveTo(cx + Math.sin(Date.now() * 0.0008 + i) * 100, cy, bgCanvas.width, cy + i * 150);
+                bgCtx.moveTo(0, yBase + Math.sin(time + i * 0.5) * 50);
+                bgCtx.bezierCurveTo(
+                    cx * 0.45, yBase + Math.cos(time * 0.9 + i * 0.4) * 85,
+                    cx * 1.45, yBase + Math.sin(time * 0.8 - i * 0.4) * 85,
+                    bgCanvas.width, yBase + Math.sin(time * 1.1 + i * 0.5) * 50
+                );
+                bgCtx.strokeStyle = grad;
+                bgCtx.lineWidth = 1.6;
                 bgCtx.stroke();
             }
 
+            // 2. Plexus Network Connections between nearby particles
+            for (let i = 0; i < bgParticles.length; i++) {
+                const p1 = bgParticles[i];
+                for (let j = i + 1; j < bgParticles.length; j++) {
+                    const p2 = bgParticles[j];
+                    const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+                    if (dist < 120) {
+                        const connAlpha = (1 - dist / 120) * 0.28;
+                        bgCtx.beginPath();
+                        bgCtx.moveTo(p1.x, p1.y);
+                        bgCtx.lineTo(p2.x, p2.y);
+                        bgCtx.strokeStyle = isOutage 
+                            ? `rgba(16, 185, 129, ${connAlpha})` 
+                            : `rgba(2, 132, 199, ${connAlpha})`;
+                        bgCtx.lineWidth = 1.1;
+                        bgCtx.stroke();
+                    }
+                }
+            }
+
+            // 3. Floating Light Particles with subtle interactive avoidance
             bgParticles.forEach(p => {
                 p.x += p.vx;
                 p.y += p.vy;
@@ -632,10 +834,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const dx = mouse.x - p.x;
                 const dy = mouse.y - p.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 160) {
+                if (dist < 180) {
                     const angle = Math.atan2(dy, dx);
-                    p.x -= Math.cos(angle) * 1.2;
-                    p.y -= Math.sin(angle) * 1.2;
+                    p.x -= Math.cos(angle) * 1.4;
+                    p.y -= Math.sin(angle) * 1.4;
                 }
 
                 if (p.x < 0 || p.x > bgCanvas.width) p.vx *= -1;
@@ -644,11 +846,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 bgCtx.beginPath();
                 bgCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                 bgCtx.fillStyle = isOutage ? '#059669' : p.color;
-                bgCtx.globalAlpha = p.alpha;
+                bgCtx.globalAlpha = Math.min(1, p.alpha * 1.6);
                 bgCtx.fill();
                 bgCtx.globalAlpha = 1.0;
             });
 
+            // 4. Ripple energy pulses
             bgPulses.forEach((pulse, index) => {
                 pulse.radius += 4;
                 pulse.alpha -= 0.008;
@@ -661,7 +864,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 bgCtx.beginPath();
                 bgCtx.arc(pulse.x, pulse.y, pulse.radius, 0, Math.PI * 2);
                 bgCtx.strokeStyle = pulse.color;
-                bgCtx.lineWidth = 2;
+                bgCtx.lineWidth = 2.5;
                 bgCtx.globalAlpha = pulse.alpha;
                 bgCtx.stroke();
                 bgCtx.globalAlpha = 1.0;
@@ -911,7 +1114,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function animate() {
-            resizeCanvas();
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             const nodes = getNodes();
 
@@ -1543,117 +1745,474 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 17.0 Tadiran Product Details Modal Engine ---
+    // --- 17.0 Unified Product Details Modal Engine (Kits & Tadiran) ---
     const PRODUCT_DATA = {
+        'pkg-6kw': {
+            id: 'pkg-6kw',
+            gallery: ['assets/images/hero-kit-6kwt-trans.png?v=3'],
+            ua: {
+                title: 'Комплект «6 кВт·год»',
+                subtitle: 'Літій-іонна батарея 6 кВт·год + інвертор EASUN 3.2kW',
+                badge: 'Базовий резерв',
+                kpiPower: '3.2 кВт',
+                kpiCap: '6 кВт·год',
+                kpiCycles: '6000 циклів',
+                voltage: '230 В AC / 24 В DC',
+                capacity: '250 А·год (6 кВт·год)',
+                energy: '6 кВт·год',
+                current: '3.2 кВт (номінал 3200 VA) | MPPT до 100 A | AC до 80 A',
+                cycles: '6000 циклів (понад 15 років)',
+                scaling: 'Підтримка сонячних панелей: MPPT 60–500 В DC, до 4.0 кВт',
+                temp: 'Заряд: 0…+55 °C | Розряд: -20…+60 °C',
+                dim: 'Компактний настінний інвертор + модульний АКБ',
+                weight: '~62 кг (комплект)',
+                ports: 'USB / RS232 / RS485 / Wi-Fi моніторинг / LCD-дисплей',
+                certs: 'CE, RoHS, UN38.3',
+                montage: 'Настінний / Внутрішній',
+                price: '55 000 ₴',
+                packName: 'Комплект 6 кВт·год (55 000 ₴)',
+                accessories: [
+                    'Гібридний інвертор EASUN ISolar-SMG-II-3.2KW-24V',
+                    'Літій-іонна батарея 6 кВт·год (24V 250Ah)',
+                    'Кабелі підключення та захисна комутація',
+                    'Офіційна гарантія'
+                ]
+            },
+            ru: {
+                title: 'Комплект «6 кВт·ч»',
+                subtitle: 'Литий-ионная батарея 6 кВт·ч + инвертор EASUN 3.2kW',
+                badge: 'Базовый резерв',
+                kpiPower: '3.2 кВт',
+                kpiCap: '6 кВт·ч',
+                kpiCycles: '6000 циклов',
+                voltage: '230 В AC / 24 В DC',
+                capacity: '250 А·ч (6 кВт·ч)',
+                energy: '6 кВт·ч',
+                current: '3.2 кВт (номинал 3200 VA) | MPPT до 100 A | AC до 80 A',
+                cycles: '6000 циклов (более 15 лет)',
+                scaling: 'Поддержка солнечных панелей: MPPT 60–500 В DC, до 4.0 кВт',
+                temp: 'Заряд: 0…+55 °C | Разряд: -20…+60 °C',
+                dim: 'Компактный настенный инвертор + модульный АКБ',
+                weight: '~62 кг (комплект)',
+                ports: 'USB / RS232 / RS485 / Wi-Fi мониторинг / LCD-дисплей',
+                certs: 'CE, RoHS, UN38.3',
+                montage: 'Настенный / Внутренний',
+                price: '55 000 ₴',
+                packName: 'Комплект 6 кВт·ч (55 000 ₴)',
+                accessories: [
+                    'Гибридный инвертор EASUN ISolar-SMG-II-3.2KW-24V',
+                    'Литий-ионная батарея 6 кВт·ч (24V 250Ah)',
+                    'Кабели подключения и защитная коммутация',
+                    'Официальная гарантия'
+                ]
+            }
+        },
+        'pkg-12kw': {
+            id: 'pkg-12kw',
+            gallery: ['assets/images/hero-kit-12kwt-trans.png?v=3'],
+            ua: {
+                title: 'Комплект «12 кВт·год»',
+                subtitle: 'Літій-іонна батарея 12 кВт·год + інвертор EASUN 6.2kW',
+                badge: 'Хіт продажів',
+                kpiPower: '6.2 кВт',
+                kpiCap: '12 кВт·год',
+                kpiCycles: '6000 циклів',
+                voltage: '230 В AC / 48 В DC',
+                capacity: '250 А·год (12 кВт·год)',
+                energy: '12 кВт·год',
+                current: '6.2 кВт (пікова 12400 VA) | MPPT до 120 A | AC до 100 A',
+                cycles: '6000 циклів (понад 15 років)',
+                scaling: 'MPPT 60–500 В DC (до 6.5 кВт сонячних панелей)',
+                temp: 'Заряд: 0…+55 °C | Розряд: -20…+60 °C',
+                dim: 'Настінний інвертор + модульний блок акумулятора 48V',
+                weight: '~110 кг (комплект)',
+                ports: 'Wi-Fi моніторинг / RS485 / CAN / USB / LCD',
+                certs: 'CE, RoHS, UN38.3',
+                montage: 'Настінний / Підлоговий',
+                price: '99 000 ₴',
+                packName: 'Комплект 12 кВт·год (99 000 ₴)',
+                accessories: [
+                    'Гібридний інвертор EASUN ISolar-SMG-II-6.2KW-48V',
+                    'Літій-іонна батарея 12 кВт·год (48V 250Ah)',
+                    'Кабелі підключення з наконечниками',
+                    'Офіційна гарантія'
+                ]
+            },
+            ru: {
+                title: 'Комплект «12 кВт·ч»',
+                subtitle: 'Литий-ионная батарея 12 кВт·ч + инвертор EASUN 6.2kW',
+                badge: 'Хит продаж',
+                kpiPower: '6.2 кВт',
+                kpiCap: '12 кВт·ч',
+                kpiCycles: '6000 циклов',
+                voltage: '230 В AC / 48 В DC',
+                capacity: '250 А·ч (12 кВт·ч)',
+                energy: '12 кВт·ч',
+                current: '6.2 кВт (пиковая 12400 VA) | MPPT до 120 A | AC до 100 A',
+                cycles: '6000 циклов (более 15 лет)',
+                scaling: 'MPPT 60–500 В DC (до 6.5 кВт солнечных панелей)',
+                temp: 'Заряд: 0…+55 °C | Разряд: -20…+60 °C',
+                dim: 'Настенный инвертор + модульный блок аккумулятора 48V',
+                weight: '~110 кг (комплект)',
+                ports: 'Wi-Fi мониторинг / RS485 / CAN / USB / LCD',
+                certs: 'CE, RoHS, UN38.3',
+                montage: 'Настенный / Напольный',
+                price: '99 000 ₴',
+                packName: 'Комплект 12 кВт·ч (99 000 ₴)',
+                accessories: [
+                    'Гибридный инвертор EASUN ISolar-SMG-II-6.2KW-48V',
+                    'Литий-ионная батарея 12 кВт·ч (48V 250Ah)',
+                    'Кабели подключения с наконечниками',
+                    'Официальная гарантия'
+                ]
+            }
+        },
+        'pkg-24kw': {
+            id: 'pkg-24kw',
+            gallery: ['assets/images/hero-kit-24kwt-trans.png?v=3'],
+            ua: {
+                title: 'Комплект «24 кВт·год»',
+                subtitle: 'Літій-іонна батарея 24 кВт·год (2×12 кВт·год) + 1–2 інвертори EASUN 6.2kW',
+                badge: 'Для бізнесу',
+                kpiPower: '6.2–12.4 кВт',
+                kpiCap: '24 кВт·год',
+                kpiCycles: '6000 циклів',
+                voltage: '230 В AC / 48 В DC',
+                capacity: '500 А·год (24 кВт·год)',
+                energy: '24 кВт·год (2×12 кВт·год)',
+                current: '6.2–12.4 кВт (1–2 інвертори EASUN 6.2kW)',
+                cycles: '6000 циклів (понад 15 років)',
+                scaling: 'Паралельне з’єднання батарей і можливість додавання сонячних панелей',
+                temp: 'Заряд: 0…+55 °C | Розряд: -20…+60 °C',
+                dim: 'Стійковий / Підлоговий монтаж у техприміщенні',
+                weight: '~215 кг (комплект)',
+                ports: 'Wi-Fi / CAN / RS485 / Подвійний BMS моніторинг',
+                certs: 'CE, RoHS, UN38.3',
+                montage: 'Підлоговий у техприміщенні',
+                price: '168 300 ₴',
+                packName: 'Комплект 24 кВт·год (168 300 ₴)',
+                accessories: [
+                    '1–2 гібридні інвертори EASUN 6.2kW',
+                    'Акумуляторний блок 24 кВт·год (2×12 кВт·год)',
+                    'Модулі паралельного з’єднання та захисна автоматика',
+                    'Офіційна гарантія'
+                ]
+            },
+            ru: {
+                title: 'Комплект «24 кВт·ч»',
+                subtitle: 'Литий-ионная батарея 24 кВт·ч (2×12 кВт·ч) + 1–2 инвертора EASUN 6.2kW',
+                badge: 'Для бизнеса',
+                kpiPower: '6.2–12.4 кВт',
+                kpiCap: '24 кВт·ч',
+                kpiCycles: '6000 циклов',
+                voltage: '230 В AC / 48 В DC',
+                capacity: '500 А·ч (24 кВт·ч)',
+                energy: '24 кВт·ч (2×12 кВт·ч)',
+                current: '6.2–12.4 кВт (1–2 инвертора EASUN 6.2kW)',
+                cycles: '6000 циклов (более 15 лет)',
+                scaling: 'Параллельное соединение батарей и возможность добавления солнечных панелей',
+                temp: 'Заряд: 0…+55 °C | Разряд: -20…+60 °C',
+                dim: 'Стоечный / Напольный монтаж в техпомещении',
+                weight: '~215 кг (комплект)',
+                ports: 'Wi-Fi / CAN / RS485 / Двойной BMS мониторинг',
+                certs: 'CE, RoHS, UN38.3',
+                montage: 'Напольный в техпомещении',
+                price: '168 300 ₴',
+                packName: 'Комплект 24 кВт·ч (168 300 ₴)',
+                accessories: [
+                    '1–2 гибридных инвертора EASUN 6.2kW',
+                    'Аккумуляторный блок 24 кВт·ч (2×12 кВт·ч)',
+                    'Модули параллельного соединения и защитная автоматика',
+                    'Официальная гарантия'
+                ]
+            }
+        },
+        'pkg-36kw': {
+            id: 'pkg-36kw',
+            gallery: ['assets/images/hero-kit-36kwt-trans.png?v=3'],
+            ua: {
+                title: 'Комплект «36 кВт·год»',
+                subtitle: 'Масштабована система: 36+ кВт·год (3×12 кВт·год) + 1–3 інвертори EASUN 6.2kW',
+                badge: 'Масштабування',
+                kpiPower: 'до 18.6 кВт',
+                kpiCap: '36+ кВт·год',
+                kpiCycles: '6000 циклів',
+                voltage: '230 В / 380 В AC / 48 В DC',
+                capacity: '750 А·год (36+ кВт·год)',
+                energy: '36+ кВт·год (3×12 кВт·год)',
+                current: 'до 18.6 кВт (до 3-х інверторів EASUN 6.2kW)',
+                cycles: '6000 циклів (понад 15 років)',
+                scaling: 'Промислове паралельне масштабування та сонячні масиви',
+                temp: 'Заряд: 0…+55 °C | Розряд: -20…+60 °C',
+                dim: 'Промислова стійка / шафа для 3 акумуляторних блоків',
+                weight: '~320 кг (комплект)',
+                ports: 'Ethernet / Wi-Fi / RS485 / CAN / BMS моніторинг',
+                certs: 'CE, RoHS, UN38.3',
+                montage: 'Серверна / Електрощитова',
+                price: '247 500 ₴',
+                packName: 'Комплект 36 кВт·год (247 500 ₴)',
+                accessories: [
+                    '1–3 гібридні інвертори EASUN 6.2kW',
+                    'Стійка акумуляторів 36+ кВт·год (3×12 кВт·год)',
+                    'Комутаційна шина та захисна автоматика',
+                    'Офіційна гарантія'
+                ]
+            },
+            ru: {
+                title: 'Комплект «36 кВт·ч»',
+                subtitle: 'Масштабируемая система: 36+ кВт·ч (3×12 кВт·ч) + 1–3 инвертора EASUN 6.2kW',
+                badge: 'Масштабирование',
+                kpiPower: 'до 18.6 кВт',
+                kpiCap: '36+ кВт·ч',
+                kpiCycles: '6000 циклов',
+                voltage: '230 В / 380 В AC / 48 В DC',
+                capacity: '750 А·ч (36+ кВт·ч)',
+                energy: '36+ кВт·ч (3×12 кВт·ч)',
+                current: 'до 18.6 кВт (до 3-х инверторов EASUN 6.2kW)',
+                cycles: '6000 циклов (более 15 лет)',
+                scaling: 'Промышленное параллельное масштабирование и солнечные массивы',
+                temp: 'Заряд: 0…+55 °C | Разряд: -20…+60 °C',
+                dim: 'Промышленная стойка / шкаф для 3 аккумуляторных блоков',
+                weight: '~320 кг (комплект)',
+                ports: 'Ethernet / Wi-Fi / RS485 / CAN / BMS мониторинг',
+                certs: 'CE, RoHS, UN38.3',
+                montage: 'Серверная / Электрощитовая',
+                price: '247 500 ₴',
+                packName: 'Комплект 36 кВт·ч (247 500 ₴)',
+                accessories: [
+                    '1–3 гибридных инвертора EASUN 6.2kW',
+                    'Стойка аккумуляторов 36+ кВт·ч (3×12 кВт·ч)',
+                    'Коммутационная шина и защитная автоматика',
+                    'Официальная гарантия'
+                ]
+            }
+        },
         '314ah': {
             id: '314ah',
-            title: 'Tadiran LFP 51.2V 314Ah',
-            subtitle: 'Низьковольтна підлогова LiFePO4 акумуляторна батарея 51,2 В, 314 А',
-            badge: 'Флагман / 8000 циклів',
-            voltage: '51.2 В',
-            capacity: '314 А·год',
-            energy: '16.08 кВт·год',
-            current: '100А (Номін.) / 200А (Заряд) / 200А (Розряд)',
-            cycles: '8000 циклів (при 80% DoD, 0.5C)',
-            scaling: '1–15 модулів (до 241.2 кВт·год)',
-            temp: 'Заряд: 0…+55 °C | Розряд: -20…+60 °C',
-            dim: '807 × 520 × 252 мм (упаковка: 865 × 580 × 415 мм)',
-            weight: '130 кг (Нетто) / 144 кг (Брутто)',
-            ports: 'CAN / RS485 / RS232 (JBD APP Моніторинг)',
-            certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
-            montage: 'Підлоговий на роликах (IP30)',
-            price: 'від 185 000 ₴',
-            packName: 'Tadiran LFP-51.2V 314Ah (16.08 кВт·год)',
-            accessories: ['Комплект батареї x1', 'Кабель для інвертора x2', 'Кабель зв’язку x1', 'Інструкція x1'],
             gallery: [
                 'assets/images/tadiran-314ah-1.jpg',
                 'assets/images/tadiran-314ah-2.jpg',
                 'assets/images/tadiran-314ah-3.jpg'
-            ]
+            ],
+            ua: {
+                title: 'Tadiran LFP 51.2V 314Ah',
+                subtitle: 'Низьковольтна підлогова LiFePO4 акумуляторна батарея 51,2 В, 314 А',
+                badge: 'Флагман / 8000 циклів',
+                kpiPower: '51.2 В (BMS 200A)',
+                kpiCap: '16.08 кВт·год',
+                kpiCycles: '8000 циклів',
+                voltage: '51.2 В',
+                capacity: '314 А·год',
+                energy: '16.08 кВт·год',
+                current: '100А (Номін.) / 200А (Заряд) / 200А (Розряд)',
+                cycles: '8000 циклів (при 80% DoD, 0.5C)',
+                scaling: '1–15 модулів (до 241.2 кВт·год)',
+                temp: 'Заряд: 0…+55 °C | Розряд: -20…+60 °C',
+                dim: '807 × 520 × 252 мм (упаковка: 865 × 580 × 415 мм)',
+                weight: '130 кг (Нетто) / 144 кг (Брутто)',
+                ports: 'CAN / RS485 / RS232 (JBD APP Моніторинг)',
+                certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
+                montage: 'Підлоговий на роликах (IP30)',
+                price: 'від 185 000 ₴',
+                packName: 'Tadiran LFP-51.2V 314Ah (16.08 кВт·год)',
+                accessories: ['Комплект батареї x1', 'Кабель для інвертора x2', 'Кабель зв’язку x1', 'Інструкція x1']
+            },
+            ru: {
+                title: 'Tadiran LFP 51.2V 314Ah',
+                subtitle: 'Низковольтная напольная LiFePO4 аккумуляторная батарея 51,2 В, 314 А',
+                badge: 'Флагман / 8000 циклов',
+                kpiPower: '51.2 В (BMS 200A)',
+                kpiCap: '16.08 кВт·ч',
+                kpiCycles: '8000 циклов',
+                voltage: '51.2 В',
+                capacity: '314 А·ч',
+                energy: '16.08 кВт·ч',
+                current: '100А (Номин.) / 200А (Заряд) / 200А (Разряд)',
+                cycles: '8000 циклов (при 80% DoD, 0.5C)',
+                scaling: '1–15 модулей (до 241.2 кВт·ч)',
+                temp: 'Заряд: 0…+55 °C | Разряд: -20…+60 °C',
+                dim: '807 × 520 × 252 мм (упаковка: 865 × 580 × 415 мм)',
+                weight: '130 кг (Нетто) / 144 кг (Брутто)',
+                ports: 'CAN / RS485 / RS232 (JBD APP Мониторинг)',
+                certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
+                montage: 'Напольный на роликах (IP30)',
+                price: 'от 185 000 ₴',
+                packName: 'Tadiran LFP-51.2V 314Ah (16.08 кВт·ч)',
+                accessories: ['Комплект батареи x1', 'Кабель для инвертора x2', 'Кабель связи x1', 'Инструкция x1']
+            }
         },
         '200ah': {
             id: '200ah',
-            title: 'Tadiran LFP 51.2V 200Ah',
-            subtitle: 'Низьковольтна підлогова LiFePO4 акумуляторна батарея для котеджів',
-            badge: 'Популярний вибір',
-            voltage: '51.2 В',
-            capacity: '200 А·год',
-            energy: '10.24 кВт·год',
-            current: '100А (Номін.) / 200А (Заряд) / 200А (Розряд)',
-            cycles: '6000 циклів (при 80% DoD, 0.5C)',
-            scaling: '1–15 модулів (до 153.6 кВт·год)',
-            temp: 'Заряд: 0…+55 °C | Розряд: -20…+60 °C',
-            dim: '628 × 490 × 250 мм (упаковка: 710 × 570 × 475 мм)',
-            weight: '100 кг (Нетто) / 110 кг (Брутто)',
-            ports: 'CAN / RS485 / RS232 (JBD APP)',
-            certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
-            montage: 'Підлоговий (IP30)',
-            price: 'від 125 000 ₴',
-            packName: 'Tadiran LFP-51.2V 200Ah (10.24 кВт·год)',
-            accessories: ['Комплект батареї x1', 'Кабель парал. підключення x2', 'Кабель зв’язку x1', 'Інструкція x1'],
             gallery: [
                 'assets/images/tadiran-200ah-1.jpg',
                 'assets/images/tadiran-200ah-2.jpg',
                 'assets/images/tadiran-200ah-3.jpg'
-            ]
+            ],
+            ua: {
+                title: 'Tadiran LFP 51.2V 200Ah',
+                subtitle: 'Низьковольтна підлогова LiFePO4 акумуляторна батарея для котеджів',
+                badge: 'Популярний вибір',
+                kpiPower: '51.2 В (BMS 100A)',
+                kpiCap: '10.24 кВт·год',
+                kpiCycles: '6000 циклів',
+                voltage: '51.2 В',
+                capacity: '200 А·год',
+                energy: '10.24 кВт·год',
+                current: '100А (Номін.) / 200А (Заряд) / 200А (Розряд)',
+                cycles: '6000 циклів (при 80% DoD, 0.5C)',
+                scaling: '1–15 модулів (до 153.6 кВт·год)',
+                temp: 'Заряд: 0…+55 °C | Розряд: -20…+60 °C',
+                dim: '628 × 490 × 250 мм (упаковка: 710 × 570 × 475 мм)',
+                weight: '100 кг (Нетто) / 110 кг (Брутто)',
+                ports: 'CAN / RS485 / RS232 (JBD APP)',
+                certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
+                montage: 'Підлоговий (IP30)',
+                price: 'від 125 000 ₴',
+                packName: 'Tadiran LFP-51.2V 200Ah (10.24 кВт·год)',
+                accessories: ['Комплект батареї x1', 'Кабель парал. підключення x2', 'Кабель зв’язку x1', 'Інструкція x1']
+            },
+            ru: {
+                title: 'Tadiran LFP 51.2V 200Ah',
+                subtitle: 'Низковольтная напольная LiFePO4 аккумуляторная батарея для коттеджей',
+                badge: 'Популярный выбор',
+                kpiPower: '51.2 В (BMS 100A)',
+                kpiCap: '10.24 кВт·ч',
+                kpiCycles: '6000 циклов',
+                voltage: '51.2 В',
+                capacity: '200 А·ч',
+                energy: '10.24 кВт·ч',
+                current: '100А (Номин.) / 200А (Заряд) / 200А (Разряд)',
+                cycles: '6000 циклов (при 80% DoD, 0.5C)',
+                scaling: '1–15 модулей (до 153.6 кВт·ч)',
+                temp: 'Заряд: 0…+55 °C | Разряд: -20…+60 °C',
+                dim: '628 × 490 × 250 мм (упаковка: 710 × 570 × 475 мм)',
+                weight: '100 кг (Нетто) / 110 кг (Брутто)',
+                ports: 'CAN / RS485 / RS232 (JBD APP)',
+                certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
+                montage: 'Напольный (IP30)',
+                price: 'от 125 000 ₴',
+                packName: 'Tadiran LFP-51.2V 200Ah (10.24 кВт·ч)',
+                accessories: ['Комплект батареи x1', 'Кабель парал. подключения x2', 'Кабель связи x1', 'Инструкция x1']
+            }
         },
         '100ah-wm': {
             id: '100ah-wm',
-            title: 'Tadiran LFP 51.2V 100Ah-WM',
-            subtitle: 'Низьковольтна настінна LiFePO4 акумуляторна батарея 51,2 В, 100 А',
-            badge: 'Настінний монтаж',
-            voltage: '51.2 В',
-            capacity: '100 А·год',
-            energy: '5.12 кВт·год',
-            current: '50А (Номін.) / 100А (Заряд) / 100А (Розряд)',
-            cycles: '6000 циклів (при 80% DoD, 0.5C)',
-            scaling: '1–15 модулів (до 76.8 кВт·год)',
-            temp: 'Заряд: 0…+55 °C | Розряд: -20…+60 °C',
-            dim: '450 × 580 × 210 мм (упаковка: 672 × 522 × 305 мм)',
-            weight: '53 кг (Нетто) / 56 кг (Брутто)',
-            ports: 'CAN / RS485 / RS232 (JBD APP)',
-            certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
-            montage: 'Настінний (IP30)',
-            price: 'від 65 000 ₴',
-            packName: 'Tadiran LFP-51.2V 100Ah-WM (5.12 кВт·год)',
-            accessories: ['Батарея x1', 'Кабель парал. підключення x2', 'Кабель зв’язку x1', 'Інструкція x1'],
             gallery: [
                 'assets/images/tadiran-100ah-wm-1.jpg',
                 'assets/images/tadiran-100ah-wm-2.jpg',
                 'assets/images/tadiran-100ah-wm-3.jpg'
-            ]
+            ],
+            ua: {
+                title: 'Tadiran LFP 51.2V 100Ah-WM',
+                subtitle: 'Низьковольтна настінна LiFePO4 акумуляторна батарея 51,2 В, 100 А',
+                badge: 'Настінний монтаж',
+                kpiPower: '51.2 В (Настінний)',
+                kpiCap: '5.12 кВт·год',
+                kpiCycles: '6000 циклів',
+                voltage: '51.2 В',
+                capacity: '100 А·год',
+                energy: '5.12 кВт·год',
+                current: '50А (Номін.) / 100А (Заряд) / 100А (Розряд)',
+                cycles: '6000 циклів (при 80% DoD, 0.5C)',
+                scaling: '1–15 модулів (до 76.8 кВт·год)',
+                temp: 'Заряд: 0…+55 °C | Розряд: -20…+60 °C',
+                dim: '450 × 580 × 210 мм (упаковка: 672 × 522 × 305 мм)',
+                weight: '53 кг (Нетто) / 56 кг (Брутто)',
+                ports: 'CAN / RS485 / RS232 (JBD APP)',
+                certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
+                montage: 'Настінний (IP30)',
+                price: 'від 65 000 ₴',
+                packName: 'Tadiran LFP-51.2V 100Ah-WM (5.12 кВт·год)',
+                accessories: ['Батарея x1', 'Кабель парал. підключення x2', 'Кабель зв’язку x1', 'Інструкція x1']
+            },
+            ru: {
+                title: 'Tadiran LFP 51.2V 100Ah-WM',
+                subtitle: 'Низковольтная настенная LiFePO4 аккумуляторная батарея 51,2 В, 100 А',
+                badge: 'Настенный монтаж',
+                kpiPower: '51.2 В (Настенный)',
+                kpiCap: '5.12 кВт·ч',
+                kpiCycles: '6000 циклов',
+                voltage: '51.2 В',
+                capacity: '100 А·ч',
+                energy: '5.12 кВт·ч',
+                current: '50А (Номин.) / 100А (Заряд) / 100А (Разряд)',
+                cycles: '6000 циклов (при 80% DoD, 0.5C)',
+                scaling: '1–15 модулей (до 76.8 кВт·ч)',
+                temp: 'Заряд: 0…+55 °C | Разряд: -20…+60 °C',
+                dim: '450 × 580 × 210 мм (упаковка: 672 × 522 × 305 мм)',
+                weight: '53 кг (Нетто) / 56 кг (Брутто)',
+                ports: 'CAN / RS485 / RS232 (JBD APP)',
+                certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
+                montage: 'Настенный (IP30)',
+                price: 'от 65 000 ₴',
+                packName: 'Tadiran LFP-51.2V 100Ah-WM (5.12 кВт·ч)',
+                accessories: ['Батарея x1', 'Кабель парал. подключения x2', 'Кабель связи x1', 'Инструкция x1']
+            }
         },
         '100ah-s': {
             id: '100ah-s',
-            title: 'Tadiran LFP 51.2V 100Ah-S',
-            subtitle: 'Низьковольтна LiFePO4 акумуляторна батарея для 19" серверної стійки',
-            badge: 'Для 19" Стійки (до 32 шт)',
-            voltage: '51.2 В',
-            capacity: '100 А·год',
-            energy: '5.12 кВт·год',
-            current: '50А (Номін.) / 100А (Заряд) / 100А (Розряд)',
-            cycles: '6000 циклів (при 80% DoD, 0.2C)',
-            scaling: '1–32 модулів (до 163.84 кВт·год)',
-            temp: 'Заряд: 0…+55 °C | Розряд: -20…+60 °C',
-            dim: '550 × 483 × 180 мм (упаковка: 647 × 537 × 265 мм)',
-            weight: '47 кг (Нетто) / 52 кг (Брутто)',
-            ports: 'CAN / RS485 / RS232 (JBD APP)',
-            certs: 'MSDS, UN38.3, CE-EMC, UL9540A, UL1973, UL9540',
-            montage: 'Підлоговий / Штабельований 19" (IP30)',
-            price: 'від 62 000 ₴',
-            packName: 'Tadiran LFP-51.2V 100Ah-S (5.12 кВт·год)',
-            accessories: ['Батарея x1', 'Стійки x4', 'Кабель заземлення x1', 'Кабель парал. x2', 'Кабель зв’язку x1', 'Інструкція x1'],
             gallery: [
                 'assets/images/tadiran-100ah-s-1.jpg',
                 'assets/images/tadiran-100ah-s-2.jpg',
                 'assets/images/tadiran-100ah-s-3.jpg'
-            ]
+            ],
+            ua: {
+                title: 'Tadiran LFP 51.2V 100Ah-S',
+                subtitle: 'Низьковольтна LiFePO4 акумуляторна батарея для 19" серверної стійки',
+                badge: 'Для 19" Стійки (до 32 шт)',
+                kpiPower: '51.2 В (19" Стійка)',
+                kpiCap: '5.12 кВт·год',
+                kpiCycles: '6000 циклів',
+                voltage: '51.2 В',
+                capacity: '100 А·год',
+                energy: '5.12 кВт·год',
+                current: '50А (Номін.) / 100А (Заряд) / 100А (Розряд)',
+                cycles: '6000 циклів (при 80% DoD, 0.2C)',
+                scaling: '1–32 модулів (до 163.84 кВт·год)',
+                temp: 'Заряд: 0…+55 °C | Розряд: -20…+60 °C',
+                dim: '550 × 483 × 180 мм (упаковка: 647 × 537 × 265 мм)',
+                weight: '47 кг (Нетто) / 52 кг (Брутто)',
+                ports: 'CAN / RS485 / RS232 (JBD APP)',
+                certs: 'MSDS, UN38.3, CE-EMC, UL9540A, UL1973, UL9540',
+                montage: 'Підлоговий / Штабельований 19" (IP30)',
+                price: 'від 62 000 ₴',
+                packName: 'Tadiran LFP-51.2V 100Ah-S (5.12 кВт·год)',
+                accessories: ['Батарея x1', 'Стійки x4', 'Кабель заземлення x1', 'Кабель парал. x2', 'Кабель зв’язку x1', 'Інструкція x1']
+            },
+            ru: {
+                title: 'Tadiran LFP 51.2V 100Ah-S',
+                subtitle: 'Низковольтная LiFePO4 аккумуляторная батарея для 19" серверной стойки',
+                badge: 'Для 19" Стойки (до 32 шт)',
+                kpiPower: '51.2 В (19" Стойка)',
+                kpiCap: '5.12 кВт·ч',
+                kpiCycles: '6000 циклов',
+                voltage: '51.2 В',
+                capacity: '100 А·ч',
+                energy: '5.12 кВт·ч',
+                current: '50А (Номин.) / 100А (Заряд) / 100А (Разряд)',
+                cycles: '6000 циклов (при 80% DoD, 0.2C)',
+                scaling: '1–32 модулей (до 163.84 кВт·ч)',
+                temp: 'Заряд: 0…+55 °C | Разряд: -20…+60 °C',
+                dim: '550 × 483 × 180 мм (упаковка: 647 × 537 × 265 мм)',
+                weight: '47 кг (Нетто) / 52 кг (Брутто)',
+                ports: 'CAN / RS485 / RS232 (JBD APP)',
+                certs: 'MSDS, UN38.3, CE-EMC, UL9540A, UL1973, UL9540',
+                montage: 'Напольный / Штабелируемый 19" (IP30)',
+                price: 'от 62 000 ₴',
+                packName: 'Tadiran LFP-51.2V 100Ah-S (5.12 кВт·ч)',
+                accessories: ['Батарея x1', 'Стойки x4', 'Кабель заземления x1', 'Кабель парал. x2', 'Кабель связи x1', 'Инструкция x1']
+            }
         }
     };
 
+    let activeModalTadId = '314ah';
+
     function renderTadiranModal(tadId) {
-        const data = PRODUCT_DATA[tadId] || PRODUCT_DATA['314ah'];
-        
+        if (tadId) activeModalTadId = tadId;
+        const prod = PRODUCT_DATA[activeModalTadId] || PRODUCT_DATA['314ah'];
+        const lang = currentLang || 'ua';
+        const data = (prod[lang] || prod.ua || prod);
+
         const pmTitle = document.getElementById('pm-title');
         const pmSubtitle = document.getElementById('pm-subtitle');
         const pmBadge = document.getElementById('pm-badge');
@@ -1670,7 +2229,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const pmCerts = document.getElementById('pm-certs');
         const pmMontage = document.getElementById('pm-montage');
         const pmPrice = document.getElementById('pm-price');
-        
+
+        // KPI metrics
+        const pmKpiPower = document.getElementById('pm-kpi-power');
+        const pmKpiCap = document.getElementById('pm-kpi-cap');
+        const pmKpiCycles = document.getElementById('pm-kpi-cycles');
+
         if (pmTitle) pmTitle.textContent = data.title;
         if (pmSubtitle) pmSubtitle.textContent = data.subtitle;
         if (pmBadge) pmBadge.textContent = data.badge;
@@ -1687,23 +2251,44 @@ document.addEventListener('DOMContentLoaded', () => {
         if (pmCerts) pmCerts.textContent = data.certs;
         if (pmMontage) pmMontage.textContent = data.montage;
         if (pmPrice) pmPrice.textContent = data.price;
-        
+
+        if (pmKpiPower) pmKpiPower.textContent = data.kpiPower || '-';
+        if (pmKpiCap) pmKpiCap.textContent = data.kpiCap || data.energy || '-';
+        if (pmKpiCycles) pmKpiCycles.textContent = data.kpiCycles || data.cycles || '-';
+
         const visualBox = document.getElementById('pm-visual-box');
         if (visualBox) {
-            const mainImg = data.gallery ? data.gallery[0] : (data.img || 'assets/images/tadiran-314ah.jpg');
-            visualBox.innerHTML = `<img src="${mainImg}" alt="${data.title}" class="pm-visual-img" id="pm-active-img" style="max-width: 100%; max-height: 220px; object-fit: contain; filter: drop-shadow(0 10px 20px rgba(15,23,42,0.12));">`;
+            const galleryArr = prod.gallery || data.gallery || [];
+            const mainImg = galleryArr.length ? galleryArr[0] : (data.img || 'assets/images/tadiran-314ah.jpg');
+            visualBox.innerHTML = `<img src="${mainImg}" alt="${data.title}" class="pm-visual-img" id="pm-active-img" style="max-width: 100%; max-height: 230px; object-fit: contain; filter: drop-shadow(0 14px 28px rgba(15,23,42,0.14));">`;
         }
 
         const galleryThumbs = document.getElementById('pm-gallery-thumbs');
-        if (galleryThumbs && data.gallery) {
-            galleryThumbs.innerHTML = data.gallery.map((imgSrc, idx) => `
-                <img src="${imgSrc}" alt="${data.title} view ${idx + 1}" class="gallery-thumb ${idx === 0 ? 'active' : ''}" data-gallery-src="${imgSrc}">
-            `).join('');
+        if (galleryThumbs) {
+            const galleryArr = prod.gallery || data.gallery || [];
+            if (galleryArr.length > 1) {
+                galleryThumbs.style.display = 'flex';
+                galleryThumbs.innerHTML = galleryArr.map((imgSrc, idx) => `
+                    <img src="${imgSrc}" alt="${data.title} view ${idx + 1}" class="gallery-thumb ${idx === 0 ? 'active' : ''}" data-gallery-src="${imgSrc}">
+                `).join('');
+            } else {
+                galleryThumbs.style.display = 'none';
+                galleryThumbs.innerHTML = '';
+            }
         }
 
         const accGrid = document.getElementById('pm-acc-grid');
-        if (accGrid) {
-            accGrid.innerHTML = data.accessories.map(acc => `<span class="acc-tag">${acc}</span>`).join('');
+        if (accGrid && data.accessories) {
+            accGrid.innerHTML = data.accessories.map(acc => `
+                <div class="acc-card">
+                    <span class="acc-check">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </span>
+                    <span class="acc-text">${acc}</span>
+                </div>
+            `).join('');
         }
 
         const pmOrderBtn = document.getElementById('pm-order-btn');
@@ -1711,9 +2296,37 @@ document.addEventListener('DOMContentLoaded', () => {
             pmOrderBtn.setAttribute('data-pack', data.packName);
         }
 
-        document.querySelectorAll('.model-tab').forEach(tab => {
-            tab.classList.toggle('active', tab.getAttribute('data-tadiran-tab') === tadId);
-        });
+        // Dynamic model switcher tabs inside modal:
+        // Handles both Ready-made packages ('pkg-') and Tadiran batteries
+        const modelWrap = document.querySelector('.model-selector-wrap');
+        const modelSelLbl = document.getElementById('pm-model-sel-lbl');
+        const modelTabsContainer = document.getElementById('pm-model-tabs');
+
+        if (modelWrap && modelTabsContainer) {
+            modelWrap.style.display = 'flex';
+            const isPkg = activeModalTadId.startsWith('pkg-');
+            if (modelSelLbl) {
+                modelSelLbl.textContent = isPkg
+                    ? (translations[lang]['pm.sel_pkg'] || (lang === 'ru' ? 'Линейка систем:' : 'Лінійка систем:'))
+                    : (translations[lang]['pm.sel_model'] || (lang === 'ru' ? 'Модельный ряд:' : 'Модельний ряд:'));
+            }
+
+            const tabsList = isPkg ? [
+                { id: 'pkg-6kw', label: lang === 'ru' ? '6 кВт·ч' : '6 кВт·год' },
+                { id: 'pkg-12kw', label: lang === 'ru' ? '12 кВт·ч' : '12 кВт·год' },
+                { id: 'pkg-24kw', label: lang === 'ru' ? '24 кВт·ч' : '24 кВт·год' },
+                { id: 'pkg-36kw', label: lang === 'ru' ? '36 кВт·ч' : '36 кВт·год' }
+            ] : [
+                { id: '314ah', label: '314Ah' },
+                { id: '200ah', label: '200Ah' },
+                { id: '100ah-wm', label: '100Ah-WM' },
+                { id: '100ah-s', label: '100Ah-S' }
+            ];
+
+            modelTabsContainer.innerHTML = tabsList.map(t => `
+                <button type="button" class="model-tab ${t.id === activeModalTadId ? 'active' : ''}" data-tadiran-tab="${t.id}">${t.label}</button>
+            `).join('');
+        }
     }
 
     function openProductModal(tadId) {
@@ -1801,4 +2414,14 @@ document.addEventListener('DOMContentLoaded', () => {
             closeProductModal();
         }
     });
+
+    window.openProductModal = openProductModal;
+    window.closeProductModal = closeProductModal;
+    window.renderTadiranModal = renderTadiranModal;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const modalParam = urlParams.get('modal');
+    if (modalParam) {
+        openProductModal(modalParam);
+    }
 });
