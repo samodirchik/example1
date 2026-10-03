@@ -1,15 +1,22 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SVITLO24 — Автономні системи електропостачання (Інвертор + LiFePO4)</title>
-    <meta name="description" content="Премиальные системы резервного электропитания с инспекцией BMS ячеек, 0 мс автозапуском и чистой синусоидой.">
-    <!-- Google Fonts -->
+    <meta name="description" content="Преміальні системи резервного електроживлення з інспекцією BMS комірок, 0 мс автозапуском та чистою синусоїдою.">
+    <link rel="canonical" href="http://localhost:8080/">
+    <!-- Preload LCP Hero Image (Mobile + Desktop) -->
+    <link rel="preload" as="image" href="assets/images/hero-kit-6kwt-trans-mobile.webp" type="image/webp" media="(max-width: 768px)" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/images/hero-kit-6kwt-trans.webp" type="image/webp" media="(min-width: 769px)" fetchpriority="high">
+    <!-- Fonts Non-blocking with display=optional -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&family=JetBrains+Mono:wght@500;700&display=optional" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&family=JetBrains+Mono:wght@500;700&display=optional">
+    </noscript>
+    <link rel="stylesheet" href="style.min.css">
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
@@ -63,6 +70,33 @@
             </nav>
 
             <div class="header-actions">
+                <!-- Header Phone & Messengers -->
+                <div class="header-contacts">
+                    <a href="tel:+380800330024" class="header-phone-link" aria-label="Зателефонувати: +380 (800) 33-00-24">
+                        <svg class="header-phone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                        <span class="header-phone-number">+380 (800) 33-00-24</span>
+                    </a>
+
+                    <div class="header-messengers">
+                        <!-- Telegram Icon Button -->
+                        <a href="https://t.me/+380800330024" target="_blank" rel="noopener noreferrer" class="header-msg-btn msg-tg" aria-label="Telegram" title="Написати у Telegram">
+                            <svg viewBox="0 0 24 24" class="msg-icon-svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                            </svg>
+                        </a>
+
+                        <!-- Viber Icon Button -->
+                        <a href="viber://chat?number=%2B380800330024" target="_blank" rel="noopener noreferrer" class="header-msg-btn msg-viber" aria-label="Viber" title="Написати у Viber">
+                            <svg viewBox="0 0 24 24" class="msg-icon-svg" fill="currentColor">
+                                <path d="M19.38 3.52C16.89 1.62 13.06 1.4 9.17 1.75 5.58 2.08 2.53 4.67 1.83 8.21c-.81 4.14.33 8.16 3.19 11.16l-.28 2.63c-.09.84.77 1.44 1.52 1.05l3.24-1.68c3.27.84 6.75.52 9.77-1.07 4.22-2.22 6.16-6.84 5.25-11.45-.64-3.23-2.67-4.14-5.14-5.33zm-.09 10.42c-.28.85-1.08 1.48-1.95 1.55-1.4.11-3.66-.46-5.83-2.63-2.17-2.17-2.74-4.43-2.63-5.83.07-.87.7-1.67 1.55-1.95l1.09-.36c.64-.21 1.34.07 1.65.68l.8 1.6c.3.6.14 1.33-.38 1.76l-.49.4c-.05.04-.08.1-.07.16.27 1.01 1.07 1.81 2.08 2.08.06.01.12-.02.16-.07l.4-.49c.43-.52 1.16-.68 1.76-.38l1.6.8c.61.31.89 1.01.68 1.65l-.36 1.09z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
                 <div class="lang-switcher">
                     <button type="button" class="lang-btn active" data-lang="ua">UA</button>
                     <span class="lang-divider">|</span>
@@ -72,7 +106,7 @@
                 <button type="button" class="btn btn-emerald glow-btn header-order-btn" id="btn-quick-order" onclick="openModal()" data-i18n="header.btn_order">Замовити розрахунок</button>
 
                 <!-- Animated Hamburger Button -->
-                <button class="burger-btn" id="burger-btn" aria-label="Открыть меню">
+                <button class="burger-btn" id="burger-btn" aria-label="Відкрити меню">
                     <span class="burger-line line-1"></span>
                     <span class="burger-line line-2"></span>
                     <span class="burger-line line-3"></span>
@@ -142,6 +176,24 @@
                         <span class="phone-card-lbl" data-i18n="drawer.phone_lbl">📞 Натисніть для безкоштовного дзвінка</span>
                     </div>
                 </a>
+
+                <!-- Mobile Messengers Row -->
+                <div class="mobile-msg-row">
+                    <a href="https://t.me/+380800330024" target="_blank" rel="noopener noreferrer" class="mobile-msg-card msg-tg" aria-label="Telegram">
+                        <svg viewBox="0 0 24 24" class="msg-icon-svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                        <span>Telegram</span>
+                    </a>
+                    <a href="viber://chat?number=%2B380800330024" target="_blank" rel="noopener noreferrer" class="mobile-msg-card msg-viber" aria-label="Viber">
+                        <svg viewBox="0 0 24 24" class="msg-icon-svg" fill="currentColor">
+                            <path d="M19.38 3.52C16.89 1.62 13.06 1.4 9.17 1.75 5.58 2.08 2.53 4.67 1.83 8.21c-.81 4.14.33 8.16 3.19 11.16l-.28 2.63c-.09.84.77 1.44 1.52 1.05l3.24-1.68c3.27.84 6.75.52 9.77-1.07 4.22-2.22 6.16-6.84 5.25-11.45-.64-3.23-2.67-4.14-5.14-5.33zm-.09 10.42c-.28.85-1.08 1.48-1.95 1.55-1.4.11-3.66-.46-5.83-2.63-2.17-2.17-2.74-4.43-2.63-5.83.07-.87.7-1.67 1.55-1.95l1.09-.36c.64-.21 1.34.07 1.65.68l.8 1.6c.3.6.14 1.33-.38 1.76l-.49.4c-.05.04-.08.1-.07.16.27 1.01 1.07 1.81 2.08 2.08.06.01.12-.02.16-.07l.4-.49c.43-.52 1.16-.68 1.76-.38l1.6.8c.61.31.89 1.01.68 1.65l-.36 1.09z"/>
+                        </svg>
+                        <span>Viber</span>
+                    </a>
+                </div>
+
                 <button type="button" class="btn btn-emerald btn-block glow-btn mobile-cta-btn" id="mobile-order-btn" onclick="openModal()" data-i18n="header.btn_order">Замовити розрахунок</button>
             </div>
         </div>
@@ -171,11 +223,12 @@
                         <div class="hero-input-row">
                             <div class="phone-input-group hero-phone-group">
                                 <span class="phone-prefix">+380</span>
-                                <input type="tel" class="phone-number-input hero-phone-input" id="hero-phone-field" placeholder="(XX) XXX-XX-XX" data-i18n-placeholder="modal.ph_phone" maxlength="13" required autocomplete="off">
+                                <label for="hero-phone-field" class="sr-only">Введіть номер телефону</label>
+                                <input type="tel" class="phone-number-input hero-phone-input" id="hero-phone-field" placeholder="(XX) XXX-XX-XX" data-i18n-placeholder="modal.ph_phone" maxlength="13" required autocomplete="off" aria-label="Введіть номер телефону">
                             </div>
                             
                             <div class="hero-btn-group">
-                                <button type="submit" class="btn btn-emerald btn-lg glow-btn hero-submit-btn">
+                                <button type="submit" class="btn btn-emerald btn-lg glow-btn hero-submit-btn" aria-label="Отримати консультацію">
                                     <span data-i18n="hero.btn_callback">Отримати консультацію</span>
                                     <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                                 </button>
@@ -205,14 +258,24 @@
                 <!-- Right Hero Bestseller Interactive Showcase (Unboxed Ambient Stage) -->
                 <div class="hero-showcase-box">
                     <div class="hero-showcase-stage">
-                        <img id="hero-showcase-img" src="assets/images/hero-kit-6kwt-trans.png?v=3" alt="Комплект резервного живлення SVITLO24" class="hero-showcase-img">
+                        <picture>
+                            <source media="(max-width: 768px)" srcset="assets/images/hero-kit-6kwt-trans-mobile.webp" type="image/webp">
+                            <img id="hero-showcase-img"
+                                 src="assets/images/hero-kit-6kwt-trans.webp"
+                                 alt="Комплект резервного живлення SVITLO24"
+                                 class="hero-showcase-img"
+                                 fetchpriority="high"
+                                 decoding="async"
+                                 width="800"
+                                 height="597">
+                        </picture>
                     </div>
                     
                     <!-- Floating Glassmorphism Spec Info Card -->
                     <div class="hero-spec-card glass-panel" id="hero-spec-card">
                         <div class="spec-card-main">
                             <div class="spec-card-head">
-                                <h4 class="spec-card-title" id="hero-spec-title">6 кВт·год</h4>
+                                <div class="spec-card-title" id="hero-spec-title">6 кВт·год</div>
                                 <p class="spec-card-sub" id="hero-spec-sub">Ідеально для резерву квартири</p>
                             </div>
                             
@@ -252,7 +315,7 @@
                 <div class="house-visualizer-card glass-panel tilt-card">
                     <!-- Unified Control Bar with Single Outage Toggle Button -->
                     <div class="house-controls-bar">
-                        <button class="btn btn-emerald btn-lg glow-btn outage-toggle-btn" id="trigger-outage-btn">
+                        <button class="btn btn-emerald btn-lg glow-btn outage-toggle-btn" id="trigger-outage-btn" aria-label="Симулювати відключення мережі">
                             <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
                                 <line x1="12" y1="2" x2="12" y2="12"></line>
@@ -395,7 +458,7 @@
                                     <div class="appliance-watt">~150 Вт/год</div>
                                 </div>
                             </div>
-                            <input type="checkbox" class="toggle-checkbox" checked>
+                            <input type="checkbox" class="toggle-checkbox" checked aria-label="Двокамерний холодильник">
                         </div>
 
                         <div class="appliance-item active" data-power="120">
@@ -408,7 +471,7 @@
                                     <div class="appliance-watt">~120 Вт/год</div>
                                 </div>
                             </div>
-                            <input type="checkbox" class="toggle-checkbox" checked>
+                            <input type="checkbox" class="toggle-checkbox" checked aria-label="Газовий котел та насос">
                         </div>
 
                         <div class="appliance-item active" data-power="60">
@@ -422,7 +485,7 @@
                                     <div class="appliance-watt">~60 Вт/год</div>
                                 </div>
                             </div>
-                            <input type="checkbox" class="toggle-checkbox" checked>
+                            <input type="checkbox" class="toggle-checkbox" checked aria-label="Інтернет-роутер та освітлення">
                         </div>
 
                         <div class="appliance-item active" data-power="250">
@@ -437,7 +500,7 @@
                                     <div class="appliance-watt">~250 Вт/год</div>
                                 </div>
                             </div>
-                            <input type="checkbox" class="toggle-checkbox" checked>
+                            <input type="checkbox" class="toggle-checkbox" checked aria-label="Робочий ПК та монітори">
                         </div>
 
                         <div class="appliance-item" data-power="1200">
@@ -454,7 +517,7 @@
                                     <div class="appliance-watt">~1200 Вт/год</div>
                                 </div>
                             </div>
-                            <input type="checkbox" class="toggle-checkbox">
+                            <input type="checkbox" class="toggle-checkbox" aria-label="Кондиціонер">
                         </div>
                     </div>
 
@@ -472,9 +535,9 @@
                         </div>
 
                         <div class="recommended-system">
-                            <h4 data-i18n="calc.rec_title">Рекомендований комплект:</h4>
+                            <div class="rec-title-heading" data-i18n="calc.rec_title">Рекомендований комплект:</div>
                             <p class="rec-title" id="rec-package-title">Комплект «Комфорт 6 кВт» (Інвертор 6кВт + Батарея 5.12кВт·год)</p>
-                            <button class="btn btn-emerald btn-block glow-btn" id="btn-order-rec" data-pack="Комплект 6 кВт" data-i18n="calc.btn_order">Замовити цей комплект</button>
+                            <button class="btn btn-emerald btn-block glow-btn" id="btn-order-rec" data-pack="Комплект 6 кВт" data-i18n="calc.btn_order" aria-label="Замовити цей комплект">Замовити цей комплект</button>
                         </div>
                     </div>
                 </div>
@@ -505,7 +568,7 @@
                             
                             <!-- Image Container / Slot -->
                             <div class="package-img-box">
-                                <img src="assets/images/hero-kit-6kwt-trans.png?v=3" alt="Комплект 6 кВт·год" class="package-img">
+                                <img src="assets/images/hero-kit-6kwt-trans.webp" alt="Комплект 6 кВт·год" class="package-img" loading="lazy" decoding="async" width="800" height="597">
                             </div>
 
                             <h3 class="package-name" data-i18n="pkg.name_1">Комплект 6 кВт·год</h3>
@@ -551,7 +614,7 @@
 
                             <!-- Image Container / Slot -->
                             <div class="package-img-box">
-                                <img src="assets/images/hero-kit-12kwt-trans.png?v=3" alt="Комплект 12 кВт·год" class="package-img">
+                                <img src="assets/images/hero-kit-12kwt-trans.webp" alt="Комплект 12 кВт·год" class="package-img" loading="lazy" decoding="async" width="800" height="597">
                             </div>
 
                             <h3 class="package-name" data-i18n="pkg.name_2">Комплект 12 кВт·год</h3>
@@ -597,7 +660,7 @@
 
                             <!-- Image Container / Slot -->
                             <div class="package-img-box">
-                                <img src="assets/images/hero-kit-24kwt-trans.png?v=3" alt="Комплект 24 кВт·год" class="package-img">
+                                <img src="assets/images/hero-kit-24kwt-trans.webp" alt="Комплект 24 кВт·год" class="package-img" loading="lazy" decoding="async" width="800" height="597">
                             </div>
 
                             <h3 class="package-name" data-i18n="pkg.name_3">Комплект 24 кВт·год</h3>
@@ -643,7 +706,7 @@
 
                             <!-- Image Container / Slot -->
                             <div class="package-img-box">
-                                <img src="assets/images/hero-kit-36kwt-trans.png?v=3" alt="Комплект 36 кВт·год" class="package-img">
+                                <img src="assets/images/hero-kit-36kwt-trans.webp" alt="Комплект 36 кВт·год" class="package-img" loading="lazy" decoding="async" width="800" height="597">
                             </div>
 
                             <h3 class="package-name" data-i18n="pkg.name_4">Комплект 36 кВт·год</h3>
@@ -698,7 +761,7 @@
                             <div class="package-badge badge-featured" data-i18n="tadiran.b314_badge">ФЛАГМАН / 8000 ЦИКЛІВ</div>
 
                             <div class="package-img-box">
-                                <img src="assets/images/tadiran-314ah.jpg" alt="Tadiran LFP 51.2V 314Ah" class="package-img">
+                                <img src="assets/images/tadiran-314ah.webp" alt="Tadiran LFP 51.2V 314Ah" class="package-img" loading="lazy" decoding="async" width="600" height="794">
                             </div>
 
                             <h3 class="package-name">Tadiran LFP 51.2V 314Ah</h3>
@@ -742,7 +805,7 @@
                             <div class="package-badge" data-i18n="tadiran.b200_badge">ПОПУЛЯРНИЙ ВИБІР</div>
 
                             <div class="package-img-box">
-                                <img src="assets/images/tadiran-200ah.jpg" alt="Tadiran LFP 51.2V 200Ah" class="package-img">
+                                <img src="assets/images/tadiran-200ah.webp" alt="Tadiran LFP 51.2V 200Ah" class="package-img" loading="lazy" decoding="async" width="600" height="794">
                             </div>
 
                             <h3 class="package-name">Tadiran LFP 51.2V 200Ah</h3>
@@ -786,7 +849,7 @@
                             <div class="package-badge" data-i18n="tadiran.b100wm_badge">НАСТІННИЙ МОНТАЖ</div>
 
                             <div class="package-img-box">
-                                <img src="assets/images/tadiran-100ah-wm.jpg" alt="Tadiran LFP 51.2V 100Ah-WM" class="package-img">
+                                <img src="assets/images/tadiran-100ah-wm.webp" alt="Tadiran LFP 51.2V 100Ah-WM" class="package-img" loading="lazy" decoding="async" width="600" height="794">
                             </div>
 
                             <h3 class="package-name">Tadiran LFP 51.2V 100Ah-WM</h3>
@@ -830,7 +893,7 @@
                             <div class="package-badge" data-i18n="tadiran.b100s_badge">ДЛЯ 19" СТІЙКИ</div>
 
                             <div class="package-img-box">
-                                <img src="assets/images/tadiran-100ah-s.jpg" alt="Tadiran LFP 51.2V 100Ah-S" class="package-img">
+                                <img src="assets/images/tadiran-100ah-s.webp" alt="Tadiran LFP 51.2V 100Ah-S" class="package-img" loading="lazy" decoding="async" width="600" height="794">
                             </div>
 
                             <h3 class="package-name">Tadiran LFP 51.2V 100Ah-S</h3>
@@ -922,7 +985,7 @@
                         <!-- Main Lead Form -->
                         <form class="callback-form" id="main-callback-form">
                             <div style="display:none;" aria-hidden="true">
-                                <input type="text" id="cb-hp" name="hp_field" tabindex="-1" autocomplete="off">
+                                <input type="text" id="cb-hp" name="hp_field" tabindex="-1" autocomplete="off" aria-label="honeypot">
                             </div>
 
                             <div class="callback-fields-grid">
@@ -930,7 +993,7 @@
                                     <label for="cb-name" class="field-label" data-i18n="modal.label_name">Ваше імʼя</label>
                                     <div class="input-with-icon">
                                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                        <input type="text" id="cb-name" class="form-input" placeholder="Ваше імʼя" data-i18n-placeholder="modal.ph_name" autocomplete="off">
+                                        <input type="text" id="cb-name" class="form-input" placeholder="Ваше імʼя" data-i18n-placeholder="modal.ph_name" autocomplete="off" aria-label="Ваше імʼя">
                                     </div>
                                 </div>
 
@@ -938,7 +1001,7 @@
                                     <label for="cb-phone" class="field-label" data-i18n="modal.label_phone">Телефон для звʼязку</label>
                                     <div class="phone-input-group">
                                         <span class="phone-prefix">+380</span>
-                                        <input type="tel" id="cb-phone" class="phone-number-input" placeholder="(XX) XXX-XX-XX" data-i18n-placeholder="modal.ph_phone" maxlength="13" required autocomplete="off">
+                                        <input type="tel" id="cb-phone" class="phone-number-input" placeholder="(XX) XXX-XX-XX" data-i18n-placeholder="modal.ph_phone" maxlength="13" required autocomplete="off" aria-label="Телефон для звʼязку">
                                     </div>
                                 </div>
                             </div>
@@ -1029,24 +1092,24 @@
             
             <form id="order-form">
                 <div style="display:none;" aria-hidden="true">
-                    <input type="text" id="form-hp" name="hp_field" tabindex="-1" autocomplete="off">
+                    <input type="text" id="form-hp" name="hp_field" tabindex="-1" autocomplete="off" aria-label="honeypot">
                 </div>
                 <div class="form-group">
                     <label for="form-name" data-i18n="modal.label_name">Ваше імʼя</label>
-                    <input type="text" id="form-name" class="form-input" placeholder="Ваше імʼя" data-i18n-placeholder="modal.ph_name" autocomplete="off">
+                    <input type="text" id="form-name" class="form-input" placeholder="Ваше імʼя" data-i18n-placeholder="modal.ph_name" autocomplete="off" aria-label="Ваше імʼя">
                 </div>
 
                 <div class="form-group">
                     <label for="form-phone" data-i18n="modal.label_phone">Телефон для звʼязку</label>
                     <div class="phone-input-group">
                         <span class="phone-prefix">+380</span>
-                        <input type="tel" id="form-phone" class="phone-number-input" placeholder="(XX) XXX-XX-XX" data-i18n-placeholder="modal.ph_phone" maxlength="13" required autocomplete="off">
+                        <input type="tel" id="form-phone" class="phone-number-input" placeholder="(XX) XXX-XX-XX" data-i18n-placeholder="modal.ph_phone" maxlength="13" required autocomplete="off" aria-label="Телефон для звʼязку">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="form-package" data-i18n="modal.label_package">Обраний комплект</label>
-                    <select id="form-package" class="form-input">
+                    <select id="form-package" class="form-input" aria-label="Обраний комплект">
                         <option value="Комплект 6 кВт·год (55 000 ₴)">Комплект 6 кВт·год (55 000 ₴)</option>
                         <option value="Комплект 12 кВт·год (96 000 ₴)">Комплект 12 кВт·год (96 000 ₴)</option>
                         <option value="Комплект 24 кВт·год (168 300 ₴)">Комплект 24 кВт·год (168 300 ₴)</option>
@@ -1085,7 +1148,7 @@
 
                     <!-- Accessories Box -->
                     <div class="product-accessories-box">
-                        <h4 class="acc-title" data-i18n="pm.acc_title">📦 Входить до комплектації:</h4>
+                        <div class="acc-title" data-i18n="pm.acc_title">📦 Входить до комплектації:</div>
                         <div class="acc-grid" id="pm-acc-grid">
                             <!-- Populated dynamically -->
                         </div>
@@ -1094,7 +1157,7 @@
 
                 <!-- Right Column: Specs & Selector -->
                 <div class="product-info-col">
-                    <h2 class="product-title" id="pm-title">Комплект «6 кВт·год»</h2>
+                    <h3 class="product-title" id="pm-title">Комплект «6 кВт·год»</h3>
                     <p class="product-subtitle" id="pm-subtitle">Літій-іонна батарея 6 кВт·год + інвертор EASUN 3.2kW</p>
 
                     <!-- Model Switcher Tabs -->
@@ -1202,6 +1265,17 @@
         </div>
     </div>
 
+    <!-- Floating Pulsating Mobile Call Button -->
+    <a href="tel:+380800330024" class="floating-call-btn" id="floating-call-btn" aria-label="Зателефонувати: +380 (800) 33-00-24">
+        <span class="call-pulse-ring ring-1"></span>
+        <span class="call-pulse-ring ring-2"></span>
+        <span class="call-icon-inner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+        </span>
+    </a>
+
     <!-- Notification Toast -->
     <div class="toast" id="toast-notify">
         <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1210,7 +1284,7 @@
         <span id="toast-msg">Заявка успешно отправлена!</span>
     </div>
 
-    <script src="telegram-config.js"></script>
-    <script src="app.js"></script>
+    <script src="telegram-config.js" defer></script>
+    <script src="app.min.js" defer></script>
 </body>
 </html>

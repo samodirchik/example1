@@ -87,7 +87,7 @@ window.closeModal = closeModal;
 // --- Hero Showcase Interactive Power Switcher ---
 window.heroShowcaseData = {
     '6': {
-        img: 'assets/images/hero-kit-6kwt-trans.png?v=3',
+        img: 'assets/images/hero-kit-6kwt-trans.webp',
         title: { ua: '6 кВт·год', ru: '6 кВт·ч' },
         price: '55 000 ₴',
         sub: { ua: 'Ідеально для резерву квартири', ru: 'Идеально для резерва квартиры' },
@@ -97,7 +97,7 @@ window.heroShowcaseData = {
         }
     },
     '12': {
-        img: 'assets/images/hero-kit-12kwt-trans.png?v=3',
+        img: 'assets/images/hero-kit-12kwt-trans.webp',
         title: { ua: '12 кВт·год', ru: '12 кВт·ч' },
         price: '96 000 ₴',
         sub: { ua: 'Квартира та невеликий будинок', ru: 'Квартира и небольшой дом' },
@@ -107,7 +107,7 @@ window.heroShowcaseData = {
         }
     },
     '24': {
-        img: 'assets/images/hero-kit-24kwt-trans.png?v=3',
+        img: 'assets/images/hero-kit-24kwt-trans.webp',
         title: { ua: '24 кВт·год', ru: '24 кВт·ч' },
         price: '168 300 ₴',
         sub: { ua: 'Масштабований резерв будинку', ru: 'Масштабируемый резерв дома' },
@@ -117,7 +117,7 @@ window.heroShowcaseData = {
         }
     },
     '36': {
-        img: 'assets/images/hero-kit-36kwt-trans.png?v=3',
+        img: 'assets/images/hero-kit-36kwt-trans.webp',
         title: { ua: '36 кВт·год', ru: '36 кВт·ч' },
         price: '247 500 ₴',
         sub: { ua: 'Рішення для бізнесу', ru: 'Решение для бизнеса' },
@@ -446,7 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!translations[lang]) return;
         currentLang = lang;
         localStorage.setItem('svitlo24_lang', lang);
-        document.documentElement.lang = lang;
+        document.documentElement.lang = (lang === 'ua' || lang === 'uk') ? 'uk' : lang;
 
         document.querySelectorAll('.lang-btn').forEach(btn => {
             if (btn.getAttribute('data-lang') === lang) {
@@ -1749,7 +1749,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const PRODUCT_DATA = {
         'pkg-6kw': {
             id: 'pkg-6kw',
-            gallery: ['assets/images/hero-kit-6kwt-trans.png?v=3'],
+            gallery: ['assets/images/hero-kit-6kwt-trans.webp'],
             ua: {
                 title: 'Комплект «6 кВт·год»',
                 subtitle: 'Літій-іонна батарея 6 кВт·год + інвертор EASUN 3.2kW',
@@ -1809,7 +1809,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         'pkg-12kw': {
             id: 'pkg-12kw',
-            gallery: ['assets/images/hero-kit-12kwt-trans.png?v=3'],
+            gallery: ['assets/images/hero-kit-12kwt-trans.webp'],
             ua: {
                 title: 'Комплект «12 кВт·год»',
                 subtitle: 'Літій-іонна батарея 12 кВт·год + інвертор EASUN 6.2kW',
@@ -1869,7 +1869,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         'pkg-24kw': {
             id: 'pkg-24kw',
-            gallery: ['assets/images/hero-kit-24kwt-trans.png?v=3'],
+            gallery: ['assets/images/hero-kit-24kwt-trans.webp'],
             ua: {
                 title: 'Комплект «24 кВт·год»',
                 subtitle: 'Літій-іонна батарея 24 кВт·год (2×12 кВт·год) + 1–2 інвертори EASUN 6.2kW',
@@ -1929,7 +1929,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         'pkg-36kw': {
             id: 'pkg-36kw',
-            gallery: ['assets/images/hero-kit-36kwt-trans.png?v=3'],
+            gallery: ['assets/images/hero-kit-36kwt-trans.webp'],
             ua: {
                 title: 'Комплект «36 кВт·год»',
                 subtitle: 'Масштабована система: 36+ кВт·год (3×12 кВт·год) + 1–3 інвертори EASUN 6.2kW',
@@ -1990,9 +1990,9 @@ document.addEventListener('DOMContentLoaded', () => {
         '314ah': {
             id: '314ah',
             gallery: [
-                'assets/images/tadiran-314ah-1.jpg',
-                'assets/images/tadiran-314ah-2.jpg',
-                'assets/images/tadiran-314ah-3.jpg'
+                'assets/images/tadiran-314ah-1.webp',
+                'assets/images/tadiran-314ah-2.webp',
+                'assets/images/tadiran-314ah-3.webp'
             ],
             ua: {
                 title: 'Tadiran LFP 51.2V 314Ah',
@@ -2044,9 +2044,9 @@ document.addEventListener('DOMContentLoaded', () => {
         '200ah': {
             id: '200ah',
             gallery: [
-                'assets/images/tadiran-200ah-1.jpg',
-                'assets/images/tadiran-200ah-2.jpg',
-                'assets/images/tadiran-200ah-3.jpg'
+                'assets/images/tadiran-200ah-1.webp',
+                'assets/images/tadiran-200ah-2.webp',
+                'assets/images/tadiran-200ah-3.webp'
             ],
             ua: {
                 title: 'Tadiran LFP 51.2V 200Ah',
@@ -2098,9 +2098,9 @@ document.addEventListener('DOMContentLoaded', () => {
         '100ah-wm': {
             id: '100ah-wm',
             gallery: [
-                'assets/images/tadiran-100ah-wm-1.jpg',
-                'assets/images/tadiran-100ah-wm-2.jpg',
-                'assets/images/tadiran-100ah-wm-3.jpg'
+                'assets/images/tadiran-100ah-wm-1.webp',
+                'assets/images/tadiran-100ah-wm-2.webp',
+                'assets/images/tadiran-100ah-wm-3.webp'
             ],
             ua: {
                 title: 'Tadiran LFP 51.2V 100Ah-WM',
@@ -2152,9 +2152,9 @@ document.addEventListener('DOMContentLoaded', () => {
         '100ah-s': {
             id: '100ah-s',
             gallery: [
-                'assets/images/tadiran-100ah-s-1.jpg',
-                'assets/images/tadiran-100ah-s-2.jpg',
-                'assets/images/tadiran-100ah-s-3.jpg'
+                'assets/images/tadiran-100ah-s-1.webp',
+                'assets/images/tadiran-100ah-s-2.webp',
+                'assets/images/tadiran-100ah-s-3.webp'
             ],
             ua: {
                 title: 'Tadiran LFP 51.2V 100Ah-S',
@@ -2259,7 +2259,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const visualBox = document.getElementById('pm-visual-box');
         if (visualBox) {
             const galleryArr = prod.gallery || data.gallery || [];
-            const mainImg = galleryArr.length ? galleryArr[0] : (data.img || 'assets/images/tadiran-314ah.jpg');
+            const mainImg = galleryArr.length ? galleryArr[0] : (data.img || 'assets/images/tadiran-314ah.webp');
             visualBox.innerHTML = `<img src="${mainImg}" alt="${data.title}" class="pm-visual-img" id="pm-active-img" style="max-width: 100%; max-height: 230px; object-fit: contain; filter: drop-shadow(0 14px 28px rgba(15,23,42,0.14));">`;
         }
 
