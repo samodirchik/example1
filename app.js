@@ -15,7 +15,7 @@ function validateUkrainianPhone(phoneStr) {
     const mobileDigits = digits.substring(3);
     const opCode = mobileDigits.substring(0, 2);
     const validOpCodes = ['50', '63', '66', '67', '68', '73', '77', '89', '91', '92', '93', '94', '95', '96', '97', '98', '99'];
-    
+
     if (!validOpCodes.includes(opCode)) {
         return false;
     }
@@ -88,6 +88,7 @@ window.closeModal = closeModal;
 window.heroShowcaseData = {
     '6': {
         img: 'assets/images/hero-kit-6kwt-trans.webp',
+        mobileImg: 'assets/images/hero-kit-6kwt-trans-mobile.webp',
         title: { ua: '6 кВт·год', ru: '6 кВт·ч' },
         price: '55 000 ₴',
         sub: { ua: 'Ідеально для резерву квартири', ru: 'Идеально для резерва квартиры' },
@@ -130,7 +131,7 @@ window.heroShowcaseData = {
 
 window.currentHeroPower = '6';
 
-window.selectHeroPower = function(p) {
+window.selectHeroPower = function (p) {
     if (!window.heroShowcaseData[p]) return;
     window.currentHeroPower = String(p);
 
@@ -143,9 +144,11 @@ window.selectHeroPower = function(p) {
     });
 
     const data = window.heroShowcaseData[p];
-    const lang = localStorage.getItem('svitlo24_lang') || document.documentElement.lang || 'ua';
+    const storedLang = localStorage.getItem('svitlo24_lang');
+    const lang = (storedLang === 'ru' || document.documentElement.lang === 'ru') ? 'ru' : 'ua';
 
     const imgEl = document.getElementById('hero-showcase-img');
+    const sourceEl = document.getElementById('hero-showcase-source') || document.querySelector('.hero-showcase-stage source');
     const titleEl = document.getElementById('hero-spec-title');
     const subEl = document.getElementById('hero-spec-sub');
     const priceEl = document.getElementById('hero-spec-price');
@@ -155,6 +158,10 @@ window.selectHeroPower = function(p) {
         imgEl.style.opacity = '0';
         imgEl.style.transform = 'scale(0.96)';
         setTimeout(() => {
+            const mobileSrc = data.mobileImg || data.img;
+            if (sourceEl) {
+                sourceEl.srcset = mobileSrc;
+            }
             imgEl.src = data.img;
             imgEl.style.opacity = '1';
             imgEl.style.transform = 'scale(1)';
@@ -185,12 +192,14 @@ document.addEventListener('DOMContentLoaded', () => {
             'nav.autonomy': 'Автономність',
             'nav.calculator': 'Калькулятор',
             'nav.packages': 'Комплекти',
+            'nav.contacts': 'Контакти',
             'header.grid_status': 'Мережа: 230V 50Hz',
             'header.btn_order': 'Замовити розрахунок',
             'hero.badge': 'Резервне живлення під ключ з гарантією',
             'hero.title_1': 'Автономна енергосистема.',
             'hero.title_2': 'Забудьте про відключення світла',
-                        'hero.metric_1_val': '< 4 мс',
+            'hero.description': 'Готові комплекти «інвертор + акумулятор» з доставкою. Автоматично живить техніку, захищає від перепадів напруги та працює безшумно.',
+            'hero.metric_1_val': '< 4 мс',
             'hero.metric_1_lbl': 'Миттєве перемикання',
             'hero.metric_2_val': '1 день',
             'hero.metric_2_lbl': 'Швидка доставка',
@@ -222,6 +231,14 @@ document.addEventListener('DOMContentLoaded', () => {
             'house.subtitle': 'Перемикайте режим нижче, щоб побачити захист кімнат при збої мережі.',
             'house.mode_rezerv': 'Режим: Резерв 230V',
             'house.mode_blackout': 'Режим: Блекаут 0V',
+            'house.room_boiler': 'Котельня',
+            'house.desc_boiler': 'Котел та насоси (24°C)',
+            'house.room_kitchen': 'Кухня',
+            'house.desc_kitchen': 'Холодильник OK',
+            'house.room_office': 'Кабінет',
+            'house.desc_office': 'Wi-Fi роутер & ПК',
+            'house.room_living': 'Вітальня',
+            'house.desc_living': 'Світло & ТВ',
             'calc.title': 'Калькулятор часу автономності',
             'calc.subtitle': 'Оберіть прилади, які мають працювати під час відключення світла, щоб розрахувати необхідний запас енергії.',
             'calc.appliances_title': 'Ваші пріоритетні прилади:',
@@ -230,41 +247,90 @@ document.addEventListener('DOMContentLoaded', () => {
             'calc.appliance_3': 'Інтернет-роутер + Освітлення (LED)',
             'calc.appliance_4': 'Робочий ПК + 2 Монитори',
             'calc.appliance_5': 'Кондиціонер / Клімат-контроль',
+            'calc.appliance_6': 'Бойлер / Електроплита / Насос',
+            'calc.appliance_7': 'Обладнання для бізнесу',
             'calc.total_load': 'Сумарне навантаження:',
             'calc.autonomy_time': 'Очікуваний час автономності:',
-            'calc.battery_base': 'на базі акумулятора LiFePO4 5.12 кВт·год (48V 100Ah)',
-            'calc.rec_title': 'Рекомендований комплект:',
-            'calc.btn_order': 'Замовити цей комплект',
-            'pkg.title': 'Готові комплекти автономності',
+            'calc.battery_base': 'на базі акумулятора LiFePO4 5.12–6 кВт·год',
+            'calc.rec_title': 'Рекомендоване рішення:',
+            'calc.btn_order': 'Замовити це рішення',
+            'pkg.title': 'Готові комплекти та акумулятори',
             'pkg.subtitle': 'Підібрані рішення для квартир, котеджів та бізнесу з гарантією 5 років та оперативною доставкою.',
+            'pkg.cat_pkgs_badge': 'Готові рішення під ключ',
+            'pkg.cat_pkgs_title': '⚡ Енергосистеми «Інвертор + LiFePO4 акумулятор»',
+            'pkg.cat_pkgs_desc': 'Повністю скомплектовані та налаштовані станції для квартири, будинку чи бізнесу з гарантією 5 років.',
             'pkg.badge_featured': 'Хіт продажів',
             'pkg.badge_1': 'Квартира / Офіс',
-            'pkg.badge_2': 'Будинок / Котедж',
-            'pkg.badge_3': 'Заміський будинок / Бізнес',
+            'pkg.badge_2': 'Квартира / Будинок',
+            'pkg.badge_3': 'Великий будинок',
+            'pkg.badge_4': 'Рішення для бізнесу',
             'pkg.photo_slot': 'Місце під фото комплекту',
             'pkg.spec_power': 'Потужність',
             'pkg.spec_cap': 'Ємність LiFePO4',
             'pkg.spec_time': 'Час роботи',
-            'pkg.save_1': '-15% Економія 26 000 ₴',
-            'pkg.save_2': '-14% Економія 40 000 ₴',
-            'pkg.save_3': '-14% Економія 50 000 ₴',
-            'pkg.name_1': 'Комфорт 6 кВт',
-            'pkg.name_2': 'Оптима 12 кВт',
-            'pkg.name_3': 'Максимум 15 кВт',
-            'pkg.p1_f1': 'Гібридний Інвертор 6 кВт (Чистий синус)',
-            'pkg.p1_f2': 'Батарея LiFePO4 5.12 кВт·год (100Ah 48V)',
+            'pkg.save_1': '-10% Економія 6 000 ₴',
+            'pkg.save_2': '-10% Економія 11 000 ₴',
+            'pkg.save_3': '-10% Економія 18 700 ₴',
+            'pkg.save_4': '-10% Економія 27 500 ₴',
+            'pkg.name_1': 'Комплект 6 кВт·год',
+            'pkg.name_2': 'Комплект 12 кВт·год',
+            'pkg.name_3': 'Комплект 24 кВт·год',
+            'pkg.name_4': 'Комплект 36 кВт·год',
+            'pkg.p1_cap_val': '6 кВт·год',
+            'pkg.p1_time_val': '5–8 год',
+            'pkg.p1_f1': 'Інвертор EASUN 3.2 кВт + АКБ 6 кВт·год (24 В)',
+            'pkg.p1_f2': 'Для квартири, котел, холодильник, інтернет, освітлення',
             'pkg.p1_f3': 'До 5–8 годин повної автономності',
-            'pkg.p2_f1': 'Гібридний Інвертор 12 кВт',
-            'pkg.p2_f2': 'Батарея LiFePO4 10.24 кВт·год',
+            'pkg.p2_cap_val': '12 кВт·год',
+            'pkg.p2_time_val': '12–24 год',
+            'pkg.p2_f1': 'Інвертор EASUN 6.2 кВт + АКБ 12 кВт·год (48 В)',
+            'pkg.p2_f2': 'Для будинку, основних приладів, підтримка сонячних панелей',
             'pkg.p2_f3': 'До 12–24+ годин живлення дому',
-            'pkg.p3_f1': 'Трифазний Інвертор 15 кВт',
-            'pkg.p3_f2': '3x Батареї LiFePO4 (15.36 кВт·год)',
+            'pkg.p3_cap_val': '24 кВт·год',
+            'pkg.p3_time_val': '24–48 год',
+            'pkg.p3_f1': '1–2 інвертори EASUN 6.2 кВт + батарея 24 кВт·год',
+            'pkg.p3_f2': 'Для бізнесу, офісу, кас, серверів та високих навантажень',
             'pkg.p3_f3': 'До 48 годин автономної роботи',
+            'pkg.p4_cap_val': '36+ кВт·год',
+            'pkg.p4_time_val': '48+ год',
+            'pkg.p4_f1': '1–3 інвертори EASUN 6.2 кВт + стійка 36+ кВт·год',
+            'pkg.p4_f2': 'Масштабована система для великих будинків і комерції 24/7',
+            'pkg.btn_details': 'Деталі моделі',
+            'pkg.btn_order': 'Замовити',
             'pkg.btn_order_discount': 'Замовити зі знижкою',
             'pkg.swipe_hint': '👉 Свайпайте ліворуч / праворуч для вибору',
+            'pkg.cat_tad_badge': 'Преміальні акумулятори',
+            'pkg.cat_tad_title': '🔋 Акумуляторні батареї Tadiran LiFePO4',
+            'pkg.cat_tad_desc': 'Окремі низьковольтні 51.2V модулі для модернізації та масштабування систем на базі Deye, Must, Victron.',
+            'tadiran.b314_badge': 'ФЛАГМАН / 8000 ЦИКЛІВ',
+            'tadiran.t1_cap_val': '16.08 кВт·год',
+            'tadiran.spec_cap': 'Ємність',
+            'tadiran.spec_volt': 'Напруга',
+            'tadiran.spec_cycles': 'Циклів (80% DoD)',
+            'tadiran.save_1': '-10% Економія 20 000 ₴',
+            'tadiran.c1_f1': 'Підлоговий монтаж на роликах у посиленому металевому корпусі',
+            'tadiran.c1_f2': 'Комірки Grade-A+ з BMS JBD, CAN/RS485 під інвертори 48V (Deye, Victron)',
+            'tadiran.b200_badge': 'ПОПУЛЯРНИЙ ВИБІР',
+            'tadiran.t2_cap_val': '10.24 кВт·год',
+            'tadiran.save_2': '-10% Економія 14 000 ₴',
+            'tadiran.c2_f1': 'Підлоговий модуль з вбудованим кольоровим LCD-дисплеєм стану',
+            'tadiran.c2_f2': 'Подвійне активне балансування, повна сумісність з інверторами 48V',
+            'tadiran.b100wm_badge': 'НАСТІННИЙ МОНТАЖ',
+            'tadiran.t3_cap_val': '5.12 кВт·год',
+            'tadiran.save_3': '-10% Економія 7 000 ₴',
+            'tadiran.c3_f1': 'Компактний настінний монтаж для квартири (пиловологозахист IP65)',
+            'tadiran.c3_f2': 'Вбудований DC-вимикач, безпечне підключення, паралель до 16 шт',
+            'tadiran.b100s_badge': 'ДЛЯ 19" СТІЙКИ',
+            'tadiran.t4_cap_val': '5.12 кВт·год',
+            'tadiran.save_4': '-10% Економія 7 000 ₴',
+            'tadiran.c4_f1': 'Стієчний форм-фактор для серверних та телеком-шаф 19"',
+            'tadiran.c4_f2': 'Масштабування до 32 блоків (163 кВт·год), сертифікати UL9540A / CE',
+            'modal.title': 'Розрахунок автономної системи',
+            'modal.subtitle': 'Залиште контакти, і наш інженер підбере оптимальний інвертор та батарею під ваші прилади.',
             'modal.label_name': 'Ваше імʼя',
             'modal.ph_name': 'Іван',
             'modal.label_phone': 'Телефон для звʼязку',
+            'modal.ph_phone': '(XX) XXX-XX-XX',
             'modal.label_package': 'Обраний комплект',
             'modal.btn_submit': 'Отримати розрахунок',
             'callback.badge': 'Безкоштовна консультація інженера',
@@ -277,12 +343,13 @@ document.addEventListener('DOMContentLoaded', () => {
             'callback.btn_submit': 'Отримати безкоштовну консультацію',
             'callback.privacy': '🔒 Ваші дані захищені. Без спаму та нав\'язливих дзвінків.',
             'callback.seo_title': 'Надійна автономність та резервне живлення для вашого будинку',
-            'callback.seo_text': 'Компанія SVITLO24 є офіційним постачальником готових комплектів резервного живлення: гібридних інверторів (6 кВт, 12 кВт, 15 кВт) та надійних LiFePO4 акумуляторів з ресурсом понад 6000 циклів. Ми надаємо професійну технічну консультацію, точно підбираємо обладнання під навантаження вашого будинку та забезпечуємо оперативну доставку та офіційну гарантію по всій Україні.',
+            'callback.seo_text': 'Компанія SVITLO24 є офіційним постачальником готових комплектів резервного живлення: гібридних інверторів EASUN (3.2–18.6 кВт) та надійних LiFePO4 акумуляторів (6–36 кВт·год) з ресурсом понад 6000 циклів. Ми надаємо професійну технічну консультацію, точно підбираємо обладнання під навантаження вашого будинку та забезпечуємо оперативну доставку та офіційну гарантію по всій Україні.',
             'footer.coverage': 'Працюємо по всій Україні 🇺🇦',
             'footer.copyright': '© 2026 SVITLO24. Всі права захищені.',
             'drawer.sub_1': 'Симуляція живлення приладів',
             'drawer.sub_2': 'Розрахунок часу автономії',
-            'drawer.sub_3': 'Готові інвертори + акумулятори',
+            'drawer.sub_3': 'Готові інвертори + батареї',
+            'drawer.sub_4': 'Форма зворотного звʼязку',
             'drawer.phone_lbl': '📞 Натисніть для безкоштовного дзвінка',
             'pm.acc_title': '📦 Входить до комплектації:',
             'pm.sel_pkg': 'Лінійка систем:',
@@ -312,6 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'nav.autonomy': 'Автономия',
             'nav.calculator': 'Калькулятор',
             'nav.packages': 'Комплекты',
+            'nav.contacts': 'Контакты',
             'header.grid_status': 'Сеть: 230V 50Hz',
             'header.btn_order': 'Заказать расчет',
             'hero.badge': 'Резервное питание под ключ с гарантией',
@@ -350,6 +418,14 @@ document.addEventListener('DOMContentLoaded', () => {
             'house.subtitle': 'Переключите режим ниже, чтобы увидеть защиту комнат при сбое сети.',
             'house.mode_rezerv': 'Режим: Резерв 230V',
             'house.mode_blackout': 'Режим: Блэкаут 0V',
+            'house.room_boiler': 'Котельная',
+            'house.desc_boiler': 'Котел и насосы (24°C)',
+            'house.room_kitchen': 'Кухня',
+            'house.desc_kitchen': 'Холодильник OK',
+            'house.room_office': 'Кабинет',
+            'house.desc_office': 'Wi-Fi роутер & ПК',
+            'house.room_living': 'Гостиная',
+            'house.desc_living': 'Свет & ТВ',
             'calc.title': 'Калькулятор времени автономии',
             'calc.subtitle': 'Выберите приборы, которые должны работать во время отключения света, чтобы рассчитать необходимый запас энергии.',
             'calc.appliances_title': 'Ваши приоритетные приборы:',
@@ -358,43 +434,90 @@ document.addEventListener('DOMContentLoaded', () => {
             'calc.appliance_3': 'Интернет-роутер + Освещение (LED)',
             'calc.appliance_4': 'Рабочий ПК + 2 Монитора',
             'calc.appliance_5': 'Кондиционер / Климат-контроль',
+            'calc.appliance_6': 'Бойлер / Электроплита / Скважинный насос',
+            'calc.appliance_7': 'Оборудование для бизнеса',
             'calc.total_load': 'Суммарная нагрузка:',
             'calc.autonomy_time': 'Ожидаемое время автономии:',
-            'calc.battery_base': 'на базе аккумулятора LiFePO4 5.12 кВт·ч (48V 100Ah)',
-            'calc.rec_title': 'Рекомендуемый комплект:',
-            'calc.btn_order': 'Заказать этот комплект',
-            'pkg.title': 'Готовые комплекты автономии',
+            'calc.battery_base': 'на базе аккумулятора LiFePO4 5.12–6 кВт·ч',
+            'calc.rec_title': 'Рекомендуемое решение:',
+            'calc.btn_order': 'Заказать это решение',
+            'pkg.title': 'Готовые комплекты и аккумуляторы',
             'pkg.subtitle': 'Подобранные решения для квартир, коттеджей и бизнеса с гарантией 5 лет и оперативной доставкой.',
+            'pkg.cat_pkgs_badge': 'Готовые решения под ключ',
+            'pkg.cat_pkgs_title': '⚡ Энергосистемы «Инвертор + LiFePO4 аккумулятор»',
+            'pkg.cat_pkgs_desc': 'Полностью скомплектованные и настроенные станции для квартиры, дома или бизнеса с гарантией 5 лет.',
             'pkg.badge_featured': 'Хит продаж',
             'pkg.badge_1': 'Квартира / Офис',
-            'pkg.badge_2': 'Дом / Коттедж',
-            'pkg.badge_3': 'Загородный дом / Бизнес',
+            'pkg.badge_2': 'Квартира / Дом',
+            'pkg.badge_3': 'Большой дом',
+            'pkg.badge_4': 'Решение для бизнеса',
             'pkg.photo_slot': 'Место под фото комплекта',
             'pkg.spec_power': 'Мощность',
             'pkg.spec_cap': 'Емкость LiFePO4',
             'pkg.spec_time': 'Время работы',
-            'pkg.save_1': '-15% Экономия 26 000 ₴',
-            'pkg.save_2': '-14% Экономия 40 000 ₴',
-            'pkg.save_3': '-14% Экономия 50 000 ₴',
-            'pkg.name_1': 'Комфорт 6 кВт',
-            'pkg.name_2': 'Оптима 12 кВт',
-            'pkg.name_3': 'Максимум 15 кВт',
-            'pkg.p1_f1': 'Гибридный Инвертор 6 кВт (Чистый синус)',
-            'pkg.p1_f2': 'Батарея LiFePO4 5.12 кВт·ч (100Ah 48V)',
+            'pkg.save_1': '-10% Экономия 6 000 ₴',
+            'pkg.save_2': '-10% Экономия 11 000 ₴',
+            'pkg.save_3': '-10% Экономия 18 700 ₴',
+            'pkg.save_4': '-10% Экономия 27 500 ₴',
+            'pkg.name_1': 'Комплект 6 кВт·ч',
+            'pkg.name_2': 'Комплект 12 кВт·ч',
+            'pkg.name_3': 'Комплект 24 кВт·ч',
+            'pkg.name_4': 'Комплект 36 кВт·ч',
+            'pkg.p1_cap_val': '6 кВт·ч',
+            'pkg.p1_time_val': '5–8 ч',
+            'pkg.p1_f1': 'Инвертор EASUN 3.2 кВт + АКБ 6 кВт·ч (24 В)',
+            'pkg.p1_f2': 'Для квартиры, котел, холодильник, интернет, освещение',
             'pkg.p1_f3': 'До 5–8 часов полной автономии',
-            'pkg.p2_f1': 'Гибридный Инвертор 12 кВт',
-            'pkg.p2_f2': 'Батарея LiFePO4 10.24 кВт·ч',
+            'pkg.p2_cap_val': '12 кВт·ч',
+            'pkg.p2_time_val': '12–24 ч',
+            'pkg.p2_f1': 'Инвертор EASUN 6.2 кВт + АКБ 12 кВт·ч (48 В)',
+            'pkg.p2_f2': 'Для дома, основных приборов, поддержка солнечных панелей',
             'pkg.p2_f3': 'До 12–24+ часов питания дома',
-            'pkg.p3_f1': 'Трехфазный Инвертор 15 кВт',
-            'pkg.p3_f2': '3x Батареи LiFePO4 (15.36 кВт·ч)',
+            'pkg.p3_cap_val': '24 кВт·ч',
+            'pkg.p3_time_val': '24–48 ч',
+            'pkg.p3_f1': '1–2 инвертора EASUN 6.2 кВт + батарея 24 кВт·ч',
+            'pkg.p3_f2': 'Для бизнеса, офиса, касс, серверов и высоких нагрузок',
             'pkg.p3_f3': 'До 48 часов автономной работы',
+            'pkg.p4_cap_val': '36+ кВт·ч',
+            'pkg.p4_time_val': '48+ ч',
+            'pkg.p4_f1': '1–3 инвертора EASUN 6.2 кВт + стойка 36+ кВт·ч',
+            'pkg.p4_f2': 'Масштабируемая система для больших домов и коммерции 24/7',
+            'pkg.btn_details': 'Детали модели',
+            'pkg.btn_order': 'Заказать',
             'pkg.btn_order_discount': 'Заказать со скидкой',
             'pkg.swipe_hint': '👉 Свайпайте влево / вправо для выбора',
+            'pkg.cat_tad_badge': 'Премиальные аккумуляторы',
+            'pkg.cat_tad_title': '🔋 Аккумуляторные батареи Tadiran LiFePO4',
+            'pkg.cat_tad_desc': 'Отдельные низковольтные 51.2V модули для модернизации и масштабирования систем на базе Deye, Must, Victron.',
+            'tadiran.b314_badge': 'ФЛАГМАН / 8000 ЦИКЛОВ',
+            'tadiran.t1_cap_val': '16.08 кВт·ч',
+            'tadiran.spec_cap': 'Емкость',
+            'tadiran.spec_volt': 'Напряжение',
+            'tadiran.spec_cycles': 'Циклов (80% DoD)',
+            'tadiran.save_1': '-10% Экономия 20 000 ₴',
+            'tadiran.c1_f1': 'Напольный монтаж на роликах в усиленном металлическом корпусе',
+            'tadiran.c1_f2': 'Ячейки Grade-A+ с BMS JBD, CAN/RS485 под инверторы 48V (Deye, Victron)',
+            'tadiran.b200_badge': 'ПОПУЛЯРНЫЙ ВЫБОР',
+            'tadiran.t2_cap_val': '10.24 кВт·ч',
+            'tadiran.save_2': '-10% Экономия 14 000 ₴',
+            'tadiran.c2_f1': 'Напольный модуль со встроенным цветным LCD-дисплеем состояния',
+            'tadiran.c2_f2': 'Двойная активная балансировка, полная совместимость с инверторами 48V',
+            'tadiran.b100wm_badge': 'НАСТЕННЫЙ МОНТАЖ',
+            'tadiran.t3_cap_val': '5.12 кВт·ч',
+            'tadiran.save_3': '-10% Экономия 7 000 ₴',
+            'tadiran.c3_f1': 'Компактный настенный монтаж для квартиры (пылевлагозащита IP65)',
+            'tadiran.c3_f2': 'Встроенный DC-выключатель, безопасное подключение, параллель до 16 шт',
+            'tadiran.b100s_badge': 'ДЛЯ 19" СТОЙКИ',
+            'tadiran.t4_cap_val': '5.12 кВт·ч',
+            'tadiran.save_4': '-10% Экономия 7 000 ₴',
+            'tadiran.c4_f1': 'Стоечный форм-фактор для серверных и телеком-шкафов 19"',
+            'tadiran.c4_f2': 'Масштабирование до 32 блоков (163 кВт·ч), сертификаты UL9540A / CE',
             'modal.title': 'Расчет автономной системы',
             'modal.subtitle': 'Оставьте контакты, и наш инженер подберет оптимальный инвертор и батарею под ваши приборы.',
             'modal.label_name': 'Ваше имя',
             'modal.ph_name': 'Иван',
             'modal.label_phone': 'Телефон для связи',
+            'modal.ph_phone': '(XX) XXX-XX-XX',
             'modal.label_package': 'Выбранный комплект',
             'modal.btn_submit': 'Получить расчет',
             'callback.badge': 'Бесплатная консультация инженера',
@@ -407,12 +530,13 @@ document.addEventListener('DOMContentLoaded', () => {
             'callback.btn_submit': 'Получить бесплатную консультацию',
             'callback.privacy': '🔒 Ваши данные защищены. Без спама и навязчивых звонков.',
             'callback.seo_title': 'Надежная автономия и резервное питание для вашего дома',
-            'callback.seo_text': 'Компания SVITLO24 является официальным поставщиком готовых комплектов резервного питания: гибридных инверторов (6 кВт, 12 кВт, 15 кВт) и надежных LiFePO4 аккумуляторов с ресурсом более 6000 циклов. Мы предоставляем профессиональную техническую консультацию, точно подбираем оборудование под нагрузку вашего дома и обеспечиваем оперативную доставку и официальную гарантию по всей Украине.',
+            'callback.seo_text': 'Компания SVITLO24 является официальным поставщиком готовых комплектов резервного питания: гибридных инверторов EASUN (3.2–18.6 кВт) и надежных LiFePO4 аккумуляторов (6–36 кВт·ч) с ресурсом более 6000 циклов. Мы предоставляем профессиональную техническую консультацию, точно подбираем оборудование под нагрузку вашего дома и обеспечиваем оперативную доставку и официальную гарантию по всей Украине.',
             'footer.coverage': 'Работаем по всей Украине 🇺🇦',
             'footer.copyright': '© 2026 SVITLO24. Все права защищены.',
             'drawer.sub_1': 'Симуляция питания приборов',
             'drawer.sub_2': 'Расчет времени автономии',
             'drawer.sub_3': 'Готовые инверторы + аккумуляторы',
+            'drawer.sub_4': 'Форма обратной связи',
             'drawer.phone_lbl': '📞 Нажмите для бесплатного звонка',
             'pm.acc_title': '📦 Входит в комплектацию:',
             'pm.sel_pkg': 'Линейка систем:',
@@ -481,6 +605,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const prodModalEl = document.getElementById('product-modal');
         if (prodModalEl && prodModalEl.classList.contains('active') && typeof renderTadiranModal === 'function') {
             renderTadiranModal();
+        }
+
+        const btnBlackout = document.getElementById('btn-mode-blackout');
+        if (typeof setHouseMode === 'function' && btnBlackout) {
+            setHouseMode(!btnBlackout.classList.contains('active'));
         }
     };
 
@@ -606,51 +735,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const rooms = {
         boiler: {
+            id: 'room-boiler',
             card: document.getElementById('room-boiler'),
             badge: document.getElementById('badge-boiler'),
-            desc: document.getElementById('desc-boiler'),
-            okText: '230V OK',
-            okDesc: 'Котел и насосы (24°C)',
-            offText: '0V СБОЙ',
-            offDesc: 'Котел замерзает!'
+            desc: document.getElementById('desc-boiler')
         },
         kitchen: {
+            id: 'room-kitchen',
             card: document.getElementById('room-kitchen'),
             badge: document.getElementById('badge-kitchen'),
-            desc: document.getElementById('desc-kitchen'),
-            okText: '230V OK',
-            okDesc: 'Холодильник OK',
-            offText: '0V СБОЙ',
-            offDesc: 'Еда портится!'
+            desc: document.getElementById('desc-kitchen')
         },
         office: {
+            id: 'room-office',
             card: document.getElementById('room-office'),
             badge: document.getElementById('badge-office'),
-            desc: document.getElementById('desc-office'),
-            okText: '230V OK',
-            okDesc: 'Wi-Fi роутер & ПК',
-            offText: '0V СБОЙ',
-            offDesc: 'Связь потеряна!'
+            desc: document.getElementById('desc-office')
         },
         living: {
+            id: 'room-living',
             card: document.getElementById('room-living'),
             badge: document.getElementById('badge-living'),
-            desc: document.getElementById('desc-living'),
-            okText: '230V OK',
-            okDesc: 'Свет & ТВ',
-            offText: '0V СБОЙ',
-            offDesc: 'Полная темнота!'
+            desc: document.getElementById('desc-living')
         }
     };
 
     function setHouseMode(isRezerv) {
+        const isUa = (currentLang === 'ua' || currentLang === 'uk');
         if (isRezerv) {
             if (btnModeRezerv) btnModeRezerv.classList.add('active');
             if (btnModeBlackout) btnModeBlackout.classList.remove('active');
 
             if (houseStatusHud) {
                 houseStatusHud.classList.remove('outage');
-                if (houseStatusText) houseStatusText.textContent = 'Автозапуск 0 мс — Приборы OK';
+                if (houseStatusText) houseStatusText.textContent = isUa ? 'Автозапуск 0 мс — Прилади OK' : 'Автозапуск 0 мс — Приборы OK';
             }
 
             Object.values(rooms).forEach(r => {
@@ -659,9 +777,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 r.card.classList.add('active');
                 if (r.badge) {
                     r.badge.className = 'room-badge badge-ok';
-                    r.badge.textContent = r.okText;
+                    r.badge.textContent = '230V OK';
                 }
-                if (r.desc) r.desc.textContent = r.okDesc;
+                if (r.desc) {
+                    const key = r.desc.getAttribute('data-i18n');
+                    if (key && translations[currentLang] && translations[currentLang][key]) {
+                        r.desc.textContent = translations[currentLang][key];
+                    }
+                }
             });
         } else {
             if (btnModeRezerv) btnModeRezerv.classList.remove('active');
@@ -669,8 +792,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (houseStatusHud) {
                 houseStatusHud.classList.add('outage');
-                if (houseStatusText) houseStatusText.textContent = 'БЛЭКАУТ! Дом обесточен (0V)';
+                if (houseStatusText) houseStatusText.textContent = isUa ? 'БЛЕКАУТ! Будинок знеструмлено (0V)' : 'БЛЭКАУТ! Дом обесточен (0V)';
             }
+
+            const offDescMap = {
+                'room-boiler': isUa ? 'Котел замерзає!' : 'Котел замерзает!',
+                'room-kitchen': isUa ? 'Їжа псується!' : 'Еда портится!',
+                'room-office': isUa ? 'Звʼязок втрачено!' : 'Связь потеряна!',
+                'room-living': isUa ? 'Повна темрява!' : 'Полная темнота!'
+            };
 
             Object.values(rooms).forEach(r => {
                 if (!r.card) return;
@@ -678,9 +808,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 r.card.classList.add('room-off');
                 if (r.badge) {
                     r.badge.className = 'room-badge badge-off';
-                    r.badge.textContent = r.offText;
+                    r.badge.textContent = isUa ? '0V ЗБІЙ' : '0V СБОЙ';
                 }
-                if (r.desc) r.desc.textContent = r.offDesc;
+                if (r.desc && r.id) {
+                    r.desc.textContent = offDescMap[r.id] || '';
+                }
             });
         }
     }
@@ -817,8 +949,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         bgCtx.beginPath();
                         bgCtx.moveTo(p1.x, p1.y);
                         bgCtx.lineTo(p2.x, p2.y);
-                        bgCtx.strokeStyle = isOutage 
-                            ? `rgba(16, 185, 129, ${connAlpha})` 
+                        bgCtx.strokeStyle = isOutage
+                            ? `rgba(16, 185, 129, ${connAlpha})`
                             : `rgba(2, 132, 199, ${connAlpha})`;
                         bgCtx.lineWidth = 1.1;
                         bgCtx.stroke();
@@ -878,7 +1010,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 5. Hero Energy Diagram Canvas (Tesla / Apple Energy Aesthetics) ---
     const canvas = document.getElementById('energy-canvas');
-    let initComets = () => {};
+    let initComets = () => { };
 
     if (canvas) {
         const ctx = canvas.getContext('2d');
@@ -984,7 +1116,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let comets = [];
 
-        initComets = function() {
+        initComets = function () {
             comets = [];
             const count = 5;
 
@@ -1174,13 +1306,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 if (globalStatusPill) {
                     globalStatusPill.classList.add('outage');
-                    globalStatusPill.innerHTML = `<span class="status-dot"></span> Блэкаут (Резерв LiFePO4 100%)`;
+                    const pillText = currentLang === 'ua' ? 'Блекаут (Резерв LiFePO4 100%)' : 'Блэкаут (Резерв LiFePO4 100%)';
+                    globalStatusPill.innerHTML = `<span class="status-dot"></span> ${pillText}`;
                 }
                 if (cursorGlow) cursorGlow.classList.add('outage-mode');
                 if (nodeGrid) nodeGrid.style.opacity = '0.35';
 
                 // Update House Room Cards to Blackout Protection state
-                const resBadgeText = currentLang === 'ua' ? 'LiFePO4 0мс' : 'LiFePO4 0мс';
+                const resBadgeText = 'LiFePO4 0мс';
                 if (badgeBoiler) badgeBoiler.textContent = resBadgeText;
                 if (badgeKitchen) badgeKitchen.textContent = resBadgeText;
                 if (badgeOffice) badgeOffice.textContent = resBadgeText;
@@ -1191,7 +1324,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (descOffice) descOffice.textContent = currentLang === 'ua' ? 'Wi-Fi 100% ONLINE' : 'Wi-Fi 100% ONLINE';
                 if (descLiving) descLiving.textContent = currentLang === 'ua' ? 'Автономне світло' : 'Автономный свет';
 
-                const toastMsg = currentLang === 'ua' ? 'Сбій мережі! Резервна система LiFePO4 підхопила живлення за 0 мс.' : 'Сбой сети! Резервная система LiFePO4 подхватила питание за 0 мс.';
+                const toastMsg = currentLang === 'ua' ? 'Збій мережі! Резервна система LiFePO4 підхопила живлення за 0 мс.' : 'Сбой сети! Резервная система LiFePO4 подхватила питание за 0 мс.';
                 showToast(toastMsg);
             } else {
                 outageBtn.classList.remove('btn-primary');
@@ -1210,7 +1343,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 if (globalStatusPill) {
                     globalStatusPill.classList.remove('outage');
-                    globalStatusPill.innerHTML = `<span class="status-dot"></span> Сеть: 230V 50Hz`;
+                    const pillText = currentLang === 'ua' ? 'Мережа: 230V 50Hz' : 'Сеть: 230V 50Hz';
+                    globalStatusPill.innerHTML = `<span class="status-dot"></span> ${pillText}`;
                 }
                 if (cursorGlow) cursorGlow.classList.remove('outage-mode');
                 if (nodeGrid) nodeGrid.style.opacity = '1';
@@ -1222,7 +1356,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (badgeOffice) badgeOffice.textContent = okBadgeText;
                 if (badgeLiving) badgeLiving.textContent = okBadgeText;
 
-                if (descBoiler) descBoiler.textContent = currentLang === 'ua' ? 'Котел і насоси (24°C)' : 'Котел и насосы (24°C)';
+                if (descBoiler) descBoiler.textContent = currentLang === 'ua' ? 'Котел та насоси (24°C)' : 'Котел и насосы (24°C)';
                 if (descKitchen) descKitchen.textContent = currentLang === 'ua' ? 'Холодильник OK' : 'Холодильник OK';
                 if (descOffice) descOffice.textContent = currentLang === 'ua' ? 'Wi-Fi роутер & ПК' : 'Wi-Fi роутер & ПК';
                 if (descLiving) descLiving.textContent = currentLang === 'ua' ? 'Світло & ТВ' : 'Свет & ТВ';
@@ -1258,44 +1392,59 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        if (totalWattsEl) totalWattsEl.textContent = totalWatts;
+        if (totalWattsEl) {
+            totalWattsEl.innerHTML = `${totalWatts.toLocaleString('uk-UA')} <span class="unit">Вт</span>`;
+        }
 
-        // Select suitable package from the 3 models on sale (6 kW, 12 kW, 15 kW)
+        const isUa = currentLang === 'ua';
         let batteryWh = 5120;
-        let selectedPackageCode = 'Комплект 6 кВт';
+        let selectedPackageCode = 'Комплект 6 кВт·год (55 000 ₴)';
         let recTitleText = '';
         let subtextText = '';
 
-        if (totalWatts > 1500) {
-            batteryWh = 15360;
-            selectedPackageCode = 'Комплект 15 кВт';
-            recTitleText = currentLang === 'ua'
-                ? 'Комплект «Максимум 15 кВт» (Трифазний Інвертор 15кВт + 3x Батареї 15.36кВт·год)'
-                : 'Комплект «Максимум 15 кВт» (Трехфазный Инвертор 15кВт + 3x Батареи 15.36кВт·ч)';
-            subtextText = currentLang === 'ua'
-                ? 'на базі 3x акумуляторів LiFePO4 (15.36 кВт·год)'
-                : 'на базе 3x аккумуляторов LiFePO4 (15.36 кВт·ч)';
-        } else if (totalWatts > 600) {
-            batteryWh = 10240;
-            selectedPackageCode = 'Комплект 12 кВт';
-            recTitleText = currentLang === 'ua'
-                ? 'Комплект «Оптима 12 кВт» (Гібридний Інвертор 12кВт + Батарея 10.24кВт·год)'
-                : 'Комплект «Оптима 12 кВт» (Гибридный Инвертор 12кВт + Батарея 10.24кВт·ч)';
-            subtextText = currentLang === 'ua'
-                ? 'на базі 2x акумуляторів LiFePO4 (10.24 кВт·год)'
-                : 'на базе 2x аккумуляторов LiFePO4 (10.24 кВт·ч)';
+        if (totalWatts > 4500) {
+            // High power / Business loads (e.g. 5000 W business equipment)
+            batteryWh = 36000;
+            selectedPackageCode = 'Комплект 36 кВт·год (247 500 ₴)';
+            recTitleText = isUa
+                ? 'Комплект 36 кВт·год (для бізнесу) або Стійка Tadiran 36 кВт·год'
+                : 'Комплект 36 кВт·ч (для бизнеса) или Стойка Tadiran 36 кВт·ч';
+            subtextText = isUa
+                ? 'на базі промислової системи LiFePO4 36 кВт·год'
+                : 'на базе промышленной системы LiFePO4 36 кВт·ч';
+        } else if (totalWatts > 2000) {
+            // Heavy residential loads (boiler 2000 W + appliances = 2580 W, or boiler + climate = 3780 W)
+            batteryWh = 24000;
+            selectedPackageCode = 'Комплект 24 кВт·год (168 300 ₴)';
+            recTitleText = isUa
+                ? 'Комплект 24 кВт·год (інвертор 6.2 кВт) або Батарея Tadiran 16.08 кВт·год (314Ah)'
+                : 'Комплект 24 кВт·ч (инвертор 6.2 кВт) или Батарея Tadiran 16.08 кВт·ч (314Ah)';
+            subtextText = isUa
+                ? 'на базі акумулятора LiFePO4 16–24 кВт·год'
+                : 'на базе аккумулятора LiFePO4 16–24 кВт·ч';
+        } else if (totalWatts > 700) {
+            // Medium loads (climate 1200 W alone or with appliances = 1780 W, or boiler 2000 W)
+            batteryWh = 12000;
+            selectedPackageCode = 'Комплект 12 кВт·год (96 000 ₴)';
+            recTitleText = isUa
+                ? 'Комплект 12 кВт·год (інвертор 6.2 кВт) або Батарея Tadiran 10.24 кВт·год (200Ah)'
+                : 'Комплект 12 кВт·ч (инвертор 6.2 кВт) или Батарея Tadiran 10.24 кВт·ч (200Ah)';
+            subtextText = isUa
+                ? 'на базі акумулятора LiFePO4 10.24–12 кВт·год'
+                : 'на базе аккумулятора LiFePO4 10.24–12 кВт·ч';
         } else {
+            // Basic residential load (up to 700 W: fridge, boiler, router, PC = 580 W)
             batteryWh = 5120;
-            selectedPackageCode = 'Комплект 6 кВт';
-            recTitleText = currentLang === 'ua'
-                ? 'Комплект «Комфорт 6 кВт» (Гібридний Інвертор 6кВт + Батарея 5.12кВт·год)'
-                : 'Комплект «Комфорт 6 кВт» (Гибридный Инвертор 6кВт + Батарея 5.12кВт·ч)';
-            subtextText = currentLang === 'ua'
-                ? 'на базі акумулятора LiFePO4 5.12 кВт·год (48V 100Ah)'
-                : 'на базе аккумулятора LiFePO4 5.12 кВт·ч (48V 100Ah)';
+            selectedPackageCode = 'Комплект 6 кВт·год (55 000 ₴)';
+            recTitleText = isUa
+                ? 'Комплект 6 кВт·год (інвертор + АКБ) або Батарея Tadiran 5.12 кВт·год'
+                : 'Комплект 6 кВт·ч (инвертор + АКБ) или Батарея Tadiran 5.12 кВт·ч';
+            subtextText = isUa
+                ? 'на базі акумулятора LiFePO4 5.12–6 кВт·год'
+                : 'на базе аккумулятора LiFePO4 5.12–6 кВт·ч';
         }
 
-        const unitText = currentLang === 'ua' ? 'годин' : 'часов';
+        const unitText = isUa ? 'годин' : 'часов';
         if (runtimeHoursEl) {
             if (totalWatts === 0) {
                 runtimeHoursEl.innerHTML = `&infin; <span class="unit">${unitText}</span>`;
@@ -1306,11 +1455,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (batterySubtextEl) {
-            batterySubtextEl.textContent = subtextText;
+            batterySubtextEl.textContent = totalWatts === 0 ? (isUa ? 'оберіть прилади для розрахунку' : 'выберите приборы для расчета') : subtextText;
         }
 
         if (recPackageTitle) {
-            recPackageTitle.textContent = recTitleText;
+            recPackageTitle.textContent = totalWatts === 0 ? (isUa ? 'Оберіть прилади для розрахунку' : 'Выберите приборы для расчета') : recTitleText;
         }
 
         if (btnOrderRec) {
@@ -1561,8 +1710,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             sendToTelegram(msgText);
 
-            const msg = currentLang === 'ua' 
-                ? 'Заявку успішно надіслано! Менеджер зателефонує вам протягом 5 хвилин.' 
+            const msg = currentLang === 'ua'
+                ? 'Заявку успішно надіслано! Менеджер зателефонує вам протягом 5 хвилин.'
                 : 'Заявка успешно отправлена! Менеджер перезвонит вам в течение 5 минут.';
             showToast(msg);
             orderForm.reset();
@@ -1680,7 +1829,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const fullPhone = '+380 ' + (phoneInput ? phoneInput.value : '');
                 const msgText = `🔍 <b>Клієнт переглянув інші комплекти (зі збереженням контакту)!</b>\n\n` +
                     `📞 <b>Залишений телефон:</b> ${fullPhone}`;
-                
+
                 sendToTelegram(msgText);
                 const toastMsg = currentLang === 'ua'
                     ? 'Дякуємо! Контакт збережено, дивіться інші комплекти.'
@@ -1703,47 +1852,57 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 4000);
     }
 
-    // --- 16.0 Mobile Packages Carousel Sync ---
-    const pkgGrid = document.querySelector('.packages-grid');
-    const pkgPrevBtn = document.getElementById('pkg-prev-btn');
-    const pkgNextBtn = document.getElementById('pkg-next-btn');
-    const pkgDots = document.querySelectorAll('.pkg-dot');
+    // --- 16.0 Mobile Packages & Tadiran Carousel Sync ---
+    function setupMobileCarousel(gridSelector, prevBtnId, nextBtnId, dotsSelector) {
+        const grid = document.querySelector(gridSelector);
+        const prevBtn = document.getElementById(prevBtnId);
+        const nextBtn = document.getElementById(nextBtnId);
+        const dots = document.querySelectorAll(dotsSelector);
 
-    if (pkgGrid) {
-        const cards = pkgGrid.querySelectorAll('.package-card');
-        
+        if (!grid) return;
+        const cards = grid.querySelectorAll('.package-card');
+        if (!cards.length) return;
+
         const updateDots = () => {
-            if (!cards.length) return;
-            const scrollLeft = pkgGrid.scrollLeft;
-            const cardWidth = cards[0].offsetWidth + 16;
+            const scrollLeft = grid.scrollLeft;
+            const cardWidth = (cards[0] ? cards[0].offsetWidth : 280) + 16;
             const activeIdx = Math.min(cards.length - 1, Math.max(0, Math.round(scrollLeft / cardWidth)));
-            pkgDots.forEach((dot, idx) => {
+            dots.forEach((dot, idx) => {
                 dot.classList.toggle('active', idx === activeIdx);
             });
         };
 
-        pkgGrid.addEventListener('scroll', updateDots, { passive: true });
+        grid.addEventListener('scroll', updateDots, { passive: true });
 
-        if (pkgPrevBtn) {
-            pkgPrevBtn.addEventListener('click', () => {
-                pkgGrid.scrollBy({ left: -(pkgGrid.offsetWidth * 0.85), behavior: 'smooth' });
+        if (prevBtn) {
+            prevBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                grid.scrollBy({ left: -(grid.offsetWidth * 0.85), behavior: 'smooth' });
             });
         }
 
-        if (pkgNextBtn) {
-            pkgNextBtn.addEventListener('click', () => {
-                pkgGrid.scrollBy({ left: pkgGrid.offsetWidth * 0.85, behavior: 'smooth' });
+        if (nextBtn) {
+            nextBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                grid.scrollBy({ left: grid.offsetWidth * 0.85, behavior: 'smooth' });
             });
         }
 
-        pkgDots.forEach((dot, idx) => {
-            dot.addEventListener('click', () => {
+        dots.forEach((dot, idx) => {
+            dot.addEventListener('click', (e) => {
+                e.preventDefault();
                 if (cards[idx]) {
                     cards[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
                 }
             });
         });
     }
+
+    // 1. Carousel for Ready-made Packages
+    setupMobileCarousel('#tab-packages .packages-grid', 'pkgs-prev-btn', 'pkgs-next-btn', '#pkgs-dots .pkg-dot');
+
+    // 2. Carousel for Tadiran Batteries
+    setupMobileCarousel('#tab-tadiran .packages-grid', 'tadiran-prev-btn', 'tadiran-next-btn', '#tadiran-dots .pkg-dot');
 
     // --- 17.0 Unified Product Details Modal Engine (Kits & Tadiran) ---
     const PRODUCT_DATA = {
@@ -1829,8 +1988,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'Wi-Fi моніторинг / RS485 / CAN / USB / LCD',
                 certs: 'CE, RoHS, UN38.3',
                 montage: 'Настінний / Підлоговий',
-                price: '99 000 ₴',
-                packName: 'Комплект 12 кВт·год (99 000 ₴)',
+                price: '96 000 ₴',
+                packName: 'Комплект 12 кВт·год (96 000 ₴)',
                 accessories: [
                     'Гібридний інвертор EASUN ISolar-SMG-II-6.2KW-48V',
                     'Літій-іонна батарея 12 кВт·год (48V 250Ah)',
@@ -1857,8 +2016,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'Wi-Fi мониторинг / RS485 / CAN / USB / LCD',
                 certs: 'CE, RoHS, UN38.3',
                 montage: 'Настенный / Напольный',
-                price: '99 000 ₴',
-                packName: 'Комплект 12 кВт·ч (99 000 ₴)',
+                price: '96 000 ₴',
+                packName: 'Комплект 12 кВт·ч (96 000 ₴)',
                 accessories: [
                     'Гибридный инвертор EASUN ISolar-SMG-II-6.2KW-48V',
                     'Литий-ионная батарея 12 кВт·ч (48V 250Ah)',
@@ -2013,7 +2172,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'CAN / RS485 / RS232 (JBD APP Моніторинг)',
                 certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
                 montage: 'Підлоговий на роликах (IP30)',
-                price: 'від 185 000 ₴',
+                price: '185 000 ₴',
                 packName: 'Tadiran LFP-51.2V 314Ah (16.08 кВт·год)',
                 accessories: ['Комплект батареї x1', 'Кабель для інвертора x2', 'Кабель зв’язку x1', 'Інструкція x1']
             },
@@ -2036,7 +2195,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'CAN / RS485 / RS232 (JBD APP Мониторинг)',
                 certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
                 montage: 'Напольный на роликах (IP30)',
-                price: 'от 185 000 ₴',
+                price: '185 000 ₴',
                 packName: 'Tadiran LFP-51.2V 314Ah (16.08 кВт·ч)',
                 accessories: ['Комплект батареи x1', 'Кабель для инвертора x2', 'Кабель связи x1', 'Инструкция x1']
             }
@@ -2067,7 +2226,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'CAN / RS485 / RS232 (JBD APP)',
                 certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
                 montage: 'Підлоговий (IP30)',
-                price: 'від 125 000 ₴',
+                price: '125 000 ₴',
                 packName: 'Tadiran LFP-51.2V 200Ah (10.24 кВт·год)',
                 accessories: ['Комплект батареї x1', 'Кабель парал. підключення x2', 'Кабель зв’язку x1', 'Інструкція x1']
             },
@@ -2090,7 +2249,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'CAN / RS485 / RS232 (JBD APP)',
                 certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
                 montage: 'Напольный (IP30)',
-                price: 'от 125 000 ₴',
+                price: '125 000 ₴',
                 packName: 'Tadiran LFP-51.2V 200Ah (10.24 кВт·ч)',
                 accessories: ['Комплект батареи x1', 'Кабель парал. подключения x2', 'Кабель связи x1', 'Инструкция x1']
             }
@@ -2121,7 +2280,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'CAN / RS485 / RS232 (JBD APP)',
                 certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
                 montage: 'Настінний (IP30)',
-                price: 'від 65 000 ₴',
+                price: '65 000 ₴',
                 packName: 'Tadiran LFP-51.2V 100Ah-WM (5.12 кВт·год)',
                 accessories: ['Батарея x1', 'Кабель парал. підключення x2', 'Кабель зв’язку x1', 'Інструкція x1']
             },
@@ -2144,7 +2303,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'CAN / RS485 / RS232 (JBD APP)',
                 certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
                 montage: 'Настенный (IP30)',
-                price: 'от 65 000 ₴',
+                price: '65 000 ₴',
                 packName: 'Tadiran LFP-51.2V 100Ah-WM (5.12 кВт·ч)',
                 accessories: ['Батарея x1', 'Кабель парал. подключения x2', 'Кабель связи x1', 'Инструкция x1']
             }
@@ -2175,7 +2334,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'CAN / RS485 / RS232 (JBD APP)',
                 certs: 'MSDS, UN38.3, CE-EMC, UL9540A, UL1973, UL9540',
                 montage: 'Підлоговий / Штабельований 19" (IP30)',
-                price: 'від 62 000 ₴',
+                price: '62 000 ₴',
                 packName: 'Tadiran LFP-51.2V 100Ah-S (5.12 кВт·год)',
                 accessories: ['Батарея x1', 'Стійки x4', 'Кабель заземлення x1', 'Кабель парал. x2', 'Кабель зв’язку x1', 'Інструкція x1']
             },
@@ -2198,7 +2357,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'CAN / RS485 / RS232 (JBD APP)',
                 certs: 'MSDS, UN38.3, CE-EMC, UL9540A, UL1973, UL9540',
                 montage: 'Напольный / Штабелируемый 19" (IP30)',
-                price: 'от 62 000 ₴',
+                price: '62 000 ₴',
                 packName: 'Tadiran LFP-51.2V 100Ah-S (5.12 кВт·ч)',
                 accessories: ['Батарея x1', 'Стойки x4', 'Кабель заземления x1', 'Кабель парал. x2', 'Кабель связи x1', 'Инструкция x1']
             }

@@ -259,7 +259,7 @@
                 <div class="hero-showcase-box">
                     <div class="hero-showcase-stage">
                         <picture>
-                            <source media="(max-width: 768px)" srcset="assets/images/hero-kit-6kwt-trans-mobile.webp" type="image/webp">
+                            <source id="hero-showcase-source" media="(max-width: 768px)" srcset="assets/images/hero-kit-6kwt-trans-mobile.webp" type="image/webp">
                             <img id="hero-showcase-img"
                                  src="assets/images/hero-kit-6kwt-trans.webp"
                                  alt="Комплект резервного живлення SVITLO24"
@@ -519,6 +519,33 @@
                             </div>
                             <input type="checkbox" class="toggle-checkbox" aria-label="Кондиціонер">
                         </div>
+
+                        <div class="appliance-item" data-power="2000">
+                            <div class="appliance-info">
+                                <svg class="appliance-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                                </svg>
+                                <div>
+                                    <div class="appliance-name" data-i18n="calc.appliance_6">Бойлер / Електроплита / Насос</div>
+                                    <div class="appliance-watt">~2000 Вт/год</div>
+                                </div>
+                            </div>
+                            <input type="checkbox" class="toggle-checkbox" aria-label="Бойлер або насос">
+                        </div>
+
+                        <div class="appliance-item" data-power="5000">
+                            <div class="appliance-info">
+                                <svg class="appliance-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                                </svg>
+                                <div>
+                                    <div class="appliance-name" data-i18n="calc.appliance_7">Обладнання для бізнесу</div>
+                                    <div class="appliance-watt">~5000 Вт/год</div>
+                                </div>
+                            </div>
+                            <input type="checkbox" class="toggle-checkbox" aria-label="Обладнання для бізнесу">
+                        </div>
                     </div>
 
                     <!-- Interactive Result Output -->
@@ -531,13 +558,13 @@
                         <div class="result-card main-result">
                             <span class="result-label" data-i18n="calc.autonomy_time">Очікуваний час автономності:</span>
                             <div class="result-value text-gradient" id="runtime-hours">7.9 <span class="unit">годин</span></div>
-                            <span class="result-subtext" id="battery-subtext" data-i18n="calc.battery_base">на базі акумулятора LiFePO4 5.12 кВт·год (48V 100Ah)</span>
+                            <span class="result-subtext" id="battery-subtext" data-i18n="calc.battery_base">на базі акумулятора LiFePO4 5.12–6 кВт·год</span>
                         </div>
 
                         <div class="recommended-system">
-                            <div class="rec-title-heading" data-i18n="calc.rec_title">Рекомендований комплект:</div>
-                            <p class="rec-title" id="rec-package-title">Комплект «Комфорт 6 кВт» (Інвертор 6кВт + Батарея 5.12кВт·год)</p>
-                            <button class="btn btn-emerald btn-block glow-btn" id="btn-order-rec" data-pack="Комплект 6 кВт" data-i18n="calc.btn_order" aria-label="Замовити цей комплект">Замовити цей комплект</button>
+                            <div class="rec-title-heading" data-i18n="calc.rec_title">Рекомендоване рішення:</div>
+                            <p class="rec-title" id="rec-package-title">Комплект 6 кВт·год (інвертор + АКБ) або Батарея Tadiran 5.12 кВт·год</p>
+                            <button class="btn btn-emerald btn-block glow-btn" id="btn-order-rec" data-pack="Комплект 6 кВт·год (55 000 ₴)" data-i18n="calc.btn_order" aria-label="Замовити це рішення">Замовити це рішення</button>
                         </div>
                     </div>
                 </div>
@@ -592,8 +619,8 @@
                             <!-- Price Box: Old Crossed-out + New Price + Savings Badge -->
                             <div class="package-price-box">
                                 <div class="price-old-wrap">
-                                    <span class="price-old">65 000 <span class="currency">₴</span></span>
-                                    <span class="badge-discount" data-i18n="pkg.save_1">-15% Економія 10 000 ₴</span>
+                                    <span class="price-old">61 000 <span class="currency">₴</span></span>
+                                    <span class="badge-discount" data-i18n="pkg.save_1">-10% Економія 6 000 ₴</span>
                                 </div>
                                 <div class="package-price">55 000 <span class="currency">₴</span></div>
                             </div>
@@ -638,8 +665,8 @@
                             <!-- Price Box: Old Crossed-out + New Price + Savings Badge -->
                             <div class="package-price-box">
                                 <div class="price-old-wrap">
-                                    <span class="price-old">112 000 <span class="currency">₴</span></span>
-                                    <span class="badge-discount" data-i18n="pkg.save_2">-14% Економія 16 000 ₴</span>
+                                    <span class="price-old">107 000 <span class="currency">₴</span></span>
+                                    <span class="badge-discount" data-i18n="pkg.save_2">-10% Економія 11 000 ₴</span>
                                 </div>
                                 <div class="package-price">96 000 <span class="currency">₴</span></div>
                             </div>
@@ -684,8 +711,8 @@
                             <!-- Price Box: Old Crossed-out + New Price + Savings Badge -->
                             <div class="package-price-box">
                                 <div class="price-old-wrap">
-                                    <span class="price-old">198 000 <span class="currency">₴</span></span>
-                                    <span class="badge-discount" data-i18n="pkg.save_3">-15% Економія 29 700 ₴</span>
+                                    <span class="price-old">187 000 <span class="currency">₴</span></span>
+                                    <span class="badge-discount" data-i18n="pkg.save_3">-10% Економія 18 700 ₴</span>
                                 </div>
                                 <div class="package-price">168 300 <span class="currency">₴</span></div>
                             </div>
@@ -730,8 +757,8 @@
                             <!-- Price Box: Old Crossed-out + New Price + Savings Badge -->
                             <div class="package-price-box">
                                 <div class="price-old-wrap">
-                                    <span class="price-old">290 000 <span class="currency">₴</span></span>
-                                    <span class="badge-discount" data-i18n="pkg.save_4">-15% Економія 42 500 ₴</span>
+                                    <span class="price-old">275 000 <span class="currency">₴</span></span>
+                                    <span class="badge-discount" data-i18n="pkg.save_4">-10% Економія 27 500 ₴</span>
                                 </div>
                                 <div class="package-price">247 500 <span class="currency">₴</span></div>
                             </div>
@@ -745,6 +772,26 @@
                                 <button type="button" class="btn btn-emerald glow-btn select-pack-btn" data-pack="Комплект 36 кВт·год (247 500 ₴)" data-i18n="pkg.btn_order" style="flex: 1.1; padding: 10px 6px; font-size: 0.82rem;">Замовити</button>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Mobile Carousel Controls for Packages -->
+                    <div class="pkg-mobile-controls" id="pkgs-controls">
+                        <button type="button" class="pkg-nav-btn pkg-prev" id="pkgs-prev-btn" aria-label="Попередній комплект">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        </button>
+                        <div class="pkg-dots" id="pkgs-dots">
+                            <span class="pkg-dot active" data-index="0"></span>
+                            <span class="pkg-dot" data-index="1"></span>
+                            <span class="pkg-dot" data-index="2"></span>
+                            <span class="pkg-dot" data-index="3"></span>
+                        </div>
+                        <button type="button" class="pkg-nav-btn pkg-next" id="pkgs-next-btn" aria-label="Наступний комплект">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </button>
+                    </div>
+                    <div class="pkg-swipe-hint">
+                        <svg class="swipe-hand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v6M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8.5"/><path d="M18 11a2 2 0 0 1 2 2v2a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.83L7 15"/></svg>
+                        <span data-i18n="pkg.swipe_hint">👉 Свайпайте ліворуч / праворуч для вибору</span>
                     </div>
                 </div>
 
@@ -783,8 +830,8 @@
 
                             <div class="package-price-box">
                                 <div class="price-old-wrap">
-                                    <span class="price-old">210 000 <span class="currency">₴</span></span>
-                                    <span class="badge-discount" data-i18n="tadiran.save_1">-12% Економія 25 000 ₴</span>
+                                    <span class="price-old">205 000 <span class="currency">₴</span></span>
+                                    <span class="badge-discount" data-i18n="tadiran.save_1">-10% Економія 20 000 ₴</span>
                                 </div>
                                 <div class="package-price">185 000 <span class="currency">₴</span></div>
                             </div>
@@ -827,8 +874,8 @@
 
                             <div class="package-price-box">
                                 <div class="price-old-wrap">
-                                    <span class="price-old">145 000 <span class="currency">₴</span></span>
-                                    <span class="badge-discount" data-i18n="tadiran.save_2">-14% Економія 20 000 ₴</span>
+                                    <span class="price-old">139 000 <span class="currency">₴</span></span>
+                                    <span class="badge-discount" data-i18n="tadiran.save_2">-10% Економія 14 000 ₴</span>
                                 </div>
                                 <div class="package-price">125 000 <span class="currency">₴</span></div>
                             </div>
@@ -871,8 +918,8 @@
 
                             <div class="package-price-box">
                                 <div class="price-old-wrap">
-                                    <span class="price-old">78 000 <span class="currency">₴</span></span>
-                                    <span class="badge-discount" data-i18n="tadiran.save_3">-17% Економія 13 000 ₴</span>
+                                    <span class="price-old">72 000 <span class="currency">₴</span></span>
+                                    <span class="badge-discount" data-i18n="tadiran.save_3">-10% Економія 7 000 ₴</span>
                                 </div>
                                 <div class="package-price">65 000 <span class="currency">₴</span></div>
                             </div>
@@ -915,8 +962,8 @@
 
                             <div class="package-price-box">
                                 <div class="price-old-wrap">
-                                    <span class="price-old">74 000 <span class="currency">₴</span></span>
-                                    <span class="badge-discount" data-i18n="tadiran.save_4">-16% Економія 12 000 ₴</span>
+                                    <span class="price-old">69 000 <span class="currency">₴</span></span>
+                                    <span class="badge-discount" data-i18n="tadiran.save_4">-10% Економія 7 000 ₴</span>
                                 </div>
                                 <div class="package-price">62 000 <span class="currency">₴</span></div>
                             </div>
@@ -932,25 +979,26 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Mobile Carousel Controls -->
-                <div class="pkg-mobile-controls">
-                    <button type="button" class="pkg-nav-btn pkg-prev" id="pkg-prev-btn" aria-label="Попередній комплект">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                    </button>
-                    <div class="pkg-dots" id="pkg-dots">
-                        <span class="pkg-dot active" data-index="0"></span>
-                        <span class="pkg-dot" data-index="1"></span>
-                        <span class="pkg-dot" data-index="2"></span>
+                    <!-- Mobile Carousel Controls for Tadiran Batteries -->
+                    <div class="pkg-mobile-controls" id="tadiran-controls">
+                        <button type="button" class="pkg-nav-btn pkg-prev" id="tadiran-prev-btn" aria-label="Попередня батарея">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        </button>
+                        <div class="pkg-dots" id="tadiran-dots">
+                            <span class="pkg-dot active" data-index="0"></span>
+                            <span class="pkg-dot" data-index="1"></span>
+                            <span class="pkg-dot" data-index="2"></span>
+                            <span class="pkg-dot" data-index="3"></span>
+                        </div>
+                        <button type="button" class="pkg-nav-btn pkg-next" id="tadiran-next-btn" aria-label="Наступна батарея">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </button>
                     </div>
-                    <button type="button" class="pkg-nav-btn pkg-next" id="pkg-next-btn" aria-label="Наступний комплект">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                    </button>
-                </div>
-                <div class="pkg-swipe-hint">
-                    <svg class="swipe-hand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v6M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8.5"/><path d="M18 11a2 2 0 0 1 2 2v2a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.83L7 15"/></svg>
-                    <span data-i18n="pkg.swipe_hint">👉 Свайпайте ліворуч / праворуч для вибору</span>
+                    <div class="pkg-swipe-hint">
+                        <svg class="swipe-hand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v6M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8.5"/><path d="M18 11a2 2 0 0 1 2 2v2a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.83L7 15"/></svg>
+                        <span data-i18n="pkg.swipe_hint">👉 Свайпайте ліворуч / праворуч для вибору</span>
+                    </div>
                 </div>
             </div>
         </section>
