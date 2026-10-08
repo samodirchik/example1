@@ -1,3 +1,5 @@
 .DS_Store
 scratch/
 assets/images/backup_logos/
+deploy/
+deploy.zip
