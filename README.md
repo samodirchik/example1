@@ -1,21 +1,21 @@
-# SVITLO24 — Инструкция по запуску
+# SVITLO24 — Getting Started
 
-## Запуск сайта из терминала
+## Running the Website Locally
 
-### Вариант 1: Через встроенный Python 3 (Рекомендуется)
+### Option 1: Via Python 3 Built-in Server (Recommended)
 
-Запустите команду в терминале из корневой папки проекта:
+Run the following command from the project root directory:
 
 ```bash
 python3 -m http.server 8080
 ```
 
-После выполнения откройте в браузере:
+Then open in your browser:
 `http://localhost:8080`
 
 ---
 
-### Вариант 2: Открытие файла напрямую (macOS)
+### Option 2: Open Directly (macOS)
 
 ```bash
 open index.html
@@ -23,7 +23,7 @@ open index.html
 
 ---
 
-### Вариант 3: Через Node.js (npx serve)
+### Option 3: Via Node.js (npx serve)
 
 ```bash
 npx serve .
