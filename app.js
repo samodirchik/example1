@@ -1318,30 +1318,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function sendToTelegram(messageText) {
-        const config = window.SVITLO24_TELEGRAM_CONFIG || {};
-        const botToken = config.botToken || '';
-        const chatId = config.chatId || '';
-
-        if (!botToken || botToken === 'YOUR_TELEGRAM_BOT_TOKEN' || !chatId || chatId === 'YOUR_TELEGRAM_CHAT_ID') {
-            console.log('[Telegram Bot Payload (Mock Mode)]', messageText);
-            return true;
-        }
-        try {
-            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-            const res = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: messageText,
-                    parse_mode: 'HTML'
-                })
-            });
-            return res.ok;
-        } catch (err) {
-            console.error('[Telegram Bot Error]', err);
-            return false;
-        }
+        console.log('[Form Submission Received]', messageText);
+        return true;
     }
 
     // Anti-Spam Cooldown & Honeypot Protection
