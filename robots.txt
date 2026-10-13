@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: http://localhost:8080/sitemap.xml
+Sitemap: https://svitlo24.com/sitemap.xml
