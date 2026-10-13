@@ -1,43 +1,10 @@
-function validateUkrainianPhone(phoneStr) {
+function validatePhoneNumber(phoneStr) {
     if (!phoneStr) return false;
-    let digits = phoneStr.replace(/\D/g, '');
-
-    if (digits.length === 9) {
-        digits = '380' + digits;
-    } else if (digits.length === 10 && digits.startsWith('0')) {
-        digits = '380' + digits.substring(1);
-    }
-
-    if (digits.length !== 12 || !digits.startsWith('380')) {
-        return false;
-    }
-
-    const mobileDigits = digits.substring(3);
-    const opCode = mobileDigits.substring(0, 2);
-    const validOpCodes = ['50', '63', '66', '67', '68', '73', '77', '89', '91', '92', '93', '94', '95', '96', '97', '98', '99'];
-
-    if (!validOpCodes.includes(opCode)) {
-        return false;
-    }
-
-    const fakePatterns = [
-        '123456789', '987654321', '012345678', '876543210',
-        '000000000', '111111111', '222222222', '333333333', '444444444',
-        '555555555', '666666666', '777777777', '888888888', '999999999'
-    ];
-    if (fakePatterns.includes(mobileDigits)) {
-        return false;
-    }
-
-    const subPart = mobileDigits.substring(2);
-    if (/^(\d)\1{5,}/.test(subPart)) {
-        return false;
-    }
-
-    return true;
+    const digits = phoneStr.replace(/\D/g, '');
+    return digits.length >= 7 && digits.length <= 15;
 }
 
-function openModal(packageName = '6 kWh Kit (55,000 ₴)') {
+function openModal(packageName = '6 kWh Kit (1,000 $)') {
     const modalEl = document.getElementById('order-modal');
     const formPackageInputEl = document.getElementById('form-package');
     if (formPackageInputEl) {
@@ -80,7 +47,8 @@ function closeModal() {
     document.body.style.overflow = '';
 }
 
-window.validateUkrainianPhone = validateUkrainianPhone;
+window.validateUkrainianPhone = validatePhoneNumber;
+window.validatePhoneNumber = validatePhoneNumber;
 window.openModal = openModal;
 window.closeModal = closeModal;
 
@@ -90,28 +58,28 @@ window.heroShowcaseData = {
         img: 'assets/images/hero-kit-6kwt-trans.webp',
         mobileImg: 'assets/images/hero-kit-6kwt-trans-mobile.webp',
         title: '6 kWh',
-        price: '55,000 ₴',
+        price: '1,000 $',
         sub: 'Ideal apartment backup',
         bullets: ['Apartment', 'Boiler', 'Refrigerator', 'Internet']
     },
     '12': {
         img: 'assets/images/hero-kit-12kwt-trans.webp',
         title: '12 kWh',
-        price: '96,000 ₴',
+        price: '1,750 $',
         sub: 'Apartment and cottage',
         bullets: ['Apartment', 'Small cottage', 'Boiler', 'Refrigerator', 'Internet']
     },
     '24': {
         img: 'assets/images/hero-kit-24kwt-trans.webp',
         title: '24 kWh',
-        price: '168,300 ₴',
+        price: '3,050 $',
         sub: 'Scalable residential backup',
         bullets: ['Large house', 'Heat pump', 'Air conditioning', 'Critical loads']
     },
     '36': {
         img: 'assets/images/hero-kit-36kwt-trans.webp',
         title: '36 kWh',
-        price: '247,500 ₴',
+        price: '4,500 $',
         sub: 'Commercial business solution',
         bullets: ['Office', 'Commercial facility', 'Servers', '24/7 business continuity']
     }
@@ -181,10 +149,10 @@ document.addEventListener('DOMContentLoaded', () => {
             'nav.calculator': 'Calculator',
             'nav.packages': 'Kits',
             'nav.contacts': 'Contacts',
-            'header.grid_status': 'Grid: 230V 50Hz',
+            'header.grid_status': 'Power Grid: 230V 50Hz',
             'header.btn_order': 'Order a Quote',
             'hero.badge': 'Turnkey backup power with warranty',
-            'hero.title_1': 'Autonomous power system.',
+            'hero.title_1': 'Autonomous power system',
             'hero.title_2': 'Forget about power outages',
             'hero.description': 'Turnkey inverter + battery kits with delivery. Automatically powers household appliances, shields against voltage spikes, and runs silently.',
             'hero.metric_1_val': '< 4 ms',
@@ -194,14 +162,14 @@ document.addEventListener('DOMContentLoaded', () => {
             'hero.metric_3_val': '15+ years',
             'hero.metric_3_lbl': 'Service life',
             'hero.visual_title': 'Energy Flow Diagram',
-            'hero.grid_active': 'Grid 220V: ACTIVE',
-            'hero.grid_blackout': 'Grid 220V: OUTAGE (BLACKOUT)',
-            'hero.node_grid': 'Grid 220V',
+            'hero.grid_active': 'Power Grid 220V: ACTIVE',
+            'hero.grid_blackout': 'Power Grid 220V: OUTAGE (BLACKOUT)',
+            'hero.node_grid': 'Power Grid 220V',
             'hero.node_inverter': 'Inverter 6kW',
             'hero.node_battery': 'LiFePO4 5.12kWh',
-            'hero.node_home': 'Home load',
+            'hero.node_home': 'Home Power Supply',
             'hero.btn_outage': 'Simulate power outage',
-            'hero.btn_restore': 'Restore 220V grid',
+            'hero.btn_restore': 'Restore 220V Power Grid',
             'hero.tag_hit': '🔥 BESTSELLER',
             'hero.tag_warranty': '🛡️ 5-Year Warranty',
             'hero.card_title': 'Comfort 6 kW Kit',
@@ -210,12 +178,12 @@ document.addEventListener('DOMContentLoaded', () => {
             'hero.pill_2': 'Switchover',
             'hero.pill_3': 'LiFePO4 Cycles',
             'hero.bullet_1': 'Powers boiler, refrigerator, Wi-Fi, lights, and TV',
-            'hero.bullet_2': 'Free engineering consultation',
+            'hero.bullet_2': 'Free Technical Consultation',
             'hero.bullet_3': 'Free delivery',
             'hero.btn_callback': 'Get a Consultation',
             'hero.btn_other_packages': 'Other Kits',
             'hero.microtext': '🔒 Free consultation and budget-tailored sizing',
-            'house.title': 'How autonomous power works in your home',
+            'house.title': 'How autonomous power keeps your home running',
             'house.subtitle': 'Click the button below to simulate a blackout and check appliance protection.',
             'house.mode_rezerv': 'Mode: Backup 230V',
             'house.mode_blackout': 'Mode: Blackout 0V',
@@ -224,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'house.room_kitchen': 'Kitchen',
             'house.desc_kitchen': 'Refrigerator OK',
             'house.room_office': 'Home office',
-            'house.desc_office': 'Wi-Fi router & PC',
+            'house.desc_office': 'WiFi & Electronic devices',
             'house.room_living': 'Living room',
             'house.desc_living': 'Lighting & TV',
             'calc.title': 'Backup Runtime Calculator',
@@ -256,10 +224,10 @@ document.addEventListener('DOMContentLoaded', () => {
             'pkg.spec_power': 'Output',
             'pkg.spec_cap': 'LiFePO4 Capacity',
             'pkg.spec_time': 'Runtime',
-            'pkg.save_1': '-10% Save 6,000 ₴',
-            'pkg.save_2': '-10% Save 11,000 ₴',
-            'pkg.save_3': '-10% Save 18,700 ₴',
-            'pkg.save_4': '-10% Save 27,500 ₴',
+            'pkg.save_1': '-10% Save 110 $',
+            'pkg.save_2': '-10% Save 200 $',
+            'pkg.save_3': '-10% Save 350 $',
+            'pkg.save_4': '-10% Save 500 $',
             'pkg.name_1': '6 kWh Kit',
             'pkg.name_2': '12 kWh Kit',
             'pkg.name_3': '24 kWh Kit',
@@ -295,22 +263,22 @@ document.addEventListener('DOMContentLoaded', () => {
             'tadiran.spec_cap': 'Capacity',
             'tadiran.spec_volt': 'Voltage',
             'tadiran.spec_cycles': 'Cycles (80% DoD)',
-            'tadiran.save_1': '-10% Save 20,000 ₴',
+            'tadiran.save_1': '-10% Save 350 $',
             'tadiran.c1_f1': 'Floor-standing wheeled mount in a heavy-duty steel enclosure',
             'tadiran.c1_f2': 'Grade-A+ cells with JBD BMS, CAN/RS485 for 48V inverters (Deye, Victron)',
-            'tadiran.b200_badge': 'POPULAR CHOICE',
+            'tadiran.b200_badge': 'CUSTOMER FAVORITE',
             'tadiran.t2_cap_val': '10.24 kWh',
-            'tadiran.save_2': '-10% Save 14,000 ₴',
+            'tadiran.save_2': '-10% Save 250 $',
             'tadiran.c2_f1': 'Floor module with built-in color LCD status display',
             'tadiran.c2_f2': 'Dual active balancing, full compatibility with 48V inverters',
             'tadiran.b100wm_badge': 'WALL-MOUNT',
             'tadiran.t3_cap_val': '5.12 kWh',
-            'tadiran.save_3': '-10% Save 7,000 ₴',
+            'tadiran.save_3': '-10% Save 120 $',
             'tadiran.c3_f1': 'Compact wall-mounted design for apartments (IP65 ingress protection)',
             'tadiran.c3_f2': 'Built-in DC breaker, safe hookup, parallel up to 16 units',
             'tadiran.b100s_badge': '19" RACK MOUNT',
             'tadiran.t4_cap_val': '5.12 kWh',
-            'tadiran.save_4': '-10% Save 7,000 ₴',
+            'tadiran.save_4': '-10% Save 130 $',
             'tadiran.c4_f1': 'Rack-mount form factor for 19" server and telecom cabinets',
             'tadiran.c4_f2': 'Scale up to 32 units (163 kWh), UL9540A / CE certified',
             'modal.title': 'Autonomous System Sizing',
@@ -318,21 +286,20 @@ document.addEventListener('DOMContentLoaded', () => {
             'modal.label_name': 'Your name',
             'modal.ph_name': 'Alex',
             'modal.label_phone': 'Contact phone',
-            'modal.ph_phone': '(XX) XXX-XX-XX',
+            'modal.ph_phone': '(230) 000-0000',
             'modal.label_package': 'Selected kit',
             'modal.btn_submit': 'Get Quote',
-            'callback.badge': 'Free engineering consultation',
+            'callback.badge': 'Free Technical Consultation',
             'callback.title': 'Get a Custom Backup Power Calculation',
             'callback.desc': 'Leave your number — our engineer will size the optimal inverter and LiFePO4 battery kit for your appliances and budget free of charge.',
-            'callback.pill_1': '⚡ Fast delivery across Ukraine',
-            'callback.pill_2': '📞 Sizing & consultation 0 UAH',
+            'callback.pill_1': '⚡ Fast insured delivery',
+            'callback.pill_2': '📞 Design & Consultation',
             'callback.pill_3': '🛡️ 5-year warranty',
             'callback.ph_name': 'Your name',
             'callback.btn_submit': 'Get Free Consultation',
             'callback.privacy': '🔒 Your data is protected. No spam or unsolicited calls.',
             'callback.seo_title': 'Reliable Autonomous and Backup Power for Your Home',
-            'callback.seo_text': 'SVITLO24 is an official supplier of turnkey backup power systems: EASUN hybrid inverters (3.2–18.6 kW) and dependable LiFePO4 battery storage (6–36 kWh) engineered for over 6,000 cycles. We deliver professional engineering consultations, accurate load-based sizing, prompt delivery, and official warranty support throughout Ukraine.',
-            'footer.coverage': 'We deliver across Ukraine 🇺🇦',
+            'callback.seo_text': 'SVITLO24 is an official supplier of turnkey backup power systems: EASUN hybrid inverters (3.2–18.6 kW) and dependable LiFePO4 battery storage (6–36 kWh) engineered for over 6,000 cycles. We deliver professional engineering consultations, accurate load-based sizing, prompt delivery, and official warranty support.',
             'footer.copyright': '© 2026 SVITLO24. All rights reserved.',
             'drawer.sub_1': 'Device runtime simulation',
             'drawer.sub_2': 'Calculate backup runtime',
@@ -569,7 +536,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (houseStatusHud) {
                 houseStatusHud.classList.add('outage');
-                if (houseStatusText) houseStatusText.textContent = 'BLACKOUT! Grid power lost (0V)';
+                if (houseStatusText) houseStatusText.textContent = 'BLACKOUT! Power grid lost (0V)';
             }
 
             const offDescMap = {
@@ -1053,7 +1020,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.triggerBgPulse(e.clientX, e.clientY, isOutage ? '#dc2626' : '#059669');
             }
 
-            const restoreText = 'Restore municipal grid (220V)';
+            const restoreText = 'Restore Power Grid (220V)';
             const outageText = 'Simulate power outage';
 
             const badgeBoiler = document.getElementById('badge-boiler');
@@ -1078,7 +1045,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
 
                 if (gridStatusText) {
-                    gridStatusText.textContent = 'Grid 220V: OUTAGE (BLACKOUT)';
+                    gridStatusText.textContent = 'Power Grid 220V: OUTAGE (BLACKOUT)';
                     gridStatusText.classList.add('outage');
                 }
                 if (globalStatusPill) {
@@ -1101,7 +1068,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (descOffice) descOffice.textContent = 'Wi-Fi 100% ONLINE';
                 if (descLiving) descLiving.textContent = 'Backup lighting';
 
-                const toastMsg = 'Grid outage! LiFePO4 backup system took over in 0 ms.';
+                const toastMsg = 'Power grid outage! LiFePO4 backup system took over in 0 ms.';
                 showToast(toastMsg);
             } else {
                 outageBtn.classList.remove('btn-primary');
@@ -1115,12 +1082,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
 
                 if (gridStatusText) {
-                    gridStatusText.textContent = 'Grid 220V: ACTIVE';
+                    gridStatusText.textContent = 'Power Grid 220V: ACTIVE';
                     gridStatusText.classList.remove('outage');
                 }
                 if (globalStatusPill) {
                     globalStatusPill.classList.remove('outage');
-                    const pillText = 'Grid: 230V 50Hz';
+                    const pillText = 'Power Grid: 230V 50Hz';
                     globalStatusPill.innerHTML = `<span class="status-dot"></span> ${pillText}`;
                 }
                 if (cursorGlow) cursorGlow.classList.remove('outage-mode');
@@ -1135,10 +1102,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (descBoiler) descBoiler.textContent = 'Boiler & pumps (24°C)';
                 if (descKitchen) descKitchen.textContent = 'Refrigerator OK';
-                if (descOffice) descOffice.textContent = 'Wi-Fi router & PC';
+                if (descOffice) descOffice.textContent = 'WiFi & Electronic devices';
                 if (descLiving) descLiving.textContent = 'Lighting & TV';
 
-                const toastMsg = 'Grid restored. Inverter switched to auto-recharge.';
+                const toastMsg = 'Power grid restored. Inverter switched to auto-recharge.';
                 showToast(toastMsg);
             }
 
@@ -1174,32 +1141,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         let batteryWh = 5120;
-        let selectedPackageCode = '6 kWh Kit (55,000 ₴)';
+        let selectedPackageCode = '6 kWh Kit (1,000 $)';
         let recTitleText = '';
         let subtextText = '';
 
         if (totalWatts > 4500) {
             // High power / Business loads (e.g. 5000 W business equipment)
             batteryWh = 36000;
-            selectedPackageCode = '36 kWh Kit (247,500 ₴)';
+            selectedPackageCode = '36 kWh Kit (4,500 $)';
             recTitleText = '36 kWh Kit (commercial) or Tadiran 36 kWh Rack';
             subtextText = 'based on commercial LiFePO4 36 kWh system';
         } else if (totalWatts > 2000) {
             // Heavy residential loads (boiler 2000 W + appliances = 2580 W)
             batteryWh = 24000;
-            selectedPackageCode = '24 kWh Kit (168,300 ₴)';
+            selectedPackageCode = '24 kWh Kit (3,050 $)';
             recTitleText = '24 kWh Kit (6.2 kW inverter) or Tadiran 16.08 kWh Battery (314Ah)';
             subtextText = 'based on LiFePO4 16–24 kWh battery storage';
         } else if (totalWatts > 700) {
             // Medium loads (climate 1200 W alone or with appliances = 1780 W)
             batteryWh = 12000;
-            selectedPackageCode = '12 kWh Kit (96,000 ₴)';
+            selectedPackageCode = '12 kWh Kit (1,750 $)';
             recTitleText = '12 kWh Kit (6.2 kW inverter) or Tadiran 10.24 kWh Battery (200Ah)';
             subtextText = 'based on LiFePO4 10.24–12 kWh battery storage';
         } else {
             // Basic residential load (up to 700 W: fridge, boiler, router, PC = 580 W)
             batteryWh = 5120;
-            selectedPackageCode = '6 kWh Kit (55,000 ₴)';
+            selectedPackageCode = '6 kWh Kit (1,000 $)';
             recTitleText = '6 kWh Kit (inverter + battery) or Tadiran 5.12 kWh Battery';
             subtextText = 'based on LiFePO4 5.12–6 kWh battery';
         }
@@ -1266,18 +1233,21 @@ document.addEventListener('DOMContentLoaded', () => {
             let raw = inputEl.value;
             let digits = raw.replace(/\D/g, '');
 
-            if (digits.startsWith('380')) {
-                digits = digits.substring(3);
-            } else if (digits.startsWith('0')) {
+            if (digits.startsWith('1')) {
                 digits = digits.substring(1);
             }
-            digits = digits.substring(0, 9);
+            digits = digits.substring(0, 10);
 
             let formatted = '';
-            if (digits.length > 0) formatted += digits.substring(0, 2);
-            if (digits.length >= 3) formatted += ' ' + digits.substring(2, 5);
-            if (digits.length >= 6) formatted += ' ' + digits.substring(5, 7);
-            if (digits.length >= 8) formatted += ' ' + digits.substring(7, 9);
+            if (digits.length > 0) {
+                if (digits.length <= 3) {
+                    formatted = '(' + digits;
+                } else if (digits.length <= 6) {
+                    formatted = '(' + digits.substring(0, 3) + ') ' + digits.substring(3);
+                } else {
+                    formatted = '(' + digits.substring(0, 3) + ') ' + digits.substring(3, 6) + '-' + digits.substring(6, 10);
+                }
+            }
 
             inputEl.value = formatted;
         };
@@ -1297,7 +1267,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const orderBtn = e.target.closest('#btn-quick-order, .header-order-btn, #mobile-order-btn, #btn-order-rec, .select-pack-btn, [data-open-modal]');
         if (orderBtn) {
             e.preventDefault();
-            const packName = orderBtn.getAttribute('data-pack') || (recPackageTitle ? recPackageTitle.textContent : '6 kWh Kit (55,000 ₴)');
+            const packName = orderBtn.getAttribute('data-pack') || (recPackageTitle ? recPackageTitle.textContent : '6 kWh Kit (1,000 $)');
             openModal(packName);
         }
     });
@@ -1313,7 +1283,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Telegram Bot Integration ---
     function formatPhoneLink(phoneStr) {
         const cleanDigits = phoneStr.replace(/\D/g, '');
-        const telNumber = cleanDigits.startsWith('380') ? '+' + cleanDigits : (cleanDigits.startsWith('0') ? '+38' + cleanDigits : '+380' + cleanDigits);
+        const telNumber = cleanDigits.startsWith('1') ? '+' + cleanDigits : '+1' + cleanDigits;
         return `<a href="tel:${telNumber}">${phoneStr}</a>`;
     }
 
@@ -1337,11 +1307,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function recordSubmitTime() {
         localStorage.setItem('svitlo24_last_submit', Date.now().toString());
-    }
-
-    function validateUkrainianPhone(phoneStr) {
-        const cleanDigits = phoneStr.replace(/\D/g, '');
-        return cleanDigits.length === 12 && cleanDigits.startsWith('380');
     }
 
     if (orderForm) {
@@ -1368,19 +1333,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const packageInput = document.getElementById('form-package');
 
             const rawDigits = phoneInput ? phoneInput.value : '';
-            const fullPhone = '+380 ' + rawDigits;
+            const fullPhone = '+1 ' + rawDigits;
             const nameVal = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : 'Not specified';
-            const packageVal = packageInput ? packageInput.value : '6 kWh Kit (55,000 ₴)';
+            const packageVal = packageInput ? packageInput.value : '6 kWh Kit (1,000 $)';
 
             const phoneGroup = phoneInput ? phoneInput.closest('.phone-input-group') : null;
 
-            if (!validateUkrainianPhone(fullPhone)) {
+            if (!validatePhoneNumber(fullPhone)) {
                 if (phoneGroup) phoneGroup.classList.add('is-invalid');
                 if (phoneInput) {
                     phoneInput.classList.add('is-invalid');
                     phoneInput.focus();
                 }
-                const errMsg = 'Please enter a valid Ukrainian phone number';
+                const errMsg = 'Please enter a valid phone number';
                 showToast(errMsg);
                 return;
             }
@@ -1425,18 +1390,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const nameInput = document.getElementById('cb-name');
 
             const rawDigits = phoneInput ? phoneInput.value : '';
-            const fullPhone = '+380 ' + rawDigits;
+            const fullPhone = '+1 ' + rawDigits;
             const nameVal = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : 'Not specified';
 
             const phoneGroup = phoneInput ? phoneInput.closest('.phone-input-group') : null;
 
-            if (!validateUkrainianPhone(fullPhone)) {
+            if (!validatePhoneNumber(fullPhone)) {
                 if (phoneGroup) phoneGroup.classList.add('is-invalid');
                 if (phoneInput) {
                     phoneInput.classList.add('is-invalid');
                     phoneInput.focus();
                 }
-                const errMsg = 'Please enter a valid Ukrainian phone number';
+                const errMsg = 'Please enter a valid phone number';
                 showToast(errMsg);
                 return;
             }
@@ -1464,16 +1429,16 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const phoneInput = document.getElementById('hero-phone-field');
             const rawDigits = phoneInput ? phoneInput.value : '';
-            const fullPhone = '+380 ' + rawDigits;
+            const fullPhone = '+1 ' + rawDigits;
             const phoneGroup = phoneInput ? phoneInput.closest('.phone-input-group') : null;
 
-            if (!validateUkrainianPhone(fullPhone)) {
+            if (!validatePhoneNumber(fullPhone)) {
                 if (phoneGroup) phoneGroup.classList.add('is-invalid');
                 if (phoneInput) {
                     phoneInput.classList.add('is-invalid');
                     phoneInput.focus();
                 }
-                const errMsg = 'Please enter a valid Ukrainian phone number';
+                const errMsg = 'Please enter a valid phone number';
                 showToast(errMsg);
                 return;
             }
@@ -1501,7 +1466,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // If user filled in a phone number before clicking "Other Kits"
             if (rawDigits.length >= 3) {
-                const fullPhone = '+380 ' + (phoneInput ? phoneInput.value : '');
+                const fullPhone = '+1 ' + (phoneInput ? phoneInput.value : '');
                 const msgText = `🔍 <b>Customer viewed other kits (contact saved)!</b>\n\n` +
                     `📞 <b>Phone:</b> ${fullPhone}`;
 
@@ -1601,8 +1566,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'USB / RS232 / RS485 / Wi-Fi monitoring / LCD display',
                 certs: 'CE, RoHS, UN38.3',
                 montage: 'Wall-mount / Indoor',
-                price: '55,000 ₴',
-                packName: '6 kWh Kit (55,000 ₴)',
+                price: '1,000 $',
+                packName: '6 kWh Kit (1,000 $)',
                 accessories: [
                     'EASUN ISolar-SMG-II-3.2KW-24V hybrid inverter',
                     '6 kWh lithium-ion battery (24V 250Ah)',
@@ -1633,8 +1598,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'Wi-Fi monitoring / RS485 / CAN / USB / LCD',
                 certs: 'CE, RoHS, UN38.3',
                 montage: 'Wall-mount / Floor-standing',
-                price: '96,000 ₴',
-                packName: '12 kWh Kit (96,000 ₴)',
+                price: '1,750 $',
+                packName: '12 kWh Kit (1,750 $)',
                 accessories: [
                     'EASUN ISolar-SMG-II-6.2KW-48V hybrid inverter',
                     '12 kWh lithium-ion battery (48V 250Ah)',
@@ -1665,8 +1630,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'Wi-Fi / CAN / RS485 / Dual BMS monitoring',
                 certs: 'CE, RoHS, UN38.3',
                 montage: 'Floor-standing / Utility room',
-                price: '168,300 ₴',
-                packName: '24 kWh Kit (168,300 ₴)',
+                price: '3,050 $',
+                packName: '24 kWh Kit (3,050 $)',
                 accessories: [
                     '1–2 EASUN 6.2kW hybrid inverters',
                     '24 kWh battery pack (2×12 kWh)',
@@ -1697,8 +1662,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'Ethernet / Wi-Fi / RS485 / CAN / BMS monitoring',
                 certs: 'CE, RoHS, UN38.3',
                 montage: 'Server room / Electrical distribution room',
-                price: '247,500 ₴',
-                packName: '36 kWh Kit (247,500 ₴)',
+                price: '4,500 $',
+                packName: '36 kWh Kit (4,500 $)',
                 accessories: [
                     '1–3 EASUN 6.2kW hybrid inverters',
                     '36+ kWh battery rack system (3×12 kWh)',
@@ -1733,7 +1698,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'CAN / RS485 / RS232 (JBD App Monitoring)',
                 certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
                 montage: 'Floor-standing on casters (IP30)',
-                price: '185,000 ₴',
+                price: '3,350 $',
                 packName: 'Tadiran LFP-51.2V 314Ah (16.08 kWh)',
                 accessories: ['Battery module x1', 'Inverter cables x2', 'Communication cable x1', 'User manual x1']
             }
@@ -1748,7 +1713,7 @@ document.addEventListener('DOMContentLoaded', () => {
             en: {
                 title: 'Tadiran LFP 51.2V 200Ah',
                 subtitle: 'Low-voltage floor-standing LiFePO4 battery module for cottages',
-                badge: 'Popular Choice',
+                badge: 'Customer Favorite',
                 kpiPower: '51.2 V (BMS 100A)',
                 kpiCap: '10.24 kWh',
                 kpiCycles: '6,000 cycles',
@@ -1764,7 +1729,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'CAN / RS485 / RS232 (JBD App)',
                 certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
                 montage: 'Floor-standing (IP30)',
-                price: '125,000 ₴',
+                price: '2,250 $',
                 packName: 'Tadiran LFP-51.2V 200Ah (10.24 kWh)',
                 accessories: ['Battery module x1', 'Parallel connection cables x2', 'Communication cable x1', 'User manual x1']
             }
@@ -1795,7 +1760,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'CAN / RS485 / RS232 (JBD App)',
                 certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
                 montage: 'Wall-mount (IP30)',
-                price: '65,000 ₴',
+                price: '1,180 $',
                 packName: 'Tadiran LFP-51.2V 100Ah-WM (5.12 kWh)',
                 accessories: ['Battery module x1', 'Parallel connection cables x2', 'Communication cable x1', 'User manual x1']
             }
@@ -1826,7 +1791,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'CAN / RS485 / RS232 (JBD App)',
                 certs: 'MSDS, UN38.3, CE-EMC, UL9540A, UL1973, UL9540',
                 montage: 'Floor / Stackable 19" (IP30)',
-                price: '62,000 ₴',
+                price: '1,120 $',
                 packName: 'Tadiran LFP-51.2V 100Ah-S (5.12 kWh)',
                 accessories: ['Battery module x1', 'Mounting brackets x4', 'Grounding cable x1', 'Parallel cables x2', 'Communication cable x1', 'User manual x1']
             }
