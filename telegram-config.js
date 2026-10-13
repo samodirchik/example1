@@ -10,6 +10,6 @@
  * Replace with your production Telegram Bot Token and Chat ID.
  */
 window.SVITLO24_TELEGRAM_CONFIG = {
-    botToken: '8708043204:AAH5ySlxl9ZkXvV5Ij2JGxIHnQlUz4H_07g',
-    chatId: '-5371919306'
+    botToken: '',
+    chatId: ''
 };
