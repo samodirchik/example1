@@ -255,32 +255,6 @@ document.addEventListener('DOMContentLoaded', () => {
             'pkg.btn_order': 'Order',
             'pkg.btn_order_discount': 'Order with Discount',
             'pkg.swipe_hint': '👉 Swipe left / right to navigate',
-            'pkg.cat_tad_badge': 'Premium Batteries',
-            'pkg.cat_tad_title': '🔋 Tadiran LiFePO4 Battery Modules',
-            'pkg.cat_tad_desc': 'Standalone low-voltage 51.2V modules for upgrading and scaling systems based on Deye, Must, Victron.',
-            'tadiran.b314_badge': 'FLAGSHIP / 8,000 CYCLES',
-            'tadiran.t1_cap_val': '16.08 kWh',
-            'tadiran.spec_cap': 'Capacity',
-            'tadiran.spec_volt': 'Voltage',
-            'tadiran.spec_cycles': 'Cycles (80% DoD)',
-            'tadiran.save_1': '-10% Save $550',
-            'tadiran.c1_f1': 'Floor-standing wheeled mount in a heavy-duty steel enclosure',
-            'tadiran.c1_f2': 'Grade-A+ cells with JBD BMS, CAN/RS485 for 48V inverters (Deye, Victron)',
-            'tadiran.b200_badge': 'CUSTOMER FAVORITE',
-            'tadiran.t2_cap_val': '10.24 kWh',
-            'tadiran.save_2': '-10% Save $350',
-            'tadiran.c2_f1': 'Floor module with built-in color LCD status display',
-            'tadiran.c2_f2': 'Dual active balancing, full compatibility with 48V inverters',
-            'tadiran.b100wm_badge': 'WALL-MOUNT',
-            'tadiran.t3_cap_val': '5.12 kWh',
-            'tadiran.save_3': '-10% Save $200',
-            'tadiran.c3_f1': 'Compact wall-mounted design for apartments (IP65 ingress protection)',
-            'tadiran.c3_f2': 'Built-in DC breaker, safe hookup, parallel up to 16 units',
-            'tadiran.b100s_badge': '19" RACK MOUNT',
-            'tadiran.t4_cap_val': '5.12 kWh',
-            'tadiran.save_4': '-10% Save $200',
-            'tadiran.c4_f1': 'Rack-mount form factor for 19" server and telecom cabinets',
-            'tadiran.c4_f2': 'Scale up to 32 units (163 kWh), UL9540A / CE certified',
             'modal.title': 'Autonomous System Sizing',
             'modal.subtitle': 'Leave your contact details, and our engineer will select the optimal inverter and battery for your appliances.',
             'modal.label_name': 'Your name',
@@ -1149,26 +1123,32 @@ document.addEventListener('DOMContentLoaded', () => {
             // High power / Business loads (e.g. 5000 W business equipment)
             batteryWh = 36000;
             selectedPackageCode = '36 kWh Kit ($15,900)';
-            recTitleText = '36 kWh Kit (commercial) or Tadiran 36 kWh Rack';
-            subtextText = 'based on commercial LiFePO4 36 kWh system';
+            recTitleText = '36 kWh Kit / Deye 15kW (3-Ph) or 2× SAKO 6kW';
+            subtextText = 'based on commercial LiFePO4 36 kWh system or Deye 15kW';
         } else if (totalWatts > 2000) {
             // Heavy residential loads (boiler 2000 W + appliances = 2580 W)
             batteryWh = 24000;
             selectedPackageCode = '24 kWh Kit ($10,850)';
-            recTitleText = '24 kWh Kit (6.2 kW inverter) or Tadiran 16.08 kWh Battery (314Ah)';
-            subtextText = 'based on LiFePO4 16–24 kWh battery storage';
+            recTitleText = '24 kWh Kit / Deye 8–10kW or SAKO 6kW';
+            subtextText = 'based on Deye 8–10kW / SAKO 6kW or 16–24 kWh storage';
         } else if (totalWatts > 700) {
             // Medium loads (climate 1200 W alone or with appliances = 1780 W)
             batteryWh = 12000;
             selectedPackageCode = '12 kWh Kit ($5,950)';
-            recTitleText = '12 kWh Kit (6.2 kW inverter) or Tadiran 10.24 kWh Battery (200Ah)';
-            subtextText = 'based on LiFePO4 10.24–12 kWh battery storage';
-        } else {
+            recTitleText = '12 kWh Kit or SAKO 3kW ESS';
+            subtextText = 'based on 10.24–12 kWh battery or SAKO 3kW/5.12kWh station';
+        } else if (totalWatts > 350) {
             // Basic residential load (up to 700 W: fridge, boiler, router, PC = 580 W)
             batteryWh = 5120;
             selectedPackageCode = '6 kWh Kit ($3,450)';
-            recTitleText = '6 kWh Kit (inverter + battery) or Tadiran 5.12 kWh Battery';
-            subtextText = 'based on LiFePO4 5.12–6 kWh battery';
+            recTitleText = '6 kWh Kit or SAKO 3kW ESS';
+            subtextText = 'based on LiFePO4 5.12–6 kWh battery or SAKO station';
+        } else {
+            // Light load (up to 350 W)
+            batteryWh = 2000;
+            selectedPackageCode = 'SAKO Alpha 1000W ESS ($1,450)';
+            recTitleText = 'SAKO Alpha 1000W ESS (2 kWh LiFePO4)';
+            subtextText = 'compact portable solution for apartments and home office';
         }
 
         const unitText = 'hours';
@@ -1545,10 +1525,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Carousel for Deye Hybrid Inverters
     setupMobileCarousel('#tab-deye .packages-grid', 'deye-prev-btn', 'deye-next-btn', '#deye-dots .pkg-dot');
 
-    // 4. Carousel for Tadiran Batteries
-    setupMobileCarousel('#tab-tadiran .packages-grid', 'tadiran-prev-btn', 'tadiran-next-btn', '#tadiran-dots .pkg-dot');
-
-    // --- 17.0 Unified Product Details Modal Engine (Kits & Tadiran) ---
+    // --- 17.0 Unified Product Details Modal Engine (Kits, SAKO & Deye) ---
     const PRODUCT_DATA = {
         'pkg-6kw': {
             id: 'pkg-6kw',
@@ -1676,130 +1653,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Heavy-duty DC busbars and industrial circuit breakers',
                     'Official 5-year warranty'
                 ]
-            }
-        },
-        '314ah': {
-            id: '314ah',
-            gallery: [
-                'assets/images/tadiran-314ah-1.webp',
-                'assets/images/tadiran-314ah-2.webp',
-                'assets/images/tadiran-314ah-3.webp'
-            ],
-            en: {
-                title: 'Tadiran LFP 51.2V 314Ah',
-                subtitle: 'Low-voltage floor-standing LiFePO4 battery module 51.2V, 314Ah',
-                badge: 'Flagship / 8,000 Cycles',
-                kpiPower: '51.2 V (BMS 200A)',
-                kpiCap: '16.08 kWh',
-                kpiCycles: '8,000 cycles',
-                voltage: '51.2 V',
-                capacity: '314 Ah',
-                energy: '16.08 kWh',
-                current: '100A (Rated) / 200A (Charge) / 200A (Discharge)',
-                cycles: '8,000 cycles (at 80% DoD, 0.5C)',
-                scaling: '1–15 modules in parallel (up to 241.2 kWh)',
-                temp: 'Charge: 0…+55 °C | Discharge: -20…+60 °C',
-                dim: '807 × 520 × 252 mm (package: 865 × 580 × 415 mm)',
-                weight: '130 kg (Net) / 144 kg (Gross)',
-                ports: 'CAN / RS485 / RS232 (JBD App Monitoring)',
-                certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
-                montage: 'Floor-standing on casters (IP30)',
-                price: '$4,850',
-                packName: 'Tadiran LFP-51.2V 314Ah ($4,850)',
-                accessories: ['Battery module x1', 'Inverter cables x2', 'Communication cable x1', 'User manual x1']
-            }
-        },
-        '200ah': {
-            id: '200ah',
-            gallery: [
-                'assets/images/tadiran-200ah-1.webp',
-                'assets/images/tadiran-200ah-2.webp',
-                'assets/images/tadiran-200ah-3.webp'
-            ],
-            en: {
-                title: 'Tadiran LFP 51.2V 200Ah',
-                subtitle: 'Low-voltage floor-standing LiFePO4 battery module for cottages',
-                badge: 'Customer Favorite',
-                kpiPower: '51.2 V (BMS 100A)',
-                kpiCap: '10.24 kWh',
-                kpiCycles: '6,000 cycles',
-                voltage: '51.2 V',
-                capacity: '200 Ah',
-                energy: '10.24 kWh',
-                current: '100A (Rated) / 200A (Charge) / 200A (Discharge)',
-                cycles: '6,000 cycles (at 80% DoD, 0.5C)',
-                scaling: '1–15 modules in parallel (up to 153.6 kWh)',
-                temp: 'Charge: 0…+55 °C | Discharge: -20…+60 °C',
-                dim: '628 × 490 × 250 mm (package: 710 × 570 × 475 mm)',
-                weight: '100 kg (Net) / 110 kg (Gross)',
-                ports: 'CAN / RS485 / RS232 (JBD App)',
-                certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
-                montage: 'Floor-standing (IP30)',
-                price: '$3,250',
-                packName: 'Tadiran LFP-51.2V 200Ah ($3,250)',
-                accessories: ['Battery module x1', 'Parallel connection cables x2', 'Communication cable x1', 'User manual x1']
-            }
-        },
-        '100ah-wm': {
-            id: '100ah-wm',
-            gallery: [
-                'assets/images/tadiran-100ah-wm-1.webp',
-                'assets/images/tadiran-100ah-wm-2.webp',
-                'assets/images/tadiran-100ah-wm-3.webp'
-            ],
-            en: {
-                title: 'Tadiran LFP 51.2V 100Ah-WM',
-                subtitle: 'Low-voltage wall-mounted LiFePO4 battery module 51.2V, 100Ah',
-                badge: 'Wall-Mount',
-                kpiPower: '51.2 V (Wall-Mount)',
-                kpiCap: '5.12 kWh',
-                kpiCycles: '6,000 cycles',
-                voltage: '51.2 V',
-                capacity: '100 Ah',
-                energy: '5.12 kWh',
-                current: '50A (Rated) / 100A (Charge) / 100A (Discharge)',
-                cycles: '6,000 cycles (at 80% DoD, 0.5C)',
-                scaling: '1–15 modules in parallel (up to 76.8 kWh)',
-                temp: 'Charge: 0…+55 °C | Discharge: -20…+60 °C',
-                dim: '450 × 580 × 210 mm (package: 672 × 522 × 305 mm)',
-                weight: '53 kg (Net) / 56 kg (Gross)',
-                ports: 'CAN / RS485 / RS232 (JBD App)',
-                certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
-                montage: 'Wall-mount (IP30)',
-                price: '$1,750',
-                packName: 'Tadiran LFP-51.2V 100Ah-WM ($1,750)',
-                accessories: ['Battery module x1', 'Parallel connection cables x2', 'Communication cable x1', 'User manual x1']
-            }
-        },
-        '100ah-s': {
-            id: '100ah-s',
-            gallery: [
-                'assets/images/tadiran-100ah-s-1.webp',
-                'assets/images/tadiran-100ah-s-2.webp',
-                'assets/images/tadiran-100ah-s-3.webp'
-            ],
-            en: {
-                title: 'Tadiran LFP 51.2V 100Ah-S',
-                subtitle: 'Low-voltage rack-mount LiFePO4 battery for 19" server cabinets',
-                badge: 'For 19" Rack (up to 32 units)',
-                kpiPower: '51.2 V (19" Rack)',
-                kpiCap: '5.12 kWh',
-                kpiCycles: '6,000 cycles',
-                voltage: '51.2 V',
-                capacity: '100 Ah',
-                energy: '5.12 kWh',
-                current: '50A (Rated) / 100A (Charge) / 100A (Discharge)',
-                cycles: '6,000 cycles (at 80% DoD, 0.2C)',
-                scaling: '1–32 modules in parallel (up to 163.84 kWh)',
-                temp: 'Charge: 0…+55 °C | Discharge: -20…+60 °C',
-                dim: '550 × 483 × 180 mm (package: 647 × 537 × 265 mm)',
-                weight: '47 kg (Net) / 52 kg (Gross)',
-                ports: 'CAN / RS485 / RS232 (JBD App)',
-                certs: 'MSDS, UN38.3, CE-EMC, UL9540A, UL1973, UL9540',
-                montage: 'Floor / Stackable 19" (IP30)',
-                price: '$1,650',
-                packName: 'Tadiran LFP-51.2V 100Ah-S ($1,650)',
-                accessories: ['Battery module x1', 'Mounting brackets x4', 'Grounding cable x1', 'Parallel cables x2', 'Communication cable x1', 'User manual x1']
             }
         },
         'sako-500w': {
@@ -2052,11 +1905,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    let activeModalTadId = '314ah';
+    let activeModalTadId = 'pkg-6kw';
 
     function renderTadiranModal(tadId) {
         if (tadId) activeModalTadId = tadId;
-        const prod = PRODUCT_DATA[activeModalTadId] || PRODUCT_DATA['314ah'];
+        const prod = PRODUCT_DATA[activeModalTadId] || PRODUCT_DATA['pkg-6kw'];
         const data = (prod.en || prod);
 
         const pmTitle = document.getElementById('pm-title');
@@ -2105,7 +1958,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const visualBox = document.getElementById('pm-visual-box');
         if (visualBox) {
             const galleryArr = prod.gallery || data.gallery || [];
-            const mainImg = galleryArr.length ? galleryArr[0] : (data.img || 'assets/images/tadiran-314ah.webp');
+            const mainImg = galleryArr.length ? galleryArr[0] : (data.img || 'assets/images/hero-kit-6kwt-trans.webp');
             visualBox.innerHTML = `<img src="${mainImg}" alt="${data.title}" class="pm-visual-img" id="pm-active-img" style="max-width: 100%; max-height: 230px; object-fit: contain; filter: drop-shadow(0 14px 28px rgba(15,23,42,0.14));">`;
         }
 
@@ -2143,7 +1996,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Dynamic model switcher tabs inside modal:
-        // Handles Kits, SAKO ESS, Deye Inverters, and Tadiran Batteries
+        // Handles Kits, SAKO ESS, and Deye Inverters
         const modelWrap = document.querySelector('.model-selector-wrap');
         const modelSelLbl = document.getElementById('pm-model-sel-lbl');
         const modelTabsContainer = document.getElementById('pm-model-tabs');
@@ -2155,15 +2008,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const isDeye = activeModalTadId.startsWith('deye-');
 
             if (modelSelLbl) {
-                modelSelLbl.textContent = isPkg ? 'System line:' : isSako ? 'SAKO ESS Models:' : isDeye ? 'Deye Inverters:' : 'Model range:';
+                modelSelLbl.textContent = isSako ? 'SAKO ESS Models:' : isDeye ? 'Deye Inverters:' : 'System line:';
             }
 
-            const tabsList = isPkg ? [
-                { id: 'pkg-6kw', label: '6 kWh' },
-                { id: 'pkg-12kw', label: '12 kWh' },
-                { id: 'pkg-24kw', label: '24 kWh' },
-                { id: 'pkg-36kw', label: '36 kWh' }
-            ] : isSako ? [
+            const tabsList = isSako ? [
                 { id: 'sako-500w', label: '500W / 1kWh' },
                 { id: 'sako-1000w', label: '1000W / 2kWh' },
                 { id: 'sako-3kw', label: '3kW / 5.12kWh' },
@@ -2174,10 +2022,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'deye-10kw', label: '10 kW (1-Ph)' },
                 { id: 'deye-15kw', label: '15 kW (3-Ph)' }
             ] : [
-                { id: '314ah', label: '314Ah' },
-                { id: '200ah', label: '200Ah' },
-                { id: '100ah-wm', label: '100Ah-WM' },
-                { id: '100ah-s', label: '100Ah-S' }
+                { id: 'pkg-6kw', label: '6 kWh' },
+                { id: 'pkg-12kw', label: '12 kWh' },
+                { id: 'pkg-24kw', label: '24 kWh' },
+                { id: 'pkg-36kw', label: '36 kWh' }
             ];
 
             modelTabsContainer.innerHTML = tabsList.map(t => `
@@ -2237,7 +2085,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (viewBtn) {
             e.preventDefault();
             e.stopPropagation();
-            const tadId = viewBtn.getAttribute('data-tadiran-id') || viewBtn.getAttribute('data-pack-id') || '314ah';
+            const tadId = viewBtn.getAttribute('data-tadiran-id') || viewBtn.getAttribute('data-pack-id') || 'pkg-6kw';
             openProductModal(tadId);
             return;
         }
