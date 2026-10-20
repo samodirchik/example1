@@ -63,7 +63,6 @@ function closeModal() {
     unlockBodyScroll();
 }
 
-window.validateUkrainianPhone = validatePhoneNumber;
 window.validatePhoneNumber = validatePhoneNumber;
 window.openModal = openModal;
 window.closeModal = closeModal;
@@ -75,15 +74,15 @@ window.heroShowcaseData = {
         mobileImg: 'assets/images/hero-kit-6kwt-trans-mobile.webp',
         title: '6 kWh',
         price: '$3,450',
-        sub: 'Ideal apartment backup',
-        bullets: ['Apartment', 'Boiler', 'Refrigerator', 'Internet']
+        sub: 'Essential Home & Office Backup',
+        bullets: ['Home & Office', 'Furnace Fan', 'Refrigerator', 'Internet']
     },
     '12': {
         img: 'assets/images/hero-kit-12kwt-trans.webp',
         title: '12 kWh',
         price: '$5,950',
-        sub: 'Apartment and cottage',
-        bullets: ['Apartment', 'Small cottage', 'Boiler', 'Refrigerator', 'Internet']
+        sub: 'Suburban Home & Cabin',
+        bullets: ['Suburban Home', 'Cabin', 'Sump Pump', 'Refrigerator', 'Internet']
     },
     '24': {
         img: 'assets/images/hero-kit-24kwt-trans.webp',
@@ -124,17 +123,21 @@ window.selectHeroPower = function (p) {
     const listEl = document.getElementById('hero-spec-list');
 
     if (imgEl) {
-        imgEl.style.opacity = '0';
-        imgEl.style.transform = 'scale(0.96)';
-        setTimeout(() => {
-            const mobileSrc = data.mobileImg || data.img;
-            if (sourceEl) {
-                sourceEl.srcset = mobileSrc;
-            }
-            imgEl.src = data.img;
-            imgEl.style.opacity = '1';
-            imgEl.style.transform = 'scale(1)';
-        }, 80);
+        const prevPower = imgEl.getAttribute('data-power-active');
+        if (prevPower && prevPower !== String(p)) {
+            imgEl.style.opacity = '0';
+            imgEl.style.transform = 'scale(0.96)';
+            setTimeout(() => {
+                const mobileSrc = data.mobileImg || data.img;
+                if (sourceEl) {
+                    sourceEl.srcset = mobileSrc;
+                }
+                imgEl.src = data.img;
+                imgEl.style.opacity = '1';
+                imgEl.style.transform = 'scale(1)';
+            }, 80);
+        }
+        imgEl.setAttribute('data-power-active', String(p));
     }
 
     if (titleEl) titleEl.textContent = data.title;
@@ -193,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'hero.pill_1': 'Autonomy',
             'hero.pill_2': 'Switchover',
             'hero.pill_3': 'LiFePO4 Cycles',
-            'hero.bullet_1': 'Powers boiler, refrigerator, Wi-Fi, lights, and TV',
+            'hero.bullet_1': 'Powers furnace fan, refrigerator, Wi-Fi, lights, and TV',
             'hero.bullet_2': 'Free Technical Consultation',
             'hero.bullet_3': 'Free delivery',
             'hero.btn_callback': 'Get a Consultation',
@@ -203,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'house.subtitle': 'Click the button below to simulate a blackout and check appliance protection.',
             'house.mode_rezerv': 'Mode: Backup 120V/240V',
             'house.mode_blackout': 'Mode: Blackout 0V',
-            'house.room_boiler': 'Boiler room',
+            'house.room_boiler': 'Utility room',
             'house.desc_boiler': 'Utility room: Furnace & Sump Pump (75°F)',
             'house.room_kitchen': 'Kitchen',
             'house.desc_kitchen': 'Refrigerator OK',
@@ -215,7 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'calc.subtitle': 'Select the appliances you need during an outage to calculate required energy storage.',
             'calc.appliances_title': 'Your priority appliances:',
             'calc.appliance_1': 'Double-door refrigerator',
-            'calc.appliance_2': 'Gas Furnace & Sump Pump + circulation pump',
+            'calc.appliance_2': 'Gas Furnace Fan & Sump Pump',
             'calc.appliance_3': 'Wi-Fi router + LED lighting',
             'calc.appliance_4': 'Workstation PC + 2 monitors',
             'calc.appliance_5': 'Air conditioner / Climate control',
@@ -227,13 +230,13 @@ document.addEventListener('DOMContentLoaded', () => {
             'calc.rec_title': 'Recommended solution:',
             'calc.btn_order': 'Order this solution',
             'pkg.title': 'Turnkey Kits & Batteries',
-            'pkg.subtitle': 'Tailored solutions for apartments, private houses, and businesses with a 5-year warranty and fast delivery.',
+            'pkg.subtitle': 'Tailored solutions for single-family homes, suburban estates, and businesses with a 5-year warranty and fast delivery.',
             'pkg.cat_pkgs_badge': 'Turnkey solutions',
             'pkg.cat_pkgs_title': '⚡ Inverter + LiFePO4 Battery Power Systems',
-            'pkg.cat_pkgs_desc': 'Fully assembled and pre-configured stations for apartment, house, or business with 5-year warranty.',
+            'pkg.cat_pkgs_desc': 'Fully assembled and pre-configured stations for homes, cabins, and commercial properties with 5-year warranty.',
             'pkg.badge_featured': 'Bestseller',
-            'pkg.badge_1': 'Apartment / Office',
-            'pkg.badge_2': 'Apartment / House',
+            'pkg.badge_1': 'Home & Office',
+            'pkg.badge_2': 'Single-Family Home',
             'pkg.badge_3': 'Large House',
             'pkg.badge_4': 'Business Solution',
             'pkg.photo_slot': 'Kit photo placeholder',
@@ -251,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'pkg.p1_cap_val': '6 kWh',
             'pkg.p1_time_val': '5–8 hrs',
             'pkg.p1_f1': 'Deye 3.2 kW Split-Phase Inverter + 6 kWh battery (24 V)',
-            'pkg.p1_f2': 'For apartment: boiler, refrigerator, internet, lighting',
+            'pkg.p1_f2': 'For home & cabin: furnace fan, refrigerator, internet, lighting',
             'pkg.p1_f3': 'Up to 5–8 hours of complete autonomy',
             'pkg.p2_cap_val': '12 kWh',
             'pkg.p2_time_val': '12–24 hrs',
@@ -530,7 +533,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const offDescMap = {
-                'room-boiler': 'Boiler freezing!',
+                'room-boiler': 'Furnace & pump offline!',
                 'room-kitchen': 'Food spoiling!',
                 'room-office': 'Connection lost!',
                 'room-living': 'Total darkness!'
@@ -999,7 +1002,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (badgeOffice) badgeOffice.textContent = resBadgeText;
                 if (badgeLiving) badgeLiving.textContent = resBadgeText;
 
-                if (descBoiler) descBoiler.textContent = 'Boiler protected';
+                if (descBoiler) descBoiler.textContent = 'Furnace & pump protected';
                 if (descKitchen) descKitchen.textContent = 'Freezer running';
                 if (descOffice) descOffice.textContent = 'Wi-Fi 100% ONLINE';
                 if (descLiving) descLiving.textContent = 'Backup lighting';

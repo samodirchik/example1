@@ -866,12 +866,14 @@ section[id],
     flex-shrink: 0;
 }
 
-.m-phone-icon-box.ks-box {
+.m-phone-icon-box.ks-box,
+.m-phone-icon-box.tollfree-box {
     background: rgba(2, 132, 199, 0.12);
     color: #0284c7;
 }
 
-.m-phone-icon-box.vf-box {
+.m-phone-icon-box.vf-box,
+.m-phone-icon-box.sms-box {
     background: rgba(16, 185, 129, 0.12);
     color: #059669;
 }
@@ -895,11 +897,13 @@ section[id],
     text-transform: uppercase;
 }
 
-.m-operator-label.ks-label {
+.m-operator-label.ks-label,
+.m-operator-label.tollfree-label {
     color: #0284c7;
 }
 
-.m-operator-label.vf-label {
+.m-operator-label.vf-label,
+.m-operator-label.sms-label {
     color: #059669;
 }
 
@@ -998,17 +1002,7 @@ section[id],
     color: #ffffff;
 }
 
-.m-msg-btn.msg-btn-viber {
-    background: rgba(16, 185, 129, 0.09);
-    color: #059669;
-    border: 1px solid rgba(16, 185, 129, 0.22);
-}
 
-.m-msg-btn.msg-btn-viber:hover,
-.m-msg-btn.msg-btn-viber:active {
-    background: #059669;
-    color: #ffffff;
-}
 
 /* 2. CATALOG SECTION (Rich App Rows) */
 .m-catalog-section {
