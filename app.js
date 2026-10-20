@@ -1539,7 +1539,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Carousel for Ready-made Packages
     setupMobileCarousel('#tab-packages .packages-grid', 'pkgs-prev-btn', 'pkgs-next-btn', '#pkgs-dots .pkg-dot');
 
-    // 2. Carousel for Tadiran Batteries
+    // 2. Carousel for SAKO ESS Power Stations
+    setupMobileCarousel('#tab-sako .packages-grid', 'sako-prev-btn', 'sako-next-btn', '#sako-dots .pkg-dot');
+
+    // 3. Carousel for Deye Hybrid Inverters
+    setupMobileCarousel('#tab-deye .packages-grid', 'deye-prev-btn', 'deye-next-btn', '#deye-dots .pkg-dot');
+
+    // 4. Carousel for Tadiran Batteries
     setupMobileCarousel('#tab-tadiran .packages-grid', 'tadiran-prev-btn', 'tadiran-next-btn', '#tadiran-dots .pkg-dot');
 
     // --- 17.0 Unified Product Details Modal Engine (Kits & Tadiran) ---
@@ -1795,6 +1801,254 @@ document.addEventListener('DOMContentLoaded', () => {
                 packName: 'Tadiran LFP-51.2V 100Ah-S ($1,650)',
                 accessories: ['Battery module x1', 'Mounting brackets x4', 'Grounding cable x1', 'Parallel cables x2', 'Communication cable x1', 'User manual x1']
             }
+        },
+        'sako-500w': {
+            id: 'sako-500w',
+            gallery: [
+                'assets/images/sako-500w.webp',
+                'assets/images/sako-500w-2.webp',
+                'assets/images/sako-500w-3.webp'
+            ],
+            en: {
+                title: 'SAKO Alpha ESS 500W / 1000Wh',
+                subtitle: 'All-in-One Portable Power Station with Pure Sine Wave Inverter & 1000Wh LiFePO4',
+                badge: 'Apartment / Office',
+                kpiPower: '500W (Peak 1,000W)',
+                kpiCap: '1,000Wh (1 kWh)',
+                kpiCycles: '6,000+ cycles',
+                voltage: '12.8V (LiFePO4)',
+                capacity: '78 Ah (1000Wh)',
+                energy: '1,000Wh (1 kWh)',
+                current: 'AC 120V Charge: 15A (~2.5–3 hrs) | Solar MPPT: 30A (up to 400W)',
+                cycles: '≥6,000 cycles (DOD 80%, 10+ year service life)',
+                scaling: 'Instant UPS transfer (≤10 ms) seamless power backup',
+                temp: 'Charge: 32°F to 113°F (0…+45 °C) | Discharge: 14°F to 131°F (-10…+55 °C)',
+                dim: '15.3 × 8.7 × 12.2 in (390 × 220 × 310 mm)',
+                weight: '32 lbs (14.5 kg)',
+                ports: '2× 120V NEMA pure sine, 4× USB 2.4A, 1× Type-C PD 45W, 2× DC 12V 5A, 1× Car 12V 10A',
+                certs: 'UL1973, CE, RoHS, UN38.3, MSDS',
+                montage: 'Portable / Desktop (built-in ergonomic handle)',
+                price: '$850',
+                packName: 'SAKO Alpha 500W ESS ($850)',
+                accessories: ['SAKO 500W/1000Wh Power Station x1', 'AC 120V Power Cable x1', 'MC4 Solar Connection Cable x1', 'User Manual x1']
+            }
+        },
+        'sako-1000w': {
+            id: 'sako-1000w',
+            gallery: [
+                'assets/images/sako-1000w.webp',
+                'assets/images/sako-1000w-2.webp',
+                'assets/images/sako-1000w-3.webp'
+            ],
+            en: {
+                title: 'SAKO Alpha ESS 1000W / 2000Wh',
+                subtitle: 'High-Capacity All-in-One 1kW ESS with 2000Wh LiFePO4 Battery',
+                badge: 'Top Seller',
+                kpiPower: '1,000W (Peak 2,000W)',
+                kpiCap: '2,000Wh (2 kWh)',
+                kpiCycles: '6,000+ cycles',
+                voltage: '25.6V (LiFePO4)',
+                capacity: '78 Ah (2000Wh)',
+                energy: '2,000Wh (2 kWh)',
+                current: 'AC 120V Charge: 20A (~3.5–4 hrs) | Solar MPPT: 30A (up to 600W)',
+                cycles: '≥6,000 cycles (DOD 80%, 10+ year service life)',
+                scaling: 'Instant UPS transfer (≤10 ms) for sensitive electronics & heaters',
+                temp: 'Charge: 32°F to 113°F (0…+45 °C) | Discharge: 14°F to 131°F (-10…+55 °C)',
+                dim: '18.1 × 10.2 × 14.2 in (460 × 260 × 360 mm)',
+                weight: '51.8 lbs (23.5 kg)',
+                ports: '3× 120V NEMA pure sine, 4× USB 2.4A, 2× Type-C PD 100W, 1× Car 12V 10A',
+                certs: 'UL1973, CE, RoHS, UN38.3, MSDS',
+                montage: 'Portable / Floor-standing on anti-slip feet with handles',
+                price: '$1,450',
+                packName: 'SAKO Alpha 1000W ESS ($1,450)',
+                accessories: ['SAKO 1000W/2000Wh Power Station x1', 'AC 120V Power Cable x1', 'MC4 Solar Connection Cable x1', 'User Manual x1']
+            }
+        },
+        'sako-3kw': {
+            id: 'sako-3kw',
+            gallery: [
+                'assets/images/sako-3kw.webp',
+                'assets/images/sako-3kw-2.webp',
+                'assets/images/sako-3kw-3.webp'
+            ],
+            en: {
+                title: 'SAKO Alpha ESS 3kW / 5.12kWh',
+                subtitle: 'Whole-Home Monoblock Storage 3kW with 5.12kWh LiFePO4 Battery Module',
+                badge: 'Home & Cabin',
+                kpiPower: '3,000W (Peak 6,000W)',
+                kpiCap: '5.12 kWh',
+                kpiCycles: '6,000+ cycles',
+                voltage: '51.2V (LiFePO4)',
+                capacity: '100 Ah (5,120 Wh)',
+                energy: '5.12 kWh',
+                current: 'AC Charge: up to 60A | Solar MPPT Inverter: 80A (up to 4,000W)',
+                cycles: '≥6,000 cycles (DOD 80%, 15+ year lifespan)',
+                scaling: 'Direct connection to subpanel or distribution board',
+                temp: 'Charge: 32°F to 122°F (0…+50 °C) | Discharge: 5°F to 140°F (-15…+60 °C)',
+                dim: '23.6 × 16.5 × 32.3 in (600 × 420 × 820 mm)',
+                weight: '150 lbs (68 kg)',
+                ports: 'AC 120/240V terminal blocks, Wi-Fi module, RS485/CAN, PV solar inputs',
+                certs: 'UL9540A, CE, IEC62109, UN38.3, MSDS',
+                montage: 'Floor-standing monoblock on locking industrial casters',
+                price: '$2,850',
+                packName: 'SAKO Alpha 3kW ESS ($2,850)',
+                accessories: ['SAKO 3kW/5.12kWh Power Station x1', 'Integrated Wi-Fi Cloud Monitoring Module x1', 'Grounding & Terminal Connection Kit x1', 'User Manual x1']
+            }
+        },
+        'sako-6kw': {
+            id: 'sako-6kw',
+            gallery: [
+                'assets/images/sako-6kw.webp',
+                'assets/images/sako-6kw-2.webp',
+                'assets/images/sako-6kw-3.webp'
+            ],
+            en: {
+                title: 'SAKO Alpha ESS 6kW / 10.24kWh',
+                subtitle: 'Flagship Off-Grid & Hybrid Power Station 6kW with 10.24kWh LiFePO4',
+                badge: 'Maximum Autonomy',
+                kpiPower: '6,000W (Peak 12,000W)',
+                kpiCap: '10.24 kWh',
+                kpiCycles: '6,000+ cycles',
+                voltage: '51.2V (LiFePO4)',
+                capacity: '200 Ah (10,240 Wh)',
+                energy: '10.24 kWh',
+                current: 'Rapid AC Charge: up to 100A (~2–2.5 hrs) | Dual MPPT: 120A (up to 6,000W)',
+                cycles: '≥6,000 cycles (DOD 80%, 15+ year lifespan)',
+                scaling: 'Full grid replacement for estates, farms, and small commercial',
+                temp: 'Charge: 32°F to 122°F (0…+50 °C) | Discharge: 5°F to 140°F (-15…+60 °C)',
+                dim: '25.6 × 18.1 × 45.3 in (650 × 460 × 1150 mm)',
+                weight: '253 lbs (115 kg)',
+                ports: 'Heavy-duty AC terminal blocks, Wi-Fi/4G, RS485/CAN, Dual PV MPPT inputs',
+                certs: 'UL9540A, UL1973, CE, IEC62109, IEC62619, UN38.3',
+                montage: 'Heavy-duty floor monoblock with reinforced industrial wheels',
+                price: '$4,950',
+                packName: 'SAKO Alpha 6kW ESS ($4,950)',
+                accessories: ['SAKO 6kW/10.24kWh Flagship Station x1', 'Wi-Fi/Cloud Monitoring Module x1', 'Heavy-Duty Power Hookup Cable Kit x1', 'Installation & Operation Manual x1']
+            }
+        },
+        'deye-6kw': {
+            id: 'deye-6kw',
+            gallery: [
+                'assets/images/deye-6kw.webp',
+                'assets/images/deye-6kw-2.webp',
+                'assets/images/deye-6kw-3.webp'
+            ],
+            en: {
+                title: 'Deye SUN-6K-SG04LP1-EU',
+                subtitle: 'Single-Phase 48V Hybrid Solar Inverter 6kW (Pure Sine Wave, UPS ≤4ms)',
+                badge: '1-Phase / 120-240V',
+                kpiPower: '6,000W (Peak 12,000W)',
+                kpiCap: '48V LiFePO4',
+                kpiCycles: '97.6% Max Efficiency',
+                voltage: '120/240V Split-Phase / 48V Battery (40–60V)',
+                capacity: 'Compatible with all 48V LiFePO4 batteries (50–1,000 Ah)',
+                energy: 'Max PV Input: 7,800W (Dual MPPT trackers)',
+                current: 'Max Charge/Discharge Current: 135A',
+                cycles: 'Parallel connection up to 16 inverters',
+                scaling: 'Generator autostart, zero-export, AC coupling, microgrid ready',
+                temp: '-40°F to 140°F (-40…+60 °C) intelligent active fan cooling',
+                dim: '22.8 × 13.0 × 9.1 in (580 × 330 × 232 mm)',
+                weight: '52.9 lbs (24 kg)',
+                ports: 'Wi-Fi / LAN, RS485, CAN, DRM, dedicated generator input',
+                certs: 'UL1741, IEEE1547, CE, IEC62109, IP65',
+                montage: 'Wall-mounted vertical installation (bracket included)',
+                price: '$1,950',
+                packName: 'Deye SUN-6K-SG04LP1-EU ($1,950)',
+                accessories: ['Deye 6kW Hybrid Inverter x1', 'Deye Wi-Fi Monitoring Stick x1', 'Current Transformer (CT Sensor) x1', 'Wall-Mount Bracket & Hardware x1', 'Manual & Warranty Card x1']
+            }
+        },
+        'deye-8kw': {
+            id: 'deye-8kw',
+            gallery: [
+                'assets/images/deye-8kw.webp',
+                'assets/images/deye-8kw-2.webp',
+                'assets/images/deye-8kw-3.webp'
+            ],
+            en: {
+                title: 'Deye SUN-8K-SG05LP1-EU',
+                subtitle: 'Single-Phase 48V Hybrid Solar Inverter 8kW (190A Current, Dual MPPT)',
+                badge: 'Top Seller',
+                kpiPower: '8,000W (Peak 16,000W)',
+                kpiCap: '48V LiFePO4',
+                kpiCycles: '97.6% Max Efficiency',
+                voltage: '120/240V Split-Phase / 48V Battery (40–60V)',
+                capacity: 'Compatible with all 48V LiFePO4 batteries (100–2,000 Ah)',
+                energy: 'Max PV Input: 10,400W (Dual MPPT trackers)',
+                current: 'Max Charge/Discharge Current: 190A',
+                cycles: 'Parallel connection up to 16 units on single or 3-phase systems',
+                scaling: 'Smart Load, AC coupling, auto generator start, remote monitoring',
+                temp: '-40°F to 140°F (-40…+60 °C), ultra-quiet cooling (≤30 dB)',
+                dim: '22.8 × 13.0 × 9.1 in (580 × 330 × 232 mm)',
+                weight: '52.9 lbs (24 kg)',
+                ports: 'Wi-Fi / LAN, RS485, CAN, DRM, dedicated generator input',
+                certs: 'UL1741, IEEE1547, CE, IEC62109, IP65',
+                montage: 'Wall-mounted vertical installation',
+                price: '$2,550',
+                packName: 'Deye SUN-8K-SG05LP1-EU ($2,550)',
+                accessories: ['Deye 8kW Hybrid Inverter x1', 'Wi-Fi/Cloud Monitoring Dongle x1', 'CT Sensor Kit x1', 'Wall-Mount Bracket & Anchor Kit x1', 'User Manual & Warranty Certificate x1']
+            }
+        },
+        'deye-10kw': {
+            id: 'deye-10kw',
+            gallery: [
+                'assets/images/deye-10kw.webp',
+                'assets/images/deye-10kw-2.webp',
+                'assets/images/deye-10kw-3.webp'
+            ],
+            en: {
+                title: 'Deye SUN-10K-SG04LP3-EU',
+                subtitle: 'High-Power Hybrid Inverter 10kW / 48V (220A Current, Triple MPPT)',
+                badge: 'High Power 10kW',
+                kpiPower: '10,000W (Peak 20,000W)',
+                kpiCap: '48V LiFePO4',
+                kpiCycles: '97.6% Max Efficiency',
+                voltage: '120/240V or 208V 3-Phase / 48V Battery (40–60V)',
+                capacity: 'Compatible with all 48V LiFePO4 blocks (200–3,000 Ah)',
+                energy: 'Max PV Input: 13,000W (3 independent MPPT trackers)',
+                current: 'Max Charge/Discharge Current: 220A',
+                cycles: '3 independent MPPT strings for multi-pitch roof designs',
+                scaling: 'Whole-house microgrid, excess solar clipping, peak shaving',
+                temp: '-40°F to 140°F (-40…+60 °C) intelligent active cooling',
+                dim: '26.4 × 16.5 × 9.2 in (670 × 420 × 233 mm)',
+                weight: '78.5 lbs (35.6 kg)',
+                ports: 'Wi-Fi / LAN, RS232, RS485, CAN, generator input',
+                certs: 'UL1741, IEEE1547, CE, IEC62109, IP65',
+                montage: 'Wall-mounted vertical installation',
+                price: '$3,250',
+                packName: 'Deye SUN-10K-SG04LP3-EU ($3,250)',
+                accessories: ['Deye 10kW Hybrid Inverter x1', 'Wi-Fi/Cloud Monitoring Module x1', 'Current Transformer (CT Sensor) x1', 'Full Set of MC4 Connectors & Mounts x1', 'User Manual & Official Warranty x1']
+            }
+        },
+        'deye-15kw': {
+            id: 'deye-15kw',
+            gallery: [
+                'assets/images/deye-15kw.webp',
+                'assets/images/deye-15kw-2.webp',
+                'assets/images/deye-15kw-3.webp'
+            ],
+            en: {
+                title: 'Deye SUN-15K-SG01HP3-EU-BM3',
+                subtitle: '3-Phase Commercial & Estate Hybrid Inverter 15kW with 48V Low-Voltage Battery Support',
+                badge: '3-Phase / 480V/208V',
+                kpiPower: '15,000W (Peak 30,000W)',
+                kpiCap: '48V LiFePO4',
+                kpiCycles: '97.6% Max Efficiency',
+                voltage: '3-Phase 208V/480V + N / 48V Battery (40–60V)',
+                capacity: 'Compatible with 48V LiFePO4 modules (200–5,000 Ah)',
+                energy: 'Max PV Input: 22,500W (Dual high-current MPPTs)',
+                current: 'Max Charge/Discharge Current: 280A',
+                cycles: '100% unbalanced phase output (up to 50% rated power per phase)',
+                scaling: 'Parallel connection up to 10 units with smart generator integration',
+                temp: '-40°F to 140°F (-40…+60 °C) intelligent fan cooling',
+                dim: '29.5 × 18.0 × 10.6 in (750 × 456 × 268 mm)',
+                weight: '111.5 lbs (50.6 kg)',
+                ports: 'Wi-Fi / LAN, RS485, CAN, DRM, dedicated generator input',
+                certs: 'UL1741, IEEE1547, CE, IEC62109, IP65',
+                montage: 'Wall-mounted vertical installation',
+                price: '$4,250',
+                packName: 'Deye SUN-15K-SG01HP3-EU-BM3 ($4,250)',
+                accessories: ['Deye 15kW 3-Phase Inverter x1', 'Wi-Fi/Cloud Monitoring Module x1', '3-Phase CT Sensor Trio x1', 'Heavy-Duty Wall Mounting Kit x1', 'Operation Manual & Warranty Card x1']
+            }
         }
     };
 
@@ -1889,7 +2143,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Dynamic model switcher tabs inside modal:
-        // Handles both Ready-made packages ('pkg-') and Tadiran batteries
+        // Handles Kits, SAKO ESS, Deye Inverters, and Tadiran Batteries
         const modelWrap = document.querySelector('.model-selector-wrap');
         const modelSelLbl = document.getElementById('pm-model-sel-lbl');
         const modelTabsContainer = document.getElementById('pm-model-tabs');
@@ -1897,8 +2151,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (modelWrap && modelTabsContainer) {
             modelWrap.style.display = 'flex';
             const isPkg = activeModalTadId.startsWith('pkg-');
+            const isSako = activeModalTadId.startsWith('sako-');
+            const isDeye = activeModalTadId.startsWith('deye-');
+
             if (modelSelLbl) {
-                modelSelLbl.textContent = isPkg ? 'System line:' : 'Model range:';
+                modelSelLbl.textContent = isPkg ? 'System line:' : isSako ? 'SAKO ESS Models:' : isDeye ? 'Deye Inverters:' : 'Model range:';
             }
 
             const tabsList = isPkg ? [
@@ -1906,6 +2163,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'pkg-12kw', label: '12 kWh' },
                 { id: 'pkg-24kw', label: '24 kWh' },
                 { id: 'pkg-36kw', label: '36 kWh' }
+            ] : isSako ? [
+                { id: 'sako-500w', label: '500W / 1kWh' },
+                { id: 'sako-1000w', label: '1000W / 2kWh' },
+                { id: 'sako-3kw', label: '3kW / 5.12kWh' },
+                { id: 'sako-6kw', label: '6kW / 10kWh' }
+            ] : isDeye ? [
+                { id: 'deye-6kw', label: '6 kW (1-Ph)' },
+                { id: 'deye-8kw', label: '8 kW (1-Ph)' },
+                { id: 'deye-10kw', label: '10 kW (1-Ph)' },
+                { id: 'deye-15kw', label: '15 kW (3-Ph)' }
             ] : [
                 { id: '314ah', label: '314Ah' },
                 { id: '200ah', label: '200Ah' },

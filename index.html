@@ -80,9 +80,46 @@
             </a>
             
             <nav class="nav-links">
-                <a href="#compare-slider" class="nav-item" data-i18n="nav.autonomy">Autonomy</a>
+                <div class="nav-dropdown" id="catalog-nav-dropdown">
+                    <a href="#packages" class="nav-item nav-dropdown-trigger">
+                        <span>Catalog</span>
+                        <svg class="dropdown-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </a>
+                    <div class="nav-dropdown-menu" id="catalog-dropdown-menu">
+                        <a href="#tab-packages" class="nav-dropdown-item">
+                            <div class="dropdown-item-icon">⚡</div>
+                            <div class="dropdown-item-content">
+                                <span class="dropdown-item-title">Turnkey Kits</span>
+                                <span class="dropdown-item-desc">Inverter + LiFePO4 battery</span>
+                            </div>
+                        </a>
+                        <a href="#tab-sako" class="nav-dropdown-item">
+                            <div class="dropdown-item-icon">📦</div>
+                            <div class="dropdown-item-content">
+                                <span class="dropdown-item-title">SAKO ESS Stations</span>
+                                <span class="dropdown-item-desc">All-in-one power stations</span>
+                            </div>
+                        </a>
+                        <a href="#tab-deye" class="nav-dropdown-item">
+                            <div class="dropdown-item-icon">⚙️</div>
+                            <div class="dropdown-item-content">
+                                <span class="dropdown-item-title">Deye Inverters</span>
+                                <span class="dropdown-item-desc">Hybrid 48V (split & 3-phase)</span>
+                            </div>
+                        </a>
+                        <a href="#tab-tadiran" class="nav-dropdown-item">
+                            <div class="dropdown-item-icon">🔋</div>
+                            <div class="dropdown-item-content">
+                                <span class="dropdown-item-title">Tadiran Batteries</span>
+                                <span class="dropdown-item-desc">51.2V modular storage</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
                 <a href="#calculator" class="nav-item" data-i18n="nav.calculator">Calculator</a>
-                <a href="#packages" class="nav-item" data-i18n="nav.packages">Kits</a>
+                <a href="#compare-slider" class="nav-item" data-i18n="nav.autonomy">Autonomy</a>
                 <a href="#callback" class="nav-item" data-i18n="nav.contacts">Contacts</a>
             </nav>
 
@@ -140,12 +177,43 @@
                     </div>
                     <svg class="nav-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </a>
-                
-                <a href="#packages" class="mobile-nav-card">
+
+                <div class="mobile-nav-group-header">
+                    <span class="mobile-group-title">Equipment Catalog</span>
+                </div>
+
+                <a href="#tab-packages" class="mobile-nav-card mobile-subcard">
+                    <div class="nav-card-icon">⚡</div>
+                    <div class="nav-card-text">
+                        <span class="nav-card-title">Turnkey Kits</span>
+                        <span class="nav-card-sub">Inverter + battery systems</span>
+                    </div>
+                    <svg class="nav-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+
+                <a href="#tab-sako" class="mobile-nav-card mobile-subcard">
                     <div class="nav-card-icon">📦</div>
                     <div class="nav-card-text">
-                        <span class="nav-card-title" data-i18n="nav.packages">Kits</span>
-                        <span class="nav-card-sub" data-i18n="drawer.sub_3">Inverter + battery turnkey kits</span>
+                        <span class="nav-card-title">SAKO Power Stations</span>
+                        <span class="nav-card-sub">All-in-one ESS (500W–6kW)</span>
+                    </div>
+                    <svg class="nav-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+
+                <a href="#tab-deye" class="mobile-nav-card mobile-subcard">
+                    <div class="nav-card-icon">⚙️</div>
+                    <div class="nav-card-text">
+                        <span class="nav-card-title">Deye Hybrid Inverters</span>
+                        <span class="nav-card-sub">Split-phase & 3-phase (6–15kW)</span>
+                    </div>
+                    <svg class="nav-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+
+                <a href="#tab-tadiran" class="mobile-nav-card mobile-subcard">
+                    <div class="nav-card-icon">🔋</div>
+                    <div class="nav-card-text">
+                        <span class="nav-card-title">Tadiran Batteries</span>
+                        <span class="nav-card-sub">51.2V modular storage (5–16kWh)</span>
                     </div>
                     <svg class="nav-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </a>
@@ -590,6 +658,21 @@
                             
                             <!-- Image Container / Slot -->
                             <div class="package-img-box">
+                                <div class="card-badges-top">
+                                    <span class="product-chip chip-in-stock">
+                                        <span class="stock-dot"></span>
+                                        <span>In Stock</span>
+                                    </span>
+                                    <span class="product-chip chip-free-shipping">
+                                        <svg class="chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="1" y="3" width="15" height="13"></rect>
+                                            <polygon points="16 8 20 8 23 11 23 16 16 8"></polygon>
+                                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                                        </svg>
+                                        <span>Free Shipping</span>
+                                    </span>
+                                </div>
                                 <img src="assets/images/hero-kit-6kwt-trans.webp" alt="6 kWh Kit" class="package-img" loading="lazy" decoding="async" width="800" height="597">
                             </div>
 
@@ -636,6 +719,21 @@
 
                             <!-- Image Container / Slot -->
                             <div class="package-img-box">
+                                <div class="card-badges-top">
+                                    <span class="product-chip chip-in-stock">
+                                        <span class="stock-dot"></span>
+                                        <span>In Stock</span>
+                                    </span>
+                                    <span class="product-chip chip-free-shipping">
+                                        <svg class="chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="1" y="3" width="15" height="13"></rect>
+                                            <polygon points="16 8 20 8 23 11 23 16 16 8"></polygon>
+                                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                                        </svg>
+                                        <span>Free Shipping</span>
+                                    </span>
+                                </div>
                                 <img src="assets/images/hero-kit-12kwt-trans.webp" alt="12 kWh Kit" class="package-img" loading="lazy" decoding="async" width="800" height="597">
                             </div>
 
@@ -682,6 +780,21 @@
 
                             <!-- Image Container / Slot -->
                             <div class="package-img-box">
+                                <div class="card-badges-top">
+                                    <span class="product-chip chip-in-stock">
+                                        <span class="stock-dot"></span>
+                                        <span>In Stock</span>
+                                    </span>
+                                    <span class="product-chip chip-free-shipping">
+                                        <svg class="chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="1" y="3" width="15" height="13"></rect>
+                                            <polygon points="16 8 20 8 23 11 23 16 16 8"></polygon>
+                                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                                        </svg>
+                                        <span>Free Shipping</span>
+                                    </span>
+                                </div>
                                 <img src="assets/images/hero-kit-24kwt-trans.webp" alt="24 kWh Kit" class="package-img" loading="lazy" decoding="async" width="800" height="597">
                             </div>
 
@@ -690,7 +803,7 @@
                             <!-- Key Specs Bar -->
                             <div class="package-specs-bar">
                                 <div class="spec-pill">
-                                    <span class="spec-val">6.2–12.4 kW</span>
+                                    <span class="spec-val">12.0 kW</span>
                                     <span class="spec-lbl" data-i18n="pkg.spec_power">Output</span>
                                 </div>
                                 <div class="spec-pill">
@@ -713,8 +826,8 @@
                             </div>
 
                             <ul class="package-features">
-                                <li data-i18n="pkg.p3_f1">1–2 EASUN 6.2 kW inverters + 24 kWh battery</li>
-                                <li data-i18n="pkg.p3_f2">For business, office, POS terminals, servers & high loads</li>
+                                <li data-i18n="pkg.p3_f1">Deye 12 kW hybrid inverter + 24 kWh battery rack</li>
+                                <li data-i18n="pkg.p3_f2">For large homes, offices, servers & heavy continuous loads</li>
                             </ul>
                             <div class="package-btns-row" style="display: flex; gap: 8px; margin-top: auto;">
                                 <button type="button" class="btn btn-outline view-details-btn" data-pack-id="pkg-24kw" data-i18n="pkg.btn_details" style="flex: 1; padding: 10px 6px; font-weight: 600; font-size: 0.82rem;">Model Details</button>
@@ -728,6 +841,21 @@
 
                             <!-- Image Container / Slot -->
                             <div class="package-img-box">
+                                <div class="card-badges-top">
+                                    <span class="product-chip chip-in-stock">
+                                        <span class="stock-dot"></span>
+                                        <span>In Stock</span>
+                                    </span>
+                                    <span class="product-chip chip-free-shipping">
+                                        <svg class="chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="1" y="3" width="15" height="13"></rect>
+                                            <polygon points="16 8 20 8 23 11 23 16 16 8"></polygon>
+                                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                                        </svg>
+                                        <span>Free Shipping</span>
+                                    </span>
+                                </div>
                                 <img src="assets/images/hero-kit-36kwt-trans.webp" alt="36 kWh Kit" class="package-img" loading="lazy" decoding="async" width="800" height="597">
                             </div>
 
@@ -759,7 +887,7 @@
                             </div>
 
                             <ul class="package-features">
-                                <li data-i18n="pkg.p4_f1">1–3 EASUN 6.2 kW inverters + 36+ kWh rack</li>
+                                <li data-i18n="pkg.p4_f1">Deye 12 kW hybrid inverter + 36+ kWh industrial rack</li>
                                 <li data-i18n="pkg.p4_f2">Scalable system for estates and 24/7 commercial operations</li>
                             </ul>
                             <div class="package-btns-row" style="display: flex; gap: 8px; margin-top: auto;">
@@ -790,7 +918,541 @@
                     </div>
                 </div>
 
-                <!-- Category 2: Tadiran Batteries Showcase -->
+                <!-- Category 2: SAKO Alpha ESS All-in-One Power Stations -->
+                <div class="catalog-category-block" id="tab-sako" style="margin-top: 60px;">
+                    <div class="catalog-category-header">
+                        <div class="category-header-badge">All-in-One Power Stations</div>
+                        <h3 class="category-header-title">🔋 SAKO Alpha ESS All-in-One Backup Stations</h3>
+                        <p class="category-header-desc">Compact turnkey backup power systems: pure sine wave inverter, MPPT solar controller, and integrated LiFePO4 battery storage.</p>
+                    </div>
+
+                    <div class="packages-grid sako-grid">
+                        <!-- SAKO Card 1 (500W / 1000Wh) -->
+                        <div class="package-card glass-panel tilt-card">
+                            <div class="package-badge">Apartment / Home Office</div>
+
+                            <div class="package-img-box">
+                                <div class="card-badges-top">
+                                    <span class="product-chip chip-in-stock">
+                                        <span class="stock-dot"></span>
+                                        <span>In Stock</span>
+                                    </span>
+                                    <span class="product-chip chip-free-shipping">
+                                        <svg class="chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="1" y="3" width="15" height="13"></rect>
+                                            <polygon points="16 8 20 8 23 11 23 16 16 8"></polygon>
+                                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                                        </svg>
+                                        <span>Free Shipping</span>
+                                    </span>
+                                </div>
+                                <img src="assets/images/sako-500w.webp" alt="SAKO Alpha ESS 500W/1000Wh" class="package-img" loading="lazy" decoding="async" width="600" height="600">
+                            </div>
+
+                            <h3 class="package-name">SAKO Alpha ESS 500W/1000Wh</h3>
+
+                            <div class="package-specs-bar">
+                                <div class="spec-pill">
+                                    <span class="spec-val">500 W</span>
+                                    <span class="spec-lbl" data-i18n="pkg.spec_power">Output</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">1,000 Wh</span>
+                                    <span class="spec-lbl" data-i18n="pkg.spec_cap">Capacity</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">12.8 V</span>
+                                    <span class="spec-lbl">LiFePO4 (UPS)</span>
+                                </div>
+                            </div>
+
+                            <div class="package-price-box">
+                                <div class="price-old-wrap">
+                                    <span class="price-old"><span class="currency">$</span>990</span>
+                                    <span class="badge-discount">-14% Save $140</span>
+                                </div>
+                                <div class="package-price"><span class="currency">$</span>850</div>
+                            </div>
+
+                            <ul class="package-features">
+                                <li>Pure sine wave 120V (1,000W surge), built-in 30A MPPT solar controller (up to 400W PV)</li>
+                                <li>Instant UPS (≤10 ms): powers heating boiler, Wi-Fi router, PC & essentials without interruption</li>
+                            </ul>
+
+                            <div class="package-btns-row" style="display: flex; gap: 10px; margin-top: auto;">
+                                <button type="button" class="btn btn-outline view-details-btn" data-pack-id="sako-500w" data-i18n="pkg.btn_details" style="flex: 1; padding: 12px 8px; font-weight: 600; font-size: 0.88rem;">Model Details</button>
+                                <button type="button" class="btn btn-emerald glow-btn select-pack-btn" data-pack="SAKO Alpha ESS 500W/1000Wh ($850)" data-i18n="pkg.btn_order" style="flex: 1.2; padding: 12px 8px; font-size: 0.88rem;">Order</button>
+                            </div>
+                        </div>
+
+                        <!-- SAKO Card 2 (1000W / 2000Wh) -->
+                        <div class="package-card glass-panel tilt-card">
+                            <div class="package-badge badge-featured">Bestseller</div>
+
+                            <div class="package-img-box">
+                                <div class="card-badges-top">
+                                    <span class="product-chip chip-in-stock">
+                                        <span class="stock-dot"></span>
+                                        <span>In Stock</span>
+                                    </span>
+                                    <span class="product-chip chip-free-shipping">
+                                        <svg class="chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="1" y="3" width="15" height="13"></rect>
+                                            <polygon points="16 8 20 8 23 11 23 16 16 8"></polygon>
+                                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                                        </svg>
+                                        <span>Free Shipping</span>
+                                    </span>
+                                </div>
+                                <img src="assets/images/sako-1000w.webp" alt="SAKO Alpha ESS 1000W/2000Wh" class="package-img" loading="lazy" decoding="async" width="600" height="600">
+                            </div>
+
+                            <h3 class="package-name">SAKO Alpha ESS 1000W/2000Wh</h3>
+
+                            <div class="package-specs-bar">
+                                <div class="spec-pill">
+                                    <span class="spec-val">1,000 W</span>
+                                    <span class="spec-lbl" data-i18n="pkg.spec_power">Output</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">2,000 Wh</span>
+                                    <span class="spec-lbl" data-i18n="pkg.spec_cap">Capacity</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">25.6 V</span>
+                                    <span class="spec-lbl">LiFePO4 (UPS)</span>
+                                </div>
+                            </div>
+
+                            <div class="package-price-box">
+                                <div class="price-old-wrap">
+                                    <span class="price-old"><span class="currency">$</span>1,690</span>
+                                    <span class="badge-discount">-14% Save $240</span>
+                                </div>
+                                <div class="package-price"><span class="currency">$</span>1,450</div>
+                            </div>
+
+                            <ul class="package-features">
+                                <li>2 kWh energy storage, 1,000W continuous pure sine (2,000W surge), 30A MPPT (up to 600W PV)</li>
+                                <li>Powers refrigerator, boiler, smart TV, and home workstation through grid blackouts</li>
+                            </ul>
+
+                            <div class="package-btns-row" style="display: flex; gap: 10px; margin-top: auto;">
+                                <button type="button" class="btn btn-outline view-details-btn" data-pack-id="sako-1000w" data-i18n="pkg.btn_details" style="flex: 1; padding: 12px 8px; font-weight: 600; font-size: 0.88rem;">Model Details</button>
+                                <button type="button" class="btn btn-emerald glow-btn select-pack-btn" data-pack="SAKO Alpha ESS 1000W/2000Wh ($1,450)" data-i18n="pkg.btn_order" style="flex: 1.2; padding: 12px 8px; font-size: 0.88rem;">Order</button>
+                            </div>
+                        </div>
+
+                        <!-- SAKO Card 3 (3kW / 5.12kWh) -->
+                        <div class="package-card glass-panel tilt-card">
+                            <div class="package-badge">Home & Cottage</div>
+
+                            <div class="package-img-box">
+                                <div class="card-badges-top">
+                                    <span class="product-chip chip-in-stock">
+                                        <span class="stock-dot"></span>
+                                        <span>In Stock</span>
+                                    </span>
+                                    <span class="product-chip chip-free-shipping">
+                                        <svg class="chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="1" y="3" width="15" height="13"></rect>
+                                            <polygon points="16 8 20 8 23 11 23 16 16 8"></polygon>
+                                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                                        </svg>
+                                        <span>Free Shipping</span>
+                                    </span>
+                                </div>
+                                <img src="assets/images/sako-3kw.webp" alt="SAKO Alpha ESS 3kW/5.12kWh" class="package-img" loading="lazy" decoding="async" width="600" height="600">
+                            </div>
+
+                            <h3 class="package-name">SAKO Alpha ESS 3kW/5.12kWh</h3>
+
+                            <div class="package-specs-bar">
+                                <div class="spec-pill">
+                                    <span class="spec-val">3.0 kW</span>
+                                    <span class="spec-lbl" data-i18n="pkg.spec_power">Output</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">5.12 kWh</span>
+                                    <span class="spec-lbl" data-i18n="pkg.spec_cap">Capacity</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">51.2 V</span>
+                                    <span class="spec-lbl">LiFePO4 (UPS)</span>
+                                </div>
+                            </div>
+
+                            <div class="package-price-box">
+                                <div class="price-old-wrap">
+                                    <span class="price-old"><span class="currency">$</span>3,250</span>
+                                    <span class="badge-discount">-12% Save $400</span>
+                                </div>
+                                <div class="package-price"><span class="currency">$</span>2,850</div>
+                            </div>
+
+                            <ul class="package-features">
+                                <li>3 kW output (6 kW surge) + 5.12 kWh battery (51.2V 100Ah) on heavy-duty casters</li>
+                                <li>Direct home electrical panel hookup, 4,000W MPPT solar input, smart Wi-Fi monitoring</li>
+                            </ul>
+
+                            <div class="package-btns-row" style="display: flex; gap: 10px; margin-top: auto;">
+                                <button type="button" class="btn btn-outline view-details-btn" data-pack-id="sako-3kw" data-i18n="pkg.btn_details" style="flex: 1; padding: 12px 8px; font-weight: 600; font-size: 0.88rem;">Model Details</button>
+                                <button type="button" class="btn btn-emerald glow-btn select-pack-btn" data-pack="SAKO Alpha ESS 3kW/5.12kWh ($2,850)" data-i18n="pkg.btn_order" style="flex: 1.2; padding: 12px 8px; font-size: 0.88rem;">Order</button>
+                            </div>
+                        </div>
+
+                        <!-- SAKO Card 4 (6kW / 10kWh) -->
+                        <div class="package-card glass-panel tilt-card">
+                            <div class="package-badge">Maximum Autonomy</div>
+
+                            <div class="package-img-box">
+                                <div class="card-badges-top">
+                                    <span class="product-chip chip-in-stock">
+                                        <span class="stock-dot"></span>
+                                        <span>In Stock</span>
+                                    </span>
+                                    <span class="product-chip chip-free-shipping">
+                                        <svg class="chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="1" y="3" width="15" height="13"></rect>
+                                            <polygon points="16 8 20 8 23 11 23 16 16 8"></polygon>
+                                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                                        </svg>
+                                        <span>Free Shipping</span>
+                                    </span>
+                                </div>
+                                <img src="assets/images/sako-6kw.webp" alt="SAKO Alpha ESS 6kW/10kWh" class="package-img" loading="lazy" decoding="async" width="600" height="600">
+                            </div>
+
+                            <h3 class="package-name">SAKO Alpha ESS 6kW/10kWh</h3>
+
+                            <div class="package-specs-bar">
+                                <div class="spec-pill">
+                                    <span class="spec-val">6.0 kW</span>
+                                    <span class="spec-lbl" data-i18n="pkg.spec_power">Output</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">10.24 kWh</span>
+                                    <span class="spec-lbl" data-i18n="pkg.spec_cap">Capacity</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">51.2 V</span>
+                                    <span class="spec-lbl">LiFePO4 (UPS)</span>
+                                </div>
+                            </div>
+
+                            <div class="package-price-box">
+                                <div class="price-old-wrap">
+                                    <span class="price-old"><span class="currency">$</span>5,600</span>
+                                    <span class="badge-discount">-12% Save $650</span>
+                                </div>
+                                <div class="package-price"><span class="currency">$</span>4,950</div>
+                            </div>
+
+                            <ul class="package-features">
+                                <li>Flagship 6 kW / 10.24 kWh station for large residences, HVAC, well pumps & commercial loads</li>
+                                <li>High-voltage MPPT solar inverter up to 6,000W, modular parallel expansion, Wi-Fi cloud control</li>
+                            </ul>
+
+                            <div class="package-btns-row" style="display: flex; gap: 10px; margin-top: auto;">
+                                <button type="button" class="btn btn-outline view-details-btn" data-pack-id="sako-6kw" data-i18n="pkg.btn_details" style="flex: 1; padding: 12px 8px; font-weight: 600; font-size: 0.88rem;">Model Details</button>
+                                <button type="button" class="btn btn-emerald glow-btn select-pack-btn" data-pack="SAKO Alpha ESS 6kW/10kWh ($4,950)" data-i18n="pkg.btn_order" style="flex: 1.2; padding: 12px 8px; font-size: 0.88rem;">Order</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Carousel Navigation Controls -->
+                    <div class="pkg-mobile-controls" id="sako-mobile-nav">
+                        <button type="button" class="pkg-nav-btn pkg-prev" id="sako-prev-btn" aria-label="Previous station">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        </button>
+                        <div class="pkg-dots" id="sako-dots">
+                            <span class="pkg-dot active" data-index="0"></span>
+                            <span class="pkg-dot" data-index="1"></span>
+                            <span class="pkg-dot" data-index="2"></span>
+                            <span class="pkg-dot" data-index="3"></span>
+                        </div>
+                        <button type="button" class="pkg-nav-btn pkg-next" id="sako-next-btn" aria-label="Next station">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </button>
+                    </div>
+                    <div class="pkg-swipe-hint">
+                        <svg class="swipe-hand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v6M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8.5"/><path d="M18 11a2 2 0 0 1 2 2v2a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.83L7 15"/></svg>
+                        <span data-i18n="pkg.swipe_hint">👉 Swipe left / right to navigate</span>
+                    </div>
+                </div>
+
+                <!-- Category 3: Deye Hybrid Solar Inverters -->
+                <div class="catalog-category-block" id="tab-deye" style="margin-top: 60px;">
+                    <div class="catalog-category-header">
+                        <div class="category-header-badge">Hybrid Inverters</div>
+                        <h3 class="category-header-title">⚡ Deye 48V Hybrid Solar Inverters</h3>
+                        <p class="category-header-desc">High-efficiency hybrid inverters with support for low-voltage 48V LiFePO4 battery banks, auto-generator integration, instant UPS ≤4ms switchover, and parallel scaling.</p>
+                    </div>
+
+                    <div class="packages-grid deye-grid">
+                        <!-- Deye Card 1: 6kW -->
+                        <div class="package-card glass-panel tilt-card">
+                            <div class="package-badge">Single / Split Phase</div>
+
+                            <div class="package-img-box">
+                                <div class="card-badges-top">
+                                    <span class="product-chip chip-in-stock">
+                                        <span class="stock-dot"></span>
+                                        <span>In Stock</span>
+                                    </span>
+                                    <span class="product-chip chip-free-shipping">
+                                        <svg class="chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="1" y="3" width="15" height="13"></rect>
+                                            <polygon points="16 8 20 8 23 11 23 16 16 8"></polygon>
+                                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                                        </svg>
+                                        <span>Free Shipping</span>
+                                    </span>
+                                </div>
+                                <img src="assets/images/deye-6kw.webp" alt="Deye SUN-6K-SG05LP1-EU-P" class="package-img" loading="lazy" decoding="async" width="500" height="500">
+                            </div>
+
+                            <h3 class="package-name">Deye SUN-6K-SG05LP1-EU-P</h3>
+
+                            <div class="package-specs-bar">
+                                <div class="spec-pill">
+                                    <span class="spec-val">6.0 kW</span>
+                                    <span class="spec-lbl" data-i18n="pkg.spec_power">Output</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">48 V</span>
+                                    <span class="spec-lbl">Battery (LFP)</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">135 A</span>
+                                    <span class="spec-lbl">Charge Rate</span>
+                                </div>
+                            </div>
+
+                            <div class="package-price-box">
+                                <div class="price-old-wrap">
+                                    <span class="price-old"><span class="currency">$</span>2,250</span>
+                                    <span class="badge-discount">-13% Save $300</span>
+                                </div>
+                                <div class="package-price"><span class="currency">$</span>1,950</div>
+                            </div>
+
+                            <ul class="package-features">
+                                <li>Single / Split phase 120/240V, 6 kW rated (12 kW surge), dual MPPT (up to 7.8 kW solar)</li>
+                                <li>Instant UPS (≤4 ms), color touchscreen, smart auto-start generator port, IP65 waterproof</li>
+                            </ul>
+
+                            <div class="package-btns-row" style="display: flex; gap: 10px; margin-top: auto;">
+                                <button type="button" class="btn btn-outline view-details-btn" data-pack-id="deye-6kw" data-i18n="pkg.btn_details" style="flex: 1; padding: 12px 8px; font-weight: 600; font-size: 0.88rem;">Model Details</button>
+                                <button type="button" class="btn btn-emerald glow-btn select-pack-btn" data-pack="Deye SUN-6K-SG05LP1 (6kW) ($1,950)" data-i18n="pkg.btn_order" style="flex: 1.2; padding: 12px 8px; font-size: 0.88rem;">Order</button>
+                            </div>
+                        </div>
+
+                        <!-- Deye Card 2: 8kW -->
+                        <div class="package-card glass-panel tilt-card">
+                            <div class="package-badge badge-featured">Bestseller</div>
+
+                            <div class="package-img-box">
+                                <div class="card-badges-top">
+                                    <span class="product-chip chip-in-stock">
+                                        <span class="stock-dot"></span>
+                                        <span>In Stock</span>
+                                    </span>
+                                    <span class="product-chip chip-free-shipping">
+                                        <svg class="chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="1" y="3" width="15" height="13"></rect>
+                                            <polygon points="16 8 20 8 23 11 23 16 16 8"></polygon>
+                                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                                        </svg>
+                                        <span>Free Shipping</span>
+                                    </span>
+                                </div>
+                                <img src="assets/images/deye-8kw.webp" alt="Deye SUN-8K-SG05LP1-EU-AM2-P" class="package-img" loading="lazy" decoding="async" width="500" height="500">
+                            </div>
+
+                            <h3 class="package-name">Deye SUN-8K-SG05LP1-EU-AM2-P</h3>
+
+                            <div class="package-specs-bar">
+                                <div class="spec-pill">
+                                    <span class="spec-val">8.0 kW</span>
+                                    <span class="spec-lbl" data-i18n="pkg.spec_power">Output</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">48 V</span>
+                                    <span class="spec-lbl">Battery (LFP)</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">190 A</span>
+                                    <span class="spec-lbl">Charge Rate</span>
+                                </div>
+                            </div>
+
+                            <div class="package-price-box">
+                                <div class="price-old-wrap">
+                                    <span class="price-old"><span class="currency">$</span>2,950</span>
+                                    <span class="badge-discount">-14% Save $400</span>
+                                </div>
+                                <div class="package-price"><span class="currency">$</span>2,550</div>
+                            </div>
+
+                            <ul class="package-features">
+                                <li>Single / Split phase 120/240V, 8 kW rated (12 kW surge), 190A charge rate, dual MPPT (up to 10.4 kW PV)</li>
+                                <li>Parallel linking up to 16 units, smart load shedding, generator auto-start & Wi-Fi app</li>
+                            </ul>
+
+                            <div class="package-btns-row" style="display: flex; gap: 10px; margin-top: auto;">
+                                <button type="button" class="btn btn-outline view-details-btn" data-pack-id="deye-8kw" data-i18n="pkg.btn_details" style="flex: 1; padding: 12px 8px; font-weight: 600; font-size: 0.88rem;">Model Details</button>
+                                <button type="button" class="btn btn-emerald glow-btn select-pack-btn" data-pack="Deye SUN-8K-SG05LP1 (8kW) ($2,550)" data-i18n="pkg.btn_order" style="flex: 1.2; padding: 12px 8px; font-size: 0.88rem;">Order</button>
+                            </div>
+                        </div>
+
+                        <!-- Deye Card 3: 10kW -->
+                        <div class="package-card glass-panel tilt-card">
+                            <div class="package-badge">High Power 48V</div>
+
+                            <div class="package-img-box">
+                                <div class="card-badges-top">
+                                    <span class="product-chip chip-in-stock">
+                                        <span class="stock-dot"></span>
+                                        <span>In Stock</span>
+                                    </span>
+                                    <span class="product-chip chip-free-shipping">
+                                        <svg class="chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="1" y="3" width="15" height="13"></rect>
+                                            <polygon points="16 8 20 8 23 11 23 16 16 8"></polygon>
+                                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                                        </svg>
+                                        <span>Free Shipping</span>
+                                    </span>
+                                </div>
+                                <img src="assets/images/deye-10kw.webp" alt="Deye SUN-10K-SG02LP1-EU-AM3" class="package-img" loading="lazy" decoding="async" width="500" height="500">
+                            </div>
+
+                            <h3 class="package-name">Deye SUN-10K-SG02LP1-EU-AM3</h3>
+
+                            <div class="package-specs-bar">
+                                <div class="spec-pill">
+                                    <span class="spec-val">10.0 kW</span>
+                                    <span class="spec-lbl" data-i18n="pkg.spec_power">Output</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">48 V</span>
+                                    <span class="spec-lbl">Battery (LFP)</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">220 A</span>
+                                    <span class="spec-lbl">Charge Rate</span>
+                                </div>
+                            </div>
+
+                            <div class="package-price-box">
+                                <div class="price-old-wrap">
+                                    <span class="price-old"><span class="currency">$</span>3,750</span>
+                                    <span class="badge-discount">-13% Save $500</span>
+                                </div>
+                                <div class="package-price"><span class="currency">$</span>3,250</div>
+                            </div>
+
+                            <ul class="package-features">
+                                <li>Heavy-duty 10 kW rated (20 kW surge), 3 MPPT controllers (up to 13 kW solar panel array)</li>
+                                <li>220A rapid battery charge current: powers and charges large whole-home battery banks (10–30 kWh)</li>
+                            </ul>
+
+                            <div class="package-btns-row" style="display: flex; gap: 10px; margin-top: auto;">
+                                <button type="button" class="btn btn-outline view-details-btn" data-pack-id="deye-10kw" data-i18n="pkg.btn_details" style="flex: 1; padding: 12px 8px; font-weight: 600; font-size: 0.88rem;">Model Details</button>
+                                <button type="button" class="btn btn-emerald glow-btn select-pack-btn" data-pack="Deye SUN-10K-SG02LP1 (10kW) ($3,250)" data-i18n="pkg.btn_order" style="flex: 1.2; padding: 12px 8px; font-size: 0.88rem;">Order</button>
+                            </div>
+                        </div>
+
+                        <!-- Deye Card 4: 15kW 3-Phase -->
+                        <div class="package-card glass-panel tilt-card">
+                            <div class="package-badge">3-Phase 208/480V Premium</div>
+
+                            <div class="package-img-box">
+                                <div class="card-badges-top">
+                                    <span class="product-chip chip-in-stock">
+                                        <span class="stock-dot"></span>
+                                        <span>In Stock</span>
+                                    </span>
+                                    <span class="product-chip chip-free-shipping">
+                                        <svg class="chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="1" y="3" width="15" height="13"></rect>
+                                            <polygon points="16 8 20 8 23 11 23 16 16 8"></polygon>
+                                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                                        </svg>
+                                        <span>Free Shipping</span>
+                                    </span>
+                                </div>
+                                <img src="assets/images/deye-15kw.webp" alt="Deye SUN-15K-SG05LP3-EU-SM2" class="package-img" loading="lazy" decoding="async" width="500" height="500">
+                            </div>
+
+                            <h3 class="package-name">Deye SUN-15K-SG05LP3-EU-SM2</h3>
+
+                            <div class="package-specs-bar">
+                                <div class="spec-pill">
+                                    <span class="spec-val">15.0 kW</span>
+                                    <span class="spec-lbl" data-i18n="pkg.spec_power">Output</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">3-Phase</span>
+                                    <span class="spec-lbl">Grid Type</span>
+                                </div>
+                                <div class="spec-pill">
+                                    <span class="spec-val">280 A</span>
+                                    <span class="spec-lbl">Charge Rate</span>
+                                </div>
+                            </div>
+
+                            <div class="package-price-box">
+                                <div class="price-old-wrap">
+                                    <span class="price-old"><span class="currency">$</span>4,850</span>
+                                    <span class="badge-discount">-12% Save $600</span>
+                                </div>
+                                <div class="package-price"><span class="currency">$</span>4,250</div>
+                            </div>
+
+                            <ul class="package-features">
+                                <li>Commercial 3-Phase 15 kW (30 kW surge), dual MPPT (up to 22.5 kW PV), 100% unbalanced phase support</li>
+                                <li>Engineered for luxury estates, workshops, server rooms & commercial facilities with 48V battery storage</li>
+                            </ul>
+
+                            <div class="package-btns-row" style="display: flex; gap: 10px; margin-top: auto;">
+                                <button type="button" class="btn btn-outline view-details-btn" data-pack-id="deye-15kw" data-i18n="pkg.btn_details" style="flex: 1; padding: 12px 8px; font-weight: 600; font-size: 0.88rem;">Model Details</button>
+                                <button type="button" class="btn btn-emerald glow-btn select-pack-btn" data-pack="Deye SUN-15K-SG05LP3 (15kW 3-Phase) ($4,250)" data-i18n="pkg.btn_order" style="flex: 1.2; padding: 12px 8px; font-size: 0.88rem;">Order</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Carousel Navigation Controls -->
+                    <div class="pkg-mobile-controls" id="deye-mobile-nav">
+                        <button type="button" class="pkg-nav-btn pkg-prev" id="deye-prev-btn" aria-label="Previous inverter">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        </button>
+                        <div class="pkg-dots" id="deye-dots">
+                            <span class="pkg-dot active" data-index="0"></span>
+                            <span class="pkg-dot" data-index="1"></span>
+                            <span class="pkg-dot" data-index="2"></span>
+                            <span class="pkg-dot" data-index="3"></span>
+                        </div>
+                        <button type="button" class="pkg-nav-btn pkg-next" id="deye-next-btn" aria-label="Next inverter">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </button>
+                    </div>
+                    <div class="pkg-swipe-hint">
+                        <svg class="swipe-hand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v6M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8.5"/><path d="M18 11a2 2 0 0 1 2 2v2a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.83L7 15"/></svg>
+                        <span data-i18n="pkg.swipe_hint">👉 Swipe left / right to navigate</span>
+                    </div>
+                </div>
+
+                <!-- Category 4: Tadiran Batteries Showcase -->
                 <div class="catalog-category-block" id="tab-tadiran" style="margin-top: 56px;">
                     <div class="catalog-category-header">
                         <div class="category-header-badge" data-i18n="pkg.cat_tad_badge">Premium Batteries</div>
@@ -1149,14 +1811,30 @@
                 <div class="form-group">
                     <label for="form-package" data-i18n="modal.label_package">Selected kit</label>
                     <select id="form-package" class="form-input" aria-label="Selected kit">
-                        <option value="6 kWh Kit ($3,450)">6 kWh Kit ($3,450)</option>
-                        <option value="12 kWh Kit ($5,950)">12 kWh Kit ($5,950)</option>
-                        <option value="24 kWh Kit ($10,850)">24 kWh Kit ($10,850)</option>
-                        <option value="36 kWh Kit ($15,900)">36 kWh Kit ($15,900)</option>
-                        <option value="Tadiran LFP-51.2V 314Ah (16.08 kWh) - $4,850">Tadiran LFP-51.2V 314Ah (16.08 kWh) - $4,850</option>
-                        <option value="Tadiran LFP-51.2V 200Ah (10.24 kWh) - $3,250">Tadiran LFP-51.2V 200Ah (10.24 kWh) - $3,250</option>
-                        <option value="Tadiran LFP-51.2V 100Ah-WM (5.12 kWh) - $1,750">Tadiran LFP-51.2V 100Ah-WM (5.12 kWh) - $1,750</option>
-                        <option value="Tadiran LFP-51.2V 100Ah-S (5.12 kWh) - $1,650">Tadiran LFP-51.2V 100Ah-S (5.12 kWh) - $1,650</option>
+                        <optgroup label="Turnkey Solar Kits">
+                            <option value="6 kWh Kit ($3,450)">6 kWh Kit ($3,450)</option>
+                            <option value="12 kWh Kit ($5,950)">12 kWh Kit ($5,950)</option>
+                            <option value="24 kWh Kit ($10,850)">24 kWh Kit ($10,850)</option>
+                            <option value="36 kWh Kit ($15,900)">36 kWh Kit ($15,900)</option>
+                        </optgroup>
+                        <optgroup label="SAKO All-in-One Power Stations">
+                            <option value="SAKO Alpha 500W ESS ($850)">SAKO Alpha 500W ESS ($850)</option>
+                            <option value="SAKO Alpha 1000W ESS ($1,450)">SAKO Alpha 1000W ESS ($1,450)</option>
+                            <option value="SAKO Alpha 3kW ESS ($2,850)">SAKO Alpha 3kW ESS ($2,850)</option>
+                            <option value="SAKO Alpha 6kW ESS ($4,950)">SAKO Alpha 6kW ESS ($4,950)</option>
+                        </optgroup>
+                        <optgroup label="Deye Hybrid Inverters">
+                            <option value="Deye SUN-6K-SG04LP1-EU ($1,950)">Deye SUN-6K-SG04LP1-EU ($1,950)</option>
+                            <option value="Deye SUN-8K-SG05LP1-EU ($2,550)">Deye SUN-8K-SG05LP1-EU ($2,550)</option>
+                            <option value="Deye SUN-10K-SG04LP3-EU ($3,250)">Deye SUN-10K-SG04LP3-EU ($3,250)</option>
+                            <option value="Deye SUN-15K-SG01HP3-EU-BM3 ($4,250)">Deye SUN-15K-SG01HP3-EU-BM3 ($4,250)</option>
+                        </optgroup>
+                        <optgroup label="Tadiran LiFePO4 Batteries">
+                            <option value="Tadiran LFP-51.2V 314Ah (16.08 kWh) - $4,850">Tadiran LFP-51.2V 314Ah (16.08 kWh) - $4,850</option>
+                            <option value="Tadiran LFP-51.2V 200Ah (10.24 kWh) - $3,250">Tadiran LFP-51.2V 200Ah (10.24 kWh) - $3,250</option>
+                            <option value="Tadiran LFP-51.2V 100Ah-WM (5.12 kWh) - $1,750">Tadiran LFP-51.2V 100Ah-WM (5.12 kWh) - $1,750</option>
+                            <option value="Tadiran LFP-51.2V 100Ah-S (5.12 kWh) - $1,650">Tadiran LFP-51.2V 100Ah-S (5.12 kWh) - $1,650</option>
+                        </optgroup>
                     </select>
                 </div>
 
