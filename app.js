@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'house.mode_rezerv': 'Mode: Backup 120V/240V',
             'house.mode_blackout': 'Mode: Blackout 0V',
             'house.room_boiler': 'Boiler room',
-            'house.desc_boiler': 'Boiler & pumps (24°C)',
+            'house.desc_boiler': 'Utility room: Furnace & Sump Pump (75°F)',
             'house.room_kitchen': 'Kitchen',
             'house.desc_kitchen': 'Refrigerator OK',
             'house.room_office': 'Home office',
@@ -250,22 +250,22 @@ document.addEventListener('DOMContentLoaded', () => {
             'pkg.name_4': '36 kWh Kit',
             'pkg.p1_cap_val': '6 kWh',
             'pkg.p1_time_val': '5–8 hrs',
-            'pkg.p1_f1': 'EASUN 3.2 kW inverter + 6 kWh battery (24 V)',
+            'pkg.p1_f1': 'Deye 3.2 kW Split-Phase Inverter + 6 kWh battery (24 V)',
             'pkg.p1_f2': 'For apartment: boiler, refrigerator, internet, lighting',
             'pkg.p1_f3': 'Up to 5–8 hours of complete autonomy',
             'pkg.p2_cap_val': '12 kWh',
             'pkg.p2_time_val': '12–24 hrs',
-            'pkg.p2_f1': 'EASUN 6.2 kW inverter + 12 kWh battery (48 V)',
+            'pkg.p2_f1': 'Deye 6.2 kW Split-Phase Inverter + 12 kWh battery (48 V)',
             'pkg.p2_f2': 'For house, core appliances, solar panel support',
             'pkg.p2_f3': 'Up to 12–24+ hours of home backup',
             'pkg.p3_cap_val': '24 kWh',
             'pkg.p3_time_val': '24–48 hrs',
-            'pkg.p3_f1': '1–2 EASUN 6.2 kW inverters + 24 kWh battery',
+            'pkg.p3_f1': 'Deye 12 kW hybrid inverter + 24 kWh battery rack',
             'pkg.p3_f2': 'For business, office, POS terminals, servers & high loads',
             'pkg.p3_f3': 'Up to 48 hours of autonomous operation',
             'pkg.p4_cap_val': '36+ kWh',
             'pkg.p4_time_val': '48+ hrs',
-            'pkg.p4_f1': '1–3 EASUN 6.2 kW inverters + 36+ kWh rack',
+            'pkg.p4_f1': 'Deye 12 kW hybrid inverter + 36+ kWh industrial rack',
             'pkg.p4_f2': 'Scalable system for estates and 24/7 commercial operations',
             'pkg.btn_details': 'Model Details',
             'pkg.btn_order': 'Order',
@@ -1036,7 +1036,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (badgeOffice) badgeOffice.textContent = okBadgeText;
                 if (badgeLiving) badgeLiving.textContent = okBadgeText;
 
-                if (descBoiler) descBoiler.textContent = 'Boiler & pumps (24°C)';
+                if (descBoiler) descBoiler.textContent = 'Utility room: Furnace & Sump Pump (75°F)';
                 if (descKitchen) descKitchen.textContent = 'Refrigerator OK';
                 if (descOffice) descOffice.textContent = 'WiFi & Electronic devices';
                 if (descLiving) descLiving.textContent = 'Lighting & TV';
@@ -1494,12 +1494,12 @@ document.addEventListener('DOMContentLoaded', () => {
             gallery: ['assets/images/hero-kit-6kwt-trans.webp'],
             en: {
                 title: '6 kWh Kit',
-                subtitle: '6 kWh lithium-ion battery + EASUN 3.2kW inverter',
+                subtitle: '6 kWh lithium-ion battery + Deye 3.2kW Split-Phase Inverter',
                 badge: 'Essential Backup',
                 kpiPower: '3.2 kW',
                 kpiCap: '6 kWh',
                 kpiCycles: '6,000 cycles',
-                voltage: '230 V AC / 24 V DC',
+                voltage: '120V/240V Split-Phase AC / 24 V DC',
                 capacity: '250 Ah (6 kWh)',
                 energy: '6 kWh',
                 current: '3.2 kW (rated 3200 VA) | MPPT up to 100 A | AC up to 80 A',
@@ -1507,14 +1507,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 scaling: 'Solar panel support: MPPT 60–500 V DC, up to 4.0 kW',
                 temp: 'Charge: 0…+55 °C | Discharge: -20…+60 °C',
                 dim: 'Compact wall-mount inverter + modular battery',
-                weight: '~62 kg (kit)',
+                weight: '137 lbs (62 kg)',
                 ports: 'USB / RS232 / RS485 / Wi-Fi monitoring / LCD display',
-                certs: 'CE, RoHS, UN38.3',
+                certs: 'UL 9540, UL 1973, UL 1741-SA, FCC, NEC 2023',
                 montage: 'Wall-mount / Indoor',
                 price: '$3,450',
                 packName: '6 kWh Kit ($3,450)',
                 accessories: [
-                    'EASUN ISolar-SMG-II-3.2KW-24V hybrid inverter',
+                    'Deye 3.2kW Split-Phase hybrid inverter',
                     '6 kWh lithium-ion battery (24V 250Ah)',
                     'Connection cables and protective switchgear',
                     'Official 5-year warranty'
@@ -1526,12 +1526,12 @@ document.addEventListener('DOMContentLoaded', () => {
             gallery: ['assets/images/hero-kit-12kwt-trans.webp'],
             en: {
                 title: '12 kWh Kit',
-                subtitle: '12 kWh lithium-ion battery + EASUN 6.2kW inverter',
+                subtitle: '12 kWh lithium-ion battery + Deye 6.2kW Split-Phase Inverter',
                 badge: 'Bestseller',
                 kpiPower: '6.2 kW',
                 kpiCap: '12 kWh',
                 kpiCycles: '6,000 cycles',
-                voltage: '230 V AC / 48 V DC',
+                voltage: '120V/240V Split-Phase AC / 48 V DC',
                 capacity: '250 Ah (12 kWh)',
                 energy: '12 kWh',
                 current: '6.2 kW (peak 12400 VA) | MPPT up to 120 A | AC up to 100 A',
@@ -1539,14 +1539,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 scaling: 'MPPT 60–500 V DC (up to 6.5 kW solar panels)',
                 temp: 'Charge: 0…+55 °C | Discharge: -20…+60 °C',
                 dim: 'Wall-mount inverter + 48V modular battery pack',
-                weight: '~110 kg (kit)',
+                weight: '242 lbs (110 kg)',
                 ports: 'Wi-Fi monitoring / RS485 / CAN / USB / LCD',
-                certs: 'CE, RoHS, UN38.3',
+                certs: 'UL 9540, UL 1973, UL 1741-SA, FCC, NEC 2023',
                 montage: 'Wall-mount / Floor-standing',
                 price: '$5,950',
                 packName: '12 kWh Kit ($5,950)',
                 accessories: [
-                    'EASUN ISolar-SMG-II-6.2KW-48V hybrid inverter',
+                    'Deye 6.2kW Split-Phase hybrid inverter',
                     '12 kWh lithium-ion battery (48V 250Ah)',
                     'Heavy-duty connection cables with lugs',
                     'Official 5-year warranty'
@@ -1558,27 +1558,27 @@ document.addEventListener('DOMContentLoaded', () => {
             gallery: ['assets/images/hero-kit-24kwt-trans.webp'],
             en: {
                 title: '24 kWh Kit',
-                subtitle: '24 kWh lithium-ion battery (2×12 kWh) + 1–2 EASUN 6.2kW inverters',
+                subtitle: '24 kWh lithium-ion battery (2×12 kWh) + Deye 12kW Split-Phase Inverter',
                 badge: 'For Business & Large Homes',
                 kpiPower: '6.2–12.4 kW',
                 kpiCap: '24 kWh',
                 kpiCycles: '6,000 cycles',
-                voltage: '230 V AC / 48 V DC',
+                voltage: '120V/240V Split-Phase AC / 48 V DC',
                 capacity: '500 Ah (24 kWh)',
                 energy: '24 kWh (2×12 kWh)',
-                current: '6.2–12.4 kW (1–2 EASUN 6.2kW inverters)',
+                current: '12 kW rated (24 kW peak) | Dual MPPT up to 15 kW PV',
                 cycles: '6,000 cycles (over 15 years)',
                 scaling: 'Parallel battery expansion and solar panel array support',
                 temp: 'Charge: 0…+55 °C | Discharge: -20…+60 °C',
                 dim: 'Rack / Floor installation in technical utility room',
-                weight: '~215 kg (kit)',
+                weight: '474 lbs (215 kg)',
                 ports: 'Wi-Fi / CAN / RS485 / Dual BMS monitoring',
-                certs: 'CE, RoHS, UN38.3',
+                certs: 'UL 9540, UL 1973, UL 1741-SA, FCC, NEC 2023',
                 montage: 'Floor-standing / Utility room',
                 price: '$10,850',
                 packName: '24 kWh Kit ($10,850)',
                 accessories: [
-                    '1–2 EASUN 6.2kW hybrid inverters',
+                    'Deye 12kW Split-Phase hybrid inverter',
                     '24 kWh battery pack (2×12 kWh)',
                     'Parallel interconnection modules and safety switchgear',
                     'Official 5-year warranty'
@@ -1590,27 +1590,27 @@ document.addEventListener('DOMContentLoaded', () => {
             gallery: ['assets/images/hero-kit-36kwt-trans.webp'],
             en: {
                 title: '36 kWh Kit',
-                subtitle: 'Scalable system: 36+ kWh (3×12 kWh) + 1–3 EASUN 6.2kW inverters',
+                subtitle: 'Scalable system: 36+ kWh (3×12 kWh) + Deye 15kW 3-Phase Inverter',
                 badge: 'Enterprise Scalability',
                 kpiPower: 'up to 18.6 kW',
                 kpiCap: '36+ kWh',
                 kpiCycles: '6,000 cycles',
-                voltage: '230 V / 380 V AC / 48 V DC',
+                voltage: '120/208V 3-Phase AC / 48 V DC',
                 capacity: '750 Ah (36+ kWh)',
                 energy: '36+ kWh (3×12 kWh)',
-                current: 'up to 18.6 kW (up to 3 EASUN 6.2kW inverters)',
+                current: 'up to 15 kW continuous (30 kW surge)',
                 cycles: '6,000 cycles (over 15 years)',
                 scaling: 'Industrial parallel scaling and high-capacity solar arrays',
                 temp: 'Charge: 0…+55 °C | Discharge: -20…+60 °C',
                 dim: 'Industrial rack / cabinet for 3 battery units',
-                weight: '~320 kg (kit)',
+                weight: '705 lbs (320 kg)',
                 ports: 'Ethernet / Wi-Fi / RS485 / CAN / BMS monitoring',
-                certs: 'CE, RoHS, UN38.3',
+                certs: 'UL 9540, UL 1973, UL 1741-SA, FCC, NEC 2023',
                 montage: 'Server room / Electrical distribution room',
                 price: '$15,900',
                 packName: '36 kWh Kit ($15,900)',
                 accessories: [
-                    '1–3 EASUN 6.2kW hybrid inverters',
+                    'Deye 15kW 3-Phase hybrid inverter',
                     '36+ kWh battery rack system (3×12 kWh)',
                     'Heavy-duty DC busbars and industrial circuit breakers',
                     'Official 5-year warranty'
@@ -1749,7 +1749,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'assets/images/deye-6kw-3.webp'
             ],
             en: {
-                title: 'Deye SUN-6K-SG04LP1-EU',
+                title: 'Deye SUN-6K-SG04LP1-US',
                 subtitle: 'Single-Phase 48V Hybrid Solar Inverter 6kW (Pure Sine Wave, UPS ≤4ms)',
                 badge: '1-Phase / 120-240V',
                 kpiPower: '6,000W (Peak 12,000W)',
@@ -1765,10 +1765,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 dim: '22.8 × 13.0 × 9.1 in (580 × 330 × 232 mm)',
                 weight: '52.9 lbs (24 kg)',
                 ports: 'Wi-Fi / LAN, RS485, CAN, DRM, dedicated generator input',
-                certs: 'UL1741, IEEE1547, CE, IEC62109, IP65',
+                certs: 'UL 1741-SA, IEEE 1547, FCC Part 15, IP65',
                 montage: 'Wall-mounted vertical installation (bracket included)',
                 price: '$1,950',
-                packName: 'Deye SUN-6K-SG04LP1-EU ($1,950)',
+                packName: 'Deye SUN-6K-SG04LP1 ($1,950)',
                 accessories: ['Deye 6kW Hybrid Inverter x1', 'Deye Wi-Fi Monitoring Stick x1', 'Current Transformer (CT Sensor) x1', 'Wall-Mount Bracket & Hardware x1', 'Manual & Warranty Card x1']
             }
         },
@@ -1780,7 +1780,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'assets/images/deye-8kw-3.webp'
             ],
             en: {
-                title: 'Deye SUN-8K-SG05LP1-EU',
+                title: 'Deye SUN-8K-SG02LP2-US',
                 subtitle: 'Single-Phase 48V Hybrid Solar Inverter 8kW (190A Current, Dual MPPT)',
                 badge: 'Top Seller',
                 kpiPower: '8,000W (Peak 16,000W)',
@@ -1796,10 +1796,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 dim: '22.8 × 13.0 × 9.1 in (580 × 330 × 232 mm)',
                 weight: '52.9 lbs (24 kg)',
                 ports: 'Wi-Fi / LAN, RS485, CAN, DRM, dedicated generator input',
-                certs: 'UL1741, IEEE1547, CE, IEC62109, IP65',
+                certs: 'UL 1741-SA, IEEE 1547, FCC Part 15, IP65',
                 montage: 'Wall-mounted vertical installation',
                 price: '$2,550',
-                packName: 'Deye SUN-8K-SG05LP1-EU ($2,550)',
+                packName: 'Deye SUN-8K-SG02LP2-US ($2,550)',
                 accessories: ['Deye 8kW Hybrid Inverter x1', 'Wi-Fi/Cloud Monitoring Dongle x1', 'CT Sensor Kit x1', 'Wall-Mount Bracket & Anchor Kit x1', 'User Manual & Warranty Certificate x1']
             }
         },
@@ -1811,7 +1811,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'assets/images/deye-10kw-3.webp'
             ],
             en: {
-                title: 'Deye SUN-10K-SG04LP3-EU',
+                title: 'Deye SUN-10K-SG04LP3-US',
                 subtitle: 'High-Power Hybrid Inverter 10kW / 48V (220A Current, Triple MPPT)',
                 badge: 'High Power 10kW',
                 kpiPower: '10,000W (Peak 20,000W)',
@@ -1827,10 +1827,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 dim: '26.4 × 16.5 × 9.2 in (670 × 420 × 233 mm)',
                 weight: '78.5 lbs (35.6 kg)',
                 ports: 'Wi-Fi / LAN, RS232, RS485, CAN, generator input',
-                certs: 'UL1741, IEEE1547, CE, IEC62109, IP65',
+                certs: 'UL 1741-SA, IEEE 1547, FCC Part 15, IP65',
                 montage: 'Wall-mounted vertical installation',
                 price: '$3,250',
-                packName: 'Deye SUN-10K-SG04LP3-EU ($3,250)',
+                packName: 'Deye SUN-10K-SG04LP3 ($3,250)',
                 accessories: ['Deye 10kW Hybrid Inverter x1', 'Wi-Fi/Cloud Monitoring Module x1', 'Current Transformer (CT Sensor) x1', 'Full Set of MC4 Connectors & Mounts x1', 'User Manual & Official Warranty x1']
             }
         },
@@ -1842,7 +1842,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'assets/images/deye-15kw-3.webp'
             ],
             en: {
-                title: 'Deye SUN-15K-SG01HP3-EU-BM3',
+                title: 'Deye SUN-15K-SG01HP3-US-BM3',
                 subtitle: '3-Phase Commercial & Estate Hybrid Inverter 15kW with 48V Low-Voltage Battery Support',
                 badge: '3-Phase / 480V/208V',
                 kpiPower: '15,000W (Peak 30,000W)',
@@ -1858,10 +1858,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 dim: '29.5 × 18.0 × 10.6 in (750 × 456 × 268 mm)',
                 weight: '111.5 lbs (50.6 kg)',
                 ports: 'Wi-Fi / LAN, RS485, CAN, DRM, dedicated generator input',
-                certs: 'UL1741, IEEE1547, CE, IEC62109, IP65',
+                certs: 'UL 1741-SA, IEEE 1547, FCC Part 15, IP65',
                 montage: 'Wall-mounted vertical installation',
                 price: '$4,250',
-                packName: 'Deye SUN-15K-SG01HP3-EU-BM3 ($4,250)',
+                packName: 'Deye SUN-15K-SG01HP3-BM3 ($4,250)',
                 accessories: ['Deye 15kW 3-Phase Inverter x1', 'Wi-Fi/Cloud Monitoring Module x1', '3-Phase CT Sensor Trio x1', 'Heavy-Duty Wall Mounting Kit x1', 'Operation Manual & Warranty Card x1']
             }
         }
