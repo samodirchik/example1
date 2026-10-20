@@ -589,7 +589,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const bgCanvas = document.getElementById('bg-canvas');
     let bgCtx = null;
-    let bgParticles = [];
     let bgPulses = [];
 
     if (bgCanvas) {
@@ -602,31 +601,23 @@ document.addEventListener('DOMContentLoaded', () => {
         resizeBgCanvas();
         window.addEventListener('resize', resizeBgCanvas);
 
-        for (let i = 0; i < 50; i++) {
-            bgParticles.push({
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
-                vx: (Math.random() - 0.5) * 0.6,
-                vy: (Math.random() - 0.5) * 0.6,
-                size: Math.random() * 2.2 + 1.2,
-                color: Math.random() > 0.4 ? '#0284c7' : '#059669',
-                alpha: Math.random() * 0.35 + 0.15
-            });
-        }
-
         function createPulse(x, y, color) {
             bgPulses.push({ x, y, radius: 10, maxRadius: 360, alpha: 0.6, color });
         }
 
         function animateBgCanvas() {
             if (!bgCtx) return;
+            if (document.hidden) {
+                requestAnimationFrame(animateBgCanvas);
+                return;
+            }
             bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
 
             const cx = bgCanvas.width / 2;
             const cy = bgCanvas.height / 2;
             const time = Date.now() * 0.0007;
 
-            // 1. Bright 3D undulating energy ribbon waves across the screen
+            // 1. Bright 3D undulating energy ribbon waves across the screen (pure sine energy waves)
             const waveCount = 5;
             for (let i = -waveCount; i <= waveCount; i++) {
                 const yBase = cy + i * 130;
@@ -656,52 +647,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 bgCtx.stroke();
             }
 
-            // 2. Plexus Network Connections between nearby particles
-            for (let i = 0; i < bgParticles.length; i++) {
-                const p1 = bgParticles[i];
-                for (let j = i + 1; j < bgParticles.length; j++) {
-                    const p2 = bgParticles[j];
-                    const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
-                    if (dist < 120) {
-                        const connAlpha = (1 - dist / 120) * 0.28;
-                        bgCtx.beginPath();
-                        bgCtx.moveTo(p1.x, p1.y);
-                        bgCtx.lineTo(p2.x, p2.y);
-                        bgCtx.strokeStyle = isOutage
-                            ? `rgba(16, 185, 129, ${connAlpha})`
-                            : `rgba(2, 132, 199, ${connAlpha})`;
-                        bgCtx.lineWidth = 1.1;
-                        bgCtx.stroke();
-                    }
-                }
-            }
-
-            // 3. Floating Light Particles with subtle interactive avoidance
-            bgParticles.forEach(p => {
-                p.x += p.vx;
-                p.y += p.vy;
-
-                const dx = mouse.x - p.x;
-                const dy = mouse.y - p.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 180) {
-                    const angle = Math.atan2(dy, dx);
-                    p.x -= Math.cos(angle) * 1.4;
-                    p.y -= Math.sin(angle) * 1.4;
-                }
-
-                if (p.x < 0 || p.x > bgCanvas.width) p.vx *= -1;
-                if (p.y < 0 || p.y > bgCanvas.height) p.vy *= -1;
-
-                bgCtx.beginPath();
-                bgCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                bgCtx.fillStyle = isOutage ? '#059669' : p.color;
-                bgCtx.globalAlpha = Math.min(1, p.alpha * 1.6);
-                bgCtx.fill();
-                bgCtx.globalAlpha = 1.0;
-            });
-
-            // 4. Ripple energy pulses
+            // 2. Ripple energy pulses
             bgPulses.forEach((pulse, index) => {
                 pulse.radius += 4;
                 pulse.alpha -= 0.008;

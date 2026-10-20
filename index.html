@@ -311,15 +311,15 @@
                     <div class="hero-metrics">
                         <div class="metric-card tilt-element">
                             <div class="metric-value text-cyan" data-i18n="hero.metric_1_val">&lt; 4 ms</div>
-                            <div class="metric-label" data-i18n="hero.metric_1_lbl">Instant switchover</div>
+                            <div class="metric-label" data-i18n="hero.metric_1_lbl">Instant Transfer</div>
                         </div>
                         <div class="metric-card tilt-element">
-                            <div class="metric-value text-emerald" data-i18n="hero.metric_2_val">1 day</div>
-                            <div class="metric-label" data-i18n="hero.metric_2_lbl">Installation & launch</div>
+                            <div class="metric-value text-emerald" data-i18n="hero.metric_2_val">1-2 Days</div>
+                            <div class="metric-label" data-i18n="hero.metric_2_lbl">Fast Delivery</div>
                         </div>
                         <div class="metric-card tilt-element">
-                            <div class="metric-value text-gold" data-i18n="hero.metric_3_val">15+ years</div>
-                            <div class="metric-label" data-i18n="hero.metric_3_lbl">Service life</div>
+                            <div class="metric-value text-gold" data-i18n="hero.metric_3_val">15+ Years</div>
+                            <div class="metric-label" data-i18n="hero.metric_3_lbl">Service Life</div>
                         </div>
                     </div>
                 </div>
@@ -1777,16 +1777,26 @@
         </div>
     </div>
 
-    <!-- Floating Pulsating Mobile Call Button -->
-    <a href="tel:+18008658474" class="floating-call-btn" id="floating-call-btn" aria-label="Call: (800) 865-8474">
-        <span class="call-pulse-ring ring-1"></span>
-        <span class="call-pulse-ring ring-2"></span>
-        <span class="call-icon-inner">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-            </svg>
-        </span>
-    </a>
+    <!-- Mobile Sticky Floating Conversion Bar (Bottom Thumb Zone) -->
+    <div class="mobile-sticky-bar" id="mobile-sticky-bar">
+        <button type="button" class="mobile-sticky-cta" onclick="openModal('Mobile Sticky Quote')" id="btn-mobile-sticky-cta" aria-label="Request a Quote: Free sizing in 1 min">
+            <span class="sticky-cta-icon-box">⚡</span>
+            <div class="sticky-cta-text">
+                <span class="sticky-cta-title" data-i18n="mob_bar.cta_title">Request a Quote</span>
+                <span class="sticky-cta-sub" data-i18n="mob_bar.cta_sub">Free sizing in 1 min</span>
+            </div>
+            <svg class="sticky-cta-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+        <a href="tel:+18008658474" class="mobile-sticky-call" aria-label="Call toll-free: (800) 865-8474">
+            <span class="call-pulse-ring ring-1"></span>
+            <span class="call-pulse-ring ring-2"></span>
+            <span class="call-icon-inner">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+            </span>
+        </a>
+    </div>
 
     <!-- Notification Toast -->
     <div class="toast" id="toast-notify">

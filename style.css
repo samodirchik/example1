@@ -2805,28 +2805,107 @@ select.form-input option {
     color: var(--accent-emerald);
 }
 
-/* Floating Pulsating Mobile Call Button */
-.floating-call-btn {
+/* Mobile Sticky Floating Conversion Bar */
+.mobile-sticky-bar {
     display: none;
     position: fixed;
-    bottom: 24px;
-    right: 20px;
+    bottom: max(14px, env(safe-area-inset-bottom, 14px));
+    left: 14px;
+    right: 14px;
     z-index: 990;
-    width: 56px;
-    height: 56px;
+    align-items: center;
+    gap: 10px;
+    pointer-events: auto;
+}
+
+.mobile-sticky-cta {
+    flex: 1;
+    min-height: 52px;
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    padding: 6px 14px 6px 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 8px 24px rgba(4, 120, 87, 0.4), 0 2px 8px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+    text-decoration: none;
+}
+
+.mobile-sticky-cta:active {
+    transform: scale(0.97);
+}
+
+.sticky-cta-icon-box {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    flex-shrink: 0;
+}
+
+.sticky-cta-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 1px;
+}
+
+.sticky-cta-title {
+    font-family: var(--font-heading);
+    font-size: 0.92rem;
+    font-weight: 800;
+    line-height: 1.15;
+    color: #ffffff;
+    white-space: nowrap;
+}
+
+.sticky-cta-sub {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.88);
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.sticky-cta-arrow {
+    color: rgba(255, 255, 255, 0.85);
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.mobile-sticky-cta:hover .sticky-cta-arrow {
+    transform: translateX(3px);
+}
+
+.mobile-sticky-call {
+    position: relative;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
     background: linear-gradient(135deg, #10B981 0%, #059669 100%);
     color: #ffffff;
     box-shadow: 0 8px 24px rgba(16, 185, 129, 0.45), 0 2px 8px rgba(0, 0, 0, 0.12);
+    display: flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
+    flex-shrink: 0;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
 }
 
-.floating-call-btn:active {
+.mobile-sticky-call:active {
     transform: scale(0.92);
 }
 
@@ -2879,7 +2958,7 @@ select.form-input option {
 }
 
 @media (max-width: 768px) {
-    .floating-call-btn {
+    .mobile-sticky-bar {
         display: flex;
     }
 }
@@ -2930,8 +3009,57 @@ select.form-input option {
     .hero-section { padding: 32px 0; max-width: 100%; overflow: hidden; }
     .hero-title { font-size: 2.2rem; }
     .hero-description { font-size: 1rem; }
-    .btn-lg { width: 100%; }
-    .hero-metrics { grid-template-columns: 1fr; gap: 10px; width: 100%; }
+    .hero-metrics {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        width: 100%;
+        padding: 10px 8px;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+        margin-top: 14px;
+        border-top: none;
+    }
+    .hero-metrics .metric-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 4px 2px;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
+        gap: 3px;
+        position: relative;
+    }
+    .hero-metrics .metric-card:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        right: -3px;
+        top: 15%;
+        bottom: 15%;
+        width: 1px;
+        background: rgba(226, 232, 240, 0.85);
+    }
+    .hero-metrics .metric-value {
+        font-size: 1.05rem;
+        font-weight: 800;
+        line-height: 1.1;
+    }
+    .hero-metrics .metric-label {
+        font-size: 0.68rem;
+        color: var(--text-muted);
+        font-weight: 600;
+        line-height: 1.25;
+        letter-spacing: -0.01em;
+        white-space: normal;
+        text-align: center;
+    }
     .hero-power-selector {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -3724,6 +3852,9 @@ select.form-input option {
     }
     .callback-title {
         font-size: 1.6rem;
+    }
+    .footer {
+        padding-bottom: max(80px, calc(68px + env(safe-area-inset-bottom, 14px)));
     }
 }
 
