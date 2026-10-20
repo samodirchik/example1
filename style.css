@@ -2296,6 +2296,26 @@ section[id],
     gap: 20px;
 }
 
+.package-badge {
+    align-self: flex-start;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    background: #f1f5f9;
+    border: 1px solid var(--border-color);
+    padding: 3px 9px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+
+.package-badge.badge-featured {
+    color: #b45309;
+    background: rgba(245, 158, 11, 0.12);
+    border-color: rgba(245, 158, 11, 0.25);
+}
+
 .package-card {
     padding: 24px 18px;
     display: flex;
