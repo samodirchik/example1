@@ -2612,6 +2612,14 @@ section[id],
 }
 
 /* Modal */
+html.modal-open,
+body.modal-open {
+    overflow: hidden !important;
+    height: 100% !important;
+    touch-action: none !important;
+    -webkit-overflow-scrolling: auto !important;
+}
+
 .modal-backdrop {
     position: fixed;
     top: 0;
@@ -2620,7 +2628,7 @@ section[id],
     bottom: 0;
     width: 100%;
     height: 100%;
-    background: rgba(15, 23, 42, 0.7);
+    background: rgba(15, 23, 42, 0.75);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     display: flex;
@@ -2630,6 +2638,8 @@ section[id],
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s ease;
+    overscroll-behavior: contain;
+    touch-action: none;
 }
 
 .modal-backdrop.active {
@@ -2643,6 +2653,8 @@ section[id],
     padding: 40px;
     position: relative;
     background: #ffffff;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
 }
 
 .modal-close {
@@ -4243,8 +4255,25 @@ select.form-input option {
 }
 
 @media (max-width: 768px) {
-    .modal-backdrop {
+    #product-modal {
         align-items: flex-end;
+    }
+
+    #order-modal {
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 14px !important;
+    }
+
+    #order-modal .modal-content {
+        margin: auto !important;
+        border-radius: 22px !important;
+        max-height: calc(100vh - 28px) !important;
+        max-height: calc(100dvh - 28px) !important;
+        padding: 24px 18px 20px !important;
+        width: 100% !important;
+        max-width: calc(100% - 16px) !important;
+        overscroll-behavior: contain;
     }
 
     .product-modal-content {
@@ -4254,6 +4283,7 @@ select.form-input option {
         border-radius: 22px 22px 0 0;
         padding: 20px 16px 24px 16px;
         margin: 0;
+        overscroll-behavior: contain;
     }
 
     .product-modal-grid {

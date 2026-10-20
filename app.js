@@ -4,6 +4,22 @@ function validatePhoneNumber(phoneStr) {
     return digits.length >= 10 && digits.length <= 11;
 }
 
+function lockBodyScroll() {
+    document.documentElement.classList.add('modal-open');
+    document.body.classList.add('modal-open');
+}
+
+function unlockBodyScroll() {
+    const activeOverlays = document.querySelectorAll('.modal-backdrop.active');
+    if (activeOverlays.length > 0) return;
+
+    document.documentElement.classList.remove('modal-open');
+    document.body.classList.remove('modal-open');
+}
+
+window.lockBodyScroll = lockBodyScroll;
+window.unlockBodyScroll = unlockBodyScroll;
+
 function openModal(packageName = '6 kWh Kit ($3,450)') {
     const modalEl = document.getElementById('order-modal');
     const formPackageInputEl = document.getElementById('form-package');
@@ -36,7 +52,7 @@ function openModal(packageName = '6 kWh Kit ($3,450)') {
     if (modalEl) {
         modalEl.classList.add('active');
     }
-    document.body.style.overflow = 'hidden';
+    lockBodyScroll();
 }
 
 function closeModal() {
@@ -44,7 +60,7 @@ function closeModal() {
     if (modalEl) {
         modalEl.classList.remove('active');
     }
-    document.body.style.overflow = '';
+    unlockBodyScroll();
 }
 
 window.validateUkrainianPhone = validatePhoneNumber;
@@ -1986,7 +2002,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (prodModalEl) {
             prodModalEl.classList.add('active');
         }
-        document.body.style.overflow = 'hidden';
+        lockBodyScroll();
     }
 
     function closeProductModal() {
@@ -1994,8 +2010,24 @@ document.addEventListener('DOMContentLoaded', () => {
         if (prodModalEl) {
             prodModalEl.classList.remove('active');
         }
-        document.body.style.overflow = '';
+        unlockBodyScroll();
     }
+
+    document.addEventListener('touchmove', (e) => {
+        if (document.body.classList.contains('modal-open')) {
+            if (!e.target.closest('.modal-content') && !e.target.closest('.product-modal-content')) {
+                e.preventDefault();
+            }
+        }
+    }, { passive: false });
+
+    document.addEventListener('wheel', (e) => {
+        if (document.body.classList.contains('modal-open')) {
+            if (!e.target.closest('.modal-content') && !e.target.closest('.product-modal-content')) {
+                e.preventDefault();
+            }
+        }
+    }, { passive: false });
 
     document.addEventListener('click', (e) => {
         const galThumb = e.target.closest('.gallery-thumb');
