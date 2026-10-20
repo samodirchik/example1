@@ -1,4 +1,4 @@
-# SVITLO24 — Getting Started
+# VoltGrid — Getting Started
 
 ## Running the Website Locally
 

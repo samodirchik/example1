@@ -1,10 +1,10 @@
 function validatePhoneNumber(phoneStr) {
     if (!phoneStr) return false;
     const digits = phoneStr.replace(/\D/g, '');
-    return digits.length >= 7 && digits.length <= 15;
+    return digits.length >= 10 && digits.length <= 11;
 }
 
-function openModal(packageName = '6 kWh Kit (1,000 $)') {
+function openModal(packageName = '6 kWh Kit ($3,450)') {
     const modalEl = document.getElementById('order-modal');
     const formPackageInputEl = document.getElementById('form-package');
     if (formPackageInputEl) {
@@ -18,7 +18,7 @@ function openModal(packageName = '6 kWh Kit (1,000 $)') {
             }
         }
         if (!matched) {
-            const powers = ['15', '12', '6', '10', '5', '3'];
+            const powers = ['36', '24', '12', '6', '314', '200', '100'];
             for (const p of powers) {
                 if (packageName.includes(p)) {
                     for (let i = 0; i < formPackageInputEl.options.length; i++) {
@@ -58,28 +58,28 @@ window.heroShowcaseData = {
         img: 'assets/images/hero-kit-6kwt-trans.webp',
         mobileImg: 'assets/images/hero-kit-6kwt-trans-mobile.webp',
         title: '6 kWh',
-        price: '1,000 $',
+        price: '$3,450',
         sub: 'Ideal apartment backup',
         bullets: ['Apartment', 'Boiler', 'Refrigerator', 'Internet']
     },
     '12': {
         img: 'assets/images/hero-kit-12kwt-trans.webp',
         title: '12 kWh',
-        price: '1,750 $',
+        price: '$5,950',
         sub: 'Apartment and cottage',
         bullets: ['Apartment', 'Small cottage', 'Boiler', 'Refrigerator', 'Internet']
     },
     '24': {
         img: 'assets/images/hero-kit-24kwt-trans.webp',
         title: '24 kWh',
-        price: '3,050 $',
+        price: '$10,850',
         sub: 'Scalable residential backup',
         bullets: ['Large house', 'Heat pump', 'Air conditioning', 'Critical loads']
     },
     '36': {
         img: 'assets/images/hero-kit-36kwt-trans.webp',
         title: '36 kWh',
-        price: '4,500 $',
+        price: '$15,900',
         sub: 'Commercial business solution',
         bullets: ['Office', 'Commercial facility', 'Servers', '24/7 business continuity']
     }
@@ -224,10 +224,10 @@ document.addEventListener('DOMContentLoaded', () => {
             'pkg.spec_power': 'Output',
             'pkg.spec_cap': 'LiFePO4 Capacity',
             'pkg.spec_time': 'Runtime',
-            'pkg.save_1': '-10% Save 110 $',
-            'pkg.save_2': '-10% Save 200 $',
-            'pkg.save_3': '-10% Save 350 $',
-            'pkg.save_4': '-10% Save 500 $',
+            'pkg.save_1': '-10% Save $400',
+            'pkg.save_2': '-10% Save $650',
+            'pkg.save_3': '-10% Save $1,150',
+            'pkg.save_4': '-10% Save $1,750',
             'pkg.name_1': '6 kWh Kit',
             'pkg.name_2': '12 kWh Kit',
             'pkg.name_3': '24 kWh Kit',
@@ -263,22 +263,22 @@ document.addEventListener('DOMContentLoaded', () => {
             'tadiran.spec_cap': 'Capacity',
             'tadiran.spec_volt': 'Voltage',
             'tadiran.spec_cycles': 'Cycles (80% DoD)',
-            'tadiran.save_1': '-10% Save 350 $',
+            'tadiran.save_1': '-10% Save $550',
             'tadiran.c1_f1': 'Floor-standing wheeled mount in a heavy-duty steel enclosure',
             'tadiran.c1_f2': 'Grade-A+ cells with JBD BMS, CAN/RS485 for 48V inverters (Deye, Victron)',
             'tadiran.b200_badge': 'CUSTOMER FAVORITE',
             'tadiran.t2_cap_val': '10.24 kWh',
-            'tadiran.save_2': '-10% Save 250 $',
+            'tadiran.save_2': '-10% Save $350',
             'tadiran.c2_f1': 'Floor module with built-in color LCD status display',
             'tadiran.c2_f2': 'Dual active balancing, full compatibility with 48V inverters',
             'tadiran.b100wm_badge': 'WALL-MOUNT',
             'tadiran.t3_cap_val': '5.12 kWh',
-            'tadiran.save_3': '-10% Save 120 $',
+            'tadiran.save_3': '-10% Save $200',
             'tadiran.c3_f1': 'Compact wall-mounted design for apartments (IP65 ingress protection)',
             'tadiran.c3_f2': 'Built-in DC breaker, safe hookup, parallel up to 16 units',
             'tadiran.b100s_badge': '19" RACK MOUNT',
             'tadiran.t4_cap_val': '5.12 kWh',
-            'tadiran.save_4': '-10% Save 130 $',
+            'tadiran.save_4': '-10% Save $200',
             'tadiran.c4_f1': 'Rack-mount form factor for 19" server and telecom cabinets',
             'tadiran.c4_f2': 'Scale up to 32 units (163 kWh), UL9540A / CE certified',
             'modal.title': 'Autonomous System Sizing',
@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'modal.label_name': 'Your name',
             'modal.ph_name': 'Alex',
             'modal.label_phone': 'Contact phone',
-            'modal.ph_phone': '(230) 000-0000',
+            'modal.ph_phone': '(800) 555-0199',
             'modal.label_package': 'Selected kit',
             'modal.btn_submit': 'Get Quote',
             'callback.badge': 'Free Technical Consultation',
@@ -299,13 +299,13 @@ document.addEventListener('DOMContentLoaded', () => {
             'callback.btn_submit': 'Get Free Consultation',
             'callback.privacy': '🔒 Your data is protected. No spam or unsolicited calls.',
             'callback.seo_title': 'Reliable Autonomous and Backup Power for Your Home',
-            'callback.seo_text': 'SVITLO24 is an official supplier of turnkey backup power systems: EASUN hybrid inverters (3.2–18.6 kW) and dependable LiFePO4 battery storage (6–36 kWh) engineered for over 6,000 cycles. We deliver professional engineering consultations, accurate load-based sizing, prompt delivery, and official warranty support.',
-            'footer.copyright': '© 2026 SVITLO24. All rights reserved.',
+            'callback.seo_text': 'VoltGrid is an official supplier of turnkey backup power systems: EASUN hybrid inverters (3.2–18.6 kW) and dependable LiFePO4 battery storage (6–36 kWh) engineered for over 6,000 cycles. We deliver professional engineering consultations, accurate load-based sizing, prompt delivery, and official warranty support.',
+            'footer.copyright': '© 2026 VoltGrid. All rights reserved.',
             'drawer.sub_1': 'Device runtime simulation',
             'drawer.sub_2': 'Calculate backup runtime',
             'drawer.sub_3': 'Inverter + battery turnkey kits',
             'drawer.sub_4': 'Get in touch with an engineer',
-            'drawer.phone_lbl': '📞 Tap to call free of charge',
+            'drawer.phone_lbl': '📞 Tap to call toll-free',
             'pm.acc_title': '📦 Included in kit:',
             'pm.sel_pkg': 'System line:',
             'pm.sel_model': 'Model range:',
@@ -1141,32 +1141,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         let batteryWh = 5120;
-        let selectedPackageCode = '6 kWh Kit (1,000 $)';
+        let selectedPackageCode = '6 kWh Kit ($3,450)';
         let recTitleText = '';
         let subtextText = '';
 
         if (totalWatts > 4500) {
             // High power / Business loads (e.g. 5000 W business equipment)
             batteryWh = 36000;
-            selectedPackageCode = '36 kWh Kit (4,500 $)';
+            selectedPackageCode = '36 kWh Kit ($15,900)';
             recTitleText = '36 kWh Kit (commercial) or Tadiran 36 kWh Rack';
             subtextText = 'based on commercial LiFePO4 36 kWh system';
         } else if (totalWatts > 2000) {
             // Heavy residential loads (boiler 2000 W + appliances = 2580 W)
             batteryWh = 24000;
-            selectedPackageCode = '24 kWh Kit (3,050 $)';
+            selectedPackageCode = '24 kWh Kit ($10,850)';
             recTitleText = '24 kWh Kit (6.2 kW inverter) or Tadiran 16.08 kWh Battery (314Ah)';
             subtextText = 'based on LiFePO4 16–24 kWh battery storage';
         } else if (totalWatts > 700) {
             // Medium loads (climate 1200 W alone or with appliances = 1780 W)
             batteryWh = 12000;
-            selectedPackageCode = '12 kWh Kit (1,750 $)';
+            selectedPackageCode = '12 kWh Kit ($5,950)';
             recTitleText = '12 kWh Kit (6.2 kW inverter) or Tadiran 10.24 kWh Battery (200Ah)';
             subtextText = 'based on LiFePO4 10.24–12 kWh battery storage';
         } else {
             // Basic residential load (up to 700 W: fridge, boiler, router, PC = 580 W)
             batteryWh = 5120;
-            selectedPackageCode = '6 kWh Kit (1,000 $)';
+            selectedPackageCode = '6 kWh Kit ($3,450)';
             recTitleText = '6 kWh Kit (inverter + battery) or Tadiran 5.12 kWh Battery';
             subtextText = 'based on LiFePO4 5.12–6 kWh battery';
         }
@@ -1267,7 +1267,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const orderBtn = e.target.closest('#btn-quick-order, .header-order-btn, #mobile-order-btn, #btn-order-rec, .select-pack-btn, [data-open-modal]');
         if (orderBtn) {
             e.preventDefault();
-            const packName = orderBtn.getAttribute('data-pack') || (recPackageTitle ? recPackageTitle.textContent : '6 kWh Kit (1,000 $)');
+            const packName = orderBtn.getAttribute('data-pack') || (recPackageTitle ? recPackageTitle.textContent : '6 kWh Kit ($3,450)');
             openModal(packName);
         }
     });
@@ -1296,7 +1296,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const SPAM_COOLDOWN_MS = 30000;
 
     function checkSpamRateLimit() {
-        const lastSubmit = localStorage.getItem('svitlo24_last_submit');
+        const lastSubmit = localStorage.getItem('voltgrid_last_submit');
         const now = Date.now();
         if (lastSubmit && (now - parseInt(lastSubmit, 10)) < SPAM_COOLDOWN_MS) {
             const remainingSec = Math.ceil((SPAM_COOLDOWN_MS - (now - parseInt(lastSubmit, 10))) / 1000);
@@ -1306,7 +1306,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function recordSubmitTime() {
-        localStorage.setItem('svitlo24_last_submit', Date.now().toString());
+        localStorage.setItem('voltgrid_last_submit', Date.now().toString());
     }
 
     if (orderForm) {
@@ -1335,7 +1335,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const rawDigits = phoneInput ? phoneInput.value : '';
             const fullPhone = '+1 ' + rawDigits;
             const nameVal = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : 'Not specified';
-            const packageVal = packageInput ? packageInput.value : '6 kWh Kit (1,000 $)';
+            const packageVal = packageInput ? packageInput.value : '6 kWh Kit ($3,450)';
 
             const phoneGroup = phoneInput ? phoneInput.closest('.phone-input-group') : null;
 
@@ -1566,8 +1566,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'USB / RS232 / RS485 / Wi-Fi monitoring / LCD display',
                 certs: 'CE, RoHS, UN38.3',
                 montage: 'Wall-mount / Indoor',
-                price: '1,000 $',
-                packName: '6 kWh Kit (1,000 $)',
+                price: '$3,450',
+                packName: '6 kWh Kit ($3,450)',
                 accessories: [
                     'EASUN ISolar-SMG-II-3.2KW-24V hybrid inverter',
                     '6 kWh lithium-ion battery (24V 250Ah)',
@@ -1598,8 +1598,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'Wi-Fi monitoring / RS485 / CAN / USB / LCD',
                 certs: 'CE, RoHS, UN38.3',
                 montage: 'Wall-mount / Floor-standing',
-                price: '1,750 $',
-                packName: '12 kWh Kit (1,750 $)',
+                price: '$5,950',
+                packName: '12 kWh Kit ($5,950)',
                 accessories: [
                     'EASUN ISolar-SMG-II-6.2KW-48V hybrid inverter',
                     '12 kWh lithium-ion battery (48V 250Ah)',
@@ -1630,8 +1630,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'Wi-Fi / CAN / RS485 / Dual BMS monitoring',
                 certs: 'CE, RoHS, UN38.3',
                 montage: 'Floor-standing / Utility room',
-                price: '3,050 $',
-                packName: '24 kWh Kit (3,050 $)',
+                price: '$10,850',
+                packName: '24 kWh Kit ($10,850)',
                 accessories: [
                     '1–2 EASUN 6.2kW hybrid inverters',
                     '24 kWh battery pack (2×12 kWh)',
@@ -1662,8 +1662,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'Ethernet / Wi-Fi / RS485 / CAN / BMS monitoring',
                 certs: 'CE, RoHS, UN38.3',
                 montage: 'Server room / Electrical distribution room',
-                price: '4,500 $',
-                packName: '36 kWh Kit (4,500 $)',
+                price: '$15,900',
+                packName: '36 kWh Kit ($15,900)',
                 accessories: [
                     '1–3 EASUN 6.2kW hybrid inverters',
                     '36+ kWh battery rack system (3×12 kWh)',
@@ -1698,8 +1698,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'CAN / RS485 / RS232 (JBD App Monitoring)',
                 certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
                 montage: 'Floor-standing on casters (IP30)',
-                price: '3,350 $',
-                packName: 'Tadiran LFP-51.2V 314Ah (16.08 kWh)',
+                price: '$4,850',
+                packName: 'Tadiran LFP-51.2V 314Ah ($4,850)',
                 accessories: ['Battery module x1', 'Inverter cables x2', 'Communication cable x1', 'User manual x1']
             }
         },
@@ -1729,8 +1729,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'CAN / RS485 / RS232 (JBD App)',
                 certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
                 montage: 'Floor-standing (IP30)',
-                price: '2,250 $',
-                packName: 'Tadiran LFP-51.2V 200Ah (10.24 kWh)',
+                price: '$3,250',
+                packName: 'Tadiran LFP-51.2V 200Ah ($3,250)',
                 accessories: ['Battery module x1', 'Parallel connection cables x2', 'Communication cable x1', 'User manual x1']
             }
         },
@@ -1760,8 +1760,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'CAN / RS485 / RS232 (JBD App)',
                 certs: 'MSDS, UN38.3, CE-EMC, IEC62619',
                 montage: 'Wall-mount (IP30)',
-                price: '1,180 $',
-                packName: 'Tadiran LFP-51.2V 100Ah-WM (5.12 kWh)',
+                price: '$1,750',
+                packName: 'Tadiran LFP-51.2V 100Ah-WM ($1,750)',
                 accessories: ['Battery module x1', 'Parallel connection cables x2', 'Communication cable x1', 'User manual x1']
             }
         },
@@ -1791,8 +1791,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 ports: 'CAN / RS485 / RS232 (JBD App)',
                 certs: 'MSDS, UN38.3, CE-EMC, UL9540A, UL1973, UL9540',
                 montage: 'Floor / Stackable 19" (IP30)',
-                price: '1,120 $',
-                packName: 'Tadiran LFP-51.2V 100Ah-S (5.12 kWh)',
+                price: '$1,650',
+                packName: 'Tadiran LFP-51.2V 100Ah-S ($1,650)',
                 accessories: ['Battery module x1', 'Mounting brackets x4', 'Grounding cable x1', 'Parallel cables x2', 'Communication cable x1', 'User manual x1']
             }
         }
