@@ -1275,6 +1275,18 @@ section[id],
     100% { border-color: rgba(5, 150, 105, 0.6); box-shadow: 0 0 16px rgba(5, 150, 105, 0.15); }
 }
 
+.hero-badges-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.hero-badges-wrap .badge-pill {
+    margin-bottom: 0;
+}
+
 .badge-pill {
     display: inline-flex;
     align-items: center;
@@ -1287,6 +1299,12 @@ section[id],
     color: var(--accent-cyan);
     font-weight: 600;
     margin-bottom: 24px;
+}
+
+.tax-credit-badge {
+    background: rgba(16, 185, 129, 0.08);
+    border-color: rgba(16, 185, 129, 0.28);
+    color: var(--accent-emerald);
 }
 
 .badge-icon {

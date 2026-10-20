@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'nav.calculator': 'Calculator',
             'nav.packages': 'Kits',
             'nav.contacts': 'Contacts',
-            'header.grid_status': 'Power Grid: 230V 50Hz',
+            'header.grid_status': 'Grid: 120/240V 60Hz',
             'header.btn_order': 'Order a Quote',
             'hero.badge': 'Turnkey backup power with warranty',
             'hero.title_1': 'Autonomous power system',
@@ -178,14 +178,14 @@ document.addEventListener('DOMContentLoaded', () => {
             'hero.metric_3_val': '15+ years',
             'hero.metric_3_lbl': 'Service life',
             'hero.visual_title': 'Energy Flow Diagram',
-            'hero.grid_active': 'Power Grid 220V: ACTIVE',
-            'hero.grid_blackout': 'Power Grid 220V: OUTAGE (BLACKOUT)',
-            'hero.node_grid': 'Power Grid 220V',
+            'hero.grid_active': 'Power Grid 120V/240V Split-Phase: ACTIVE',
+            'hero.grid_blackout': 'Power Grid 120V/240V Split-Phase: OUTAGE (BLACKOUT)',
+            'hero.node_grid': 'Power Grid 120V/240V Split-Phase',
             'hero.node_inverter': 'Inverter 6kW',
             'hero.node_battery': 'LiFePO4 5.12kWh',
             'hero.node_home': 'Home Power Supply',
             'hero.btn_outage': 'Simulate power outage',
-            'hero.btn_restore': 'Restore 220V Power Grid',
+            'hero.btn_restore': 'Restore 120V/240V Split-Phase Power Grid',
             'hero.tag_hit': '🔥 BESTSELLER',
             'hero.tag_warranty': '🛡️ 5-Year Warranty',
             'hero.card_title': 'Comfort 6 kW Kit',
@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'hero.microtext': '🔒 Free consultation and budget-tailored sizing',
             'house.title': 'How autonomous power keeps your home running',
             'house.subtitle': 'Click the button below to simulate a blackout and check appliance protection.',
-            'house.mode_rezerv': 'Mode: Backup 230V',
+            'house.mode_rezerv': 'Mode: Backup 120V/240V',
             'house.mode_blackout': 'Mode: Blackout 0V',
             'house.room_boiler': 'Boiler room',
             'house.desc_boiler': 'Boiler & pumps (24°C)',
@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'calc.subtitle': 'Select the appliances you need during an outage to calculate required energy storage.',
             'calc.appliances_title': 'Your priority appliances:',
             'calc.appliance_1': 'Double-door refrigerator',
-            'calc.appliance_2': 'Gas boiler + circulation pump',
+            'calc.appliance_2': 'Gas Furnace & Sump Pump + circulation pump',
             'calc.appliance_3': 'Wi-Fi router + LED lighting',
             'calc.appliance_4': 'Workstation PC + 2 monitors',
             'calc.appliance_5': 'Air conditioner / Climate control',
@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'callback.btn_submit': 'Get Free Consultation',
             'callback.privacy': '🔒 Your data is protected. No spam or unsolicited calls.',
             'callback.seo_title': 'Reliable Autonomous and Backup Power for Your Home',
-            'callback.seo_text': 'VoltGrid is an official supplier of turnkey backup power systems: EASUN hybrid inverters (3.2–18.6 kW) and dependable LiFePO4 battery storage (6–36 kWh) engineered for over 6,000 cycles. We deliver professional engineering consultations, accurate load-based sizing, prompt delivery, and official warranty support.',
+            'callback.seo_text': 'VoltGrid is an official supplier of turnkey backup power systems: UL-Certified Sol-Ark & Deye US Split-Phase inverters (3.2–18.6 kW) and dependable LiFePO4 battery storage (6–36 kWh) engineered for over 6,000 cycles. We deliver professional engineering consultations, accurate load-based sizing, prompt delivery, and official warranty support.',
             'footer.copyright': '© 2026 VoltGrid. All rights reserved.',
             'drawer.sub_1': 'Device runtime simulation',
             'drawer.sub_2': 'Calculate backup runtime',
@@ -511,7 +511,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 r.card.classList.add('active');
                 if (r.badge) {
                     r.badge.className = 'room-badge badge-ok';
-                    r.badge.textContent = '230V OK';
+                    r.badge.textContent = '120V Protected';
                 }
                 if (r.desc) {
                     const key = r.desc.getAttribute('data-i18n');
@@ -956,7 +956,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.triggerBgPulse(e.clientX, e.clientY, isOutage ? '#dc2626' : '#059669');
             }
 
-            const restoreText = 'Restore Power Grid (220V)';
+            const restoreText = 'Restore 120V/240V Split-Phase Power Grid';
             const outageText = 'Simulate power outage';
 
             const badgeBoiler = document.getElementById('badge-boiler');
@@ -981,7 +981,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
 
                 if (gridStatusText) {
-                    gridStatusText.textContent = 'Power Grid 220V: OUTAGE (BLACKOUT)';
+                    gridStatusText.textContent = 'Power Grid 120V/240V Split-Phase: OUTAGE (BLACKOUT)';
                     gridStatusText.classList.add('outage');
                 }
                 if (globalStatusPill) {
@@ -1018,19 +1018,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
 
                 if (gridStatusText) {
-                    gridStatusText.textContent = 'Power Grid 220V: ACTIVE';
+                    gridStatusText.textContent = 'Power Grid 120V/240V Split-Phase: ACTIVE';
                     gridStatusText.classList.remove('outage');
                 }
                 if (globalStatusPill) {
                     globalStatusPill.classList.remove('outage');
-                    const pillText = 'Power Grid: 230V 50Hz';
+                    const pillText = 'Grid: 120/240V 60Hz';
                     globalStatusPill.innerHTML = `<span class="status-dot"></span> ${pillText}`;
                 }
                 if (cursorGlow) cursorGlow.classList.remove('outage-mode');
                 if (nodeGrid) nodeGrid.style.opacity = '1';
 
                 // Restore House Room Cards to Normal Grid state
-                const okBadgeText = '230V OK';
+                const okBadgeText = '120V Protected';
                 if (badgeBoiler) badgeBoiler.textContent = okBadgeText;
                 if (badgeKitchen) badgeKitchen.textContent = okBadgeText;
                 if (badgeOffice) badgeOffice.textContent = okBadgeText;

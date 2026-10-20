@@ -257,11 +257,16 @@
             <div class="container hero-grid">
                 <!-- Left Hero Text Column -->
                 <div class="hero-content">
-                    <div class="badge-pill pulse-badge">
-                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                        </svg>
-                        <span data-i18n="hero.badge">Turnkey backup power with warranty</span>
+                    <div class="hero-badges-wrap">
+                        <div class="badge-pill pulse-badge">
+                            <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                            </svg>
+                            <span data-i18n="hero.badge">Turnkey backup power with warranty</span>
+                        </div>
+                        <div class="badge-pill tax-credit-badge">
+                            <span>🏛️ Eligible for 30% Federal Clean Energy Tax Credit</span>
+                        </div>
                     </div>
                     
                     <h1 class="hero-title"><span data-i18n="hero.title_1">Autonomous power system</span> <br><span class="text-gradient" data-i18n="hero.title_2">Forget about power outages</span></h1>
@@ -1335,7 +1340,7 @@
                             <span id="sim-btn-text" data-i18n="hero.btn_outage">Simulate power outage</span>
                         </button>
 
-                        <div class="grid-status-badge" id="grid-status-text" data-i18n="hero.grid_active">Power Grid 220V: ACTIVE</div>
+                        <div class="grid-status-badge" id="grid-status-text" data-i18n="hero.grid_active">Grid Power 120V/240V: ACTIVE</div>
                     </div>
 
                     <!-- Unified Dashboard: Scheme Canvas on Left, 4 Room Cards on Right -->
@@ -1349,7 +1354,7 @@
                                     <svg class="node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
                                     </svg>
-                                    <span data-i18n="hero.node_grid">Power Grid 220V</span>
+                                    <span data-i18n="hero.node_grid">Grid Power 120V/240V</span>
                                 </div>
 
                                 <div class="node-badge node-inverter" id="node-inverter">
@@ -1388,7 +1393,7 @@
                                             <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
                                         </svg>
                                     </div>
-                                    <span class="room-badge badge-ok" id="badge-boiler">230V OK</span>
+                                    <span class="room-badge badge-ok" id="badge-boiler">120V Protected</span>
                                 </div>
                                 <h3 class="room-title" data-i18n="house.room_boiler">Boiler room</h3>
                                 <p class="room-desc" id="desc-boiler" data-i18n="house.desc_boiler">Boiler & pumps (24°C)</p>
@@ -1403,7 +1408,7 @@
                                             <path d="M7 2v20"></path>
                                         </svg>
                                     </div>
-                                    <span class="room-badge badge-ok" id="badge-kitchen">230V OK</span>
+                                    <span class="room-badge badge-ok" id="badge-kitchen">120V Protected</span>
                                 </div>
                                 <h3 class="room-title" data-i18n="house.room_kitchen">Kitchen</h3>
                                 <p class="room-desc" id="desc-kitchen" data-i18n="house.desc_kitchen">Refrigerator OK</p>
@@ -1418,7 +1423,7 @@
                                             <line x1="12" y1="18" x2="12.01" y2="18"></line>
                                         </svg>
                                     </div>
-                                    <span class="room-badge badge-ok" id="badge-office">230V OK</span>
+                                    <span class="room-badge badge-ok" id="badge-office">120V Protected</span>
                                 </div>
                                 <h3 class="room-title" data-i18n="house.room_office">Home office</h3>
                                 <p class="room-desc" id="desc-office" data-i18n="house.desc_office">WiFi & Electronic devices</p>
@@ -1433,7 +1438,7 @@
                                             <polyline points="9 22 9 12 15 12 15 22"></polyline>
                                         </svg>
                                     </div>
-                                    <span class="room-badge badge-ok" id="badge-living">230V OK</span>
+                                    <span class="room-badge badge-ok" id="badge-living">120V Protected</span>
                                 </div>
                                 <h3 class="room-title" data-i18n="house.room_living">Living room</h3>
                                 <p class="room-desc" id="desc-living" data-i18n="house.desc_living">Lighting & TV</p>
@@ -1547,9 +1552,9 @@
                         <svg class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                         <span>(800) 865-8474</span>
                     </a>
-                    <a href="mailto:contact@example.com" class="footer-link email-link">
+                    <a href="mailto:support@voltgridpower.com" class="footer-link email-link">
                         <svg class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                        <span>contact@example.com</span>
+                        <span>support@voltgridpower.com</span>
                     </a>
                 </div>
             </div>
@@ -1558,7 +1563,7 @@
             <div class="footer-seo-box">
                 <h3 class="seo-title" data-i18n="callback.seo_title">Reliable Autonomous and Backup Power for Your Home</h3>
                 <p class="seo-desc" data-i18n="callback.seo_text">
-                    VoltGrid is an official supplier of turnkey backup power systems: EASUN hybrid inverters (3.2–18.6 kW) and dependable LiFePO4 battery storage (6–36 kWh) engineered for over 6,000 cycles. We deliver professional engineering consultations, accurate load-based sizing, prompt delivery, and official warranty support.
+                    VoltGrid is an official supplier of turnkey backup power systems: UL-Certified Sol-Ark & Deye US Split-Phase inverters (3.2–18.6 kW) and dependable LiFePO4 battery storage (6–36 kWh) engineered for over 6,000 cycles. We deliver professional engineering consultations, accurate load-based sizing, prompt delivery, and official warranty support.
                 </p>
             </div>
 
@@ -1608,10 +1613,10 @@
                             <option value="SAKO Alpha 6kW ESS ($4,950)">SAKO Alpha 6kW ESS ($4,950)</option>
                         </optgroup>
                         <optgroup label="Deye Hybrid Inverters">
-                            <option value="Deye SUN-6K-SG04LP1-EU ($1,950)">Deye SUN-6K-SG04LP1-EU ($1,950)</option>
-                            <option value="Deye SUN-8K-SG05LP1-EU ($2,550)">Deye SUN-8K-SG05LP1-EU ($2,550)</option>
-                            <option value="Deye SUN-10K-SG04LP3-EU ($3,250)">Deye SUN-10K-SG04LP3-EU ($3,250)</option>
-                            <option value="Deye SUN-15K-SG01HP3-EU-BM3 ($4,250)">Deye SUN-15K-SG01HP3-EU-BM3 ($4,250)</option>
+                            <option value="Deye SUN-6K-SG04LP1 ($1,950)">Deye SUN-6K-SG04LP1 ($1,950)</option>
+                            <option value="Deye SUN-8K-SG02LP2-US ($2,550)">Deye SUN-8K-SG02LP2-US ($2,550)</option>
+                            <option value="Deye SUN-10K-SG04LP3 ($3,250)">Deye SUN-10K-SG04LP3 ($3,250)</option>
+                            <option value="Deye SUN-15K-SG01HP3-BM3 ($4,250)">Deye SUN-15K-SG01HP3-BM3 ($4,250)</option>
                         </optgroup>
                     </select>
                 </div>
